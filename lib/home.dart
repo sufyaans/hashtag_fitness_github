@@ -30,11 +30,11 @@ class _HomeState extends State<Home> {
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {},
+      // ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 10,
@@ -46,9 +46,9 @@ class _HomeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Material button
+                  // Exercise
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 1,
                     onPressed: () {
                       setState(() {
                         currentScreen = Exercise();
@@ -71,102 +71,102 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  //Material Button
+                  //Measurement
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 21,
                     onPressed: () {
                       setState(() {
                         currentScreen = Measurement();
-                        currentTab = 0;
+                        currentTab = 1;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.dashboard, //Fix Icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          Icons.square_foot, //Fix Icon
+                          color: currentTab == 1 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Measurement',
                           style: TextStyle(
                               color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
+                                  currentTab == 1 ? Colors.blue : Colors.grey),
                         ),
                       ],
                     ),
                   ),
-                  // Material Button
+                  // Nutrition
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 21,
                     onPressed: () {
                       setState(() {
                         currentScreen = Nutrition();
-                        currentTab = 0;
+                        currentTab = 2;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.dashboard, //Fix icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          Icons.restaurant, //Fix icon
+                          color: currentTab == 2 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Nutrition',
                           style: TextStyle(
                               color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
+                                  currentTab == 2 ? Colors.blue : Colors.grey),
                         ),
                       ],
                     ),
                   ),
-                  //Material Button
+                  //Progress
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 21,
                     onPressed: () {
                       setState(() {
                         currentScreen = Progress();
-                        currentTab = 0;
+                        currentTab = 3;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.dashboard, //Fix Icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          Icons.pie_chart, //Fix Icon
+                          color: currentTab == 3 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Progress',
                           style: TextStyle(
                               color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
+                                  currentTab == 3 ? Colors.blue : Colors.grey),
                         ),
                       ],
                     ),
                   ),
-                  //Material Button
+                  //Workout
                   MaterialButton(
-                    minWidth: 40,
+                    minWidth: 21,
                     onPressed: () {
                       setState(() {
                         currentScreen = Workout();
-                        currentTab = 0;
+                        currentTab = 4;
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.dashboard, //Fix icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          Icons.add, //Fix icon
+                          color: currentTab == 4 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
                               color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
+                                  currentTab == 4 ? Colors.blue : Colors.grey),
                         ),
                       ],
                     ),
