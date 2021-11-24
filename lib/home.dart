@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'page/dashboard.dart';
 import 'page/exercise.dart';
 import 'page/measurement.dart';
 import 'page/nutrition.dart';
@@ -14,7 +13,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
-    Dashboard(),
     Exercise(),
     Measurement(),
     Nutrition(),
@@ -48,30 +46,6 @@ class _HomeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Dashboard();
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.dashboard,
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
-                        ),
-                        Text(
-                          'Dashboard',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
                   // Material button
                   MaterialButton(
                     minWidth: 40,
