@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
                 children: [
                   // Exercise
                   MaterialButton(
-                    minWidth: 1,
+                    minWidth: 40,
                     onPressed: () {
                       setState(() {
                         currentScreen = Exercise();
