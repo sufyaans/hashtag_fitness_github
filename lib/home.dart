@@ -39,12 +39,12 @@ class homeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Exercise
+                  //Workout
                   MaterialButton(
                     //minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Exercise();
+                        currentScreen = Workout();
                         currentTab = 0;
                       });
                     },
@@ -52,40 +52,14 @@ class homeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.fitness_center, //Fix Icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
-                        ),
-                        Text(
-                          'Exercise',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //Workout
-                  MaterialButton(
-                    //minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Workout();
-                        currentTab = 4;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
                           Icons.add, //Fix icon
-                          color: currentTab == 4 ? Colors.blue : Colors.grey,
+                          color: currentTab == 0 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
                               color:
-                                  currentTab == 4 ? Colors.blue : Colors.grey),
+                                  currentTab == 0 ? Colors.blue : Colors.grey),
                         ),
                       ],
                     ),
@@ -123,7 +97,7 @@ class homeState extends State<Home> {
                     onPressed: () {
                       setState(() {
                         currentScreen = Nutrition();
-                        currentTab = 2;
+                        currentTab = 1;
                       });
                     },
                     child: Column(
@@ -131,10 +105,40 @@ class homeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.restaurant, //Fix icon
-                          color: currentTab == 2 ? Colors.blue : Colors.grey,
+                          color: currentTab == 1 ? Colors.blue : Colors.grey,
                         ),
                         Text(
                           'Nutrition',
+                          style: TextStyle(
+                              color:
+                                  currentTab == 1 ? Colors.blue : Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Exercise
+                  MaterialButton(
+                    //minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = Exercise();
+                        currentTab = 2;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.fitness_center, //Fix Icon
+                          color: currentTab == 2 ? Colors.blue : Colors.grey,
+                        ),
+                        Text(
+                          'Exercise',
                           style: TextStyle(
                               color:
                                   currentTab == 2 ? Colors.blue : Colors.grey),
