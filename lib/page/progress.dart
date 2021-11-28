@@ -12,9 +12,12 @@ class _ProgressState extends State<Progress> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Progress'),
+        backgroundColor: Colors.deepOrange,
         actions: [
           IconButton(
             icon: Icon(Icons.straighten),
+            tooltip: 'Measure',
+            //color: Colors.black,
             onPressed: () => {
               Navigator.of(context).push(
                 MaterialPageRoute(

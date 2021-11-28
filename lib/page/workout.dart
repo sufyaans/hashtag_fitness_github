@@ -11,7 +11,10 @@ class _WorkoutState extends State<Workout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Workout')),
+      appBar: AppBar(
+        title: Text('Workout'),
+        backgroundColor: Colors.deepOrange,
+      ),
       body: Center(
         child: Text('Workout Screen', style: TextStyle(fontSize: 40)),
       ),

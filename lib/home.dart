@@ -53,13 +53,15 @@ class homeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.add, //Fix icon
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          color:
+                              currentTab == 0 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
+                              color: currentTab == 0
+                                  ? Colors.deepOrange
+                                  : Colors.grey),
                         ),
                       ],
                     ),
@@ -79,13 +81,13 @@ class homeState extends State<Home> {
                   //     children: [
                   //       Icon(
                   //         Icons.square_foot, //Fix Icon
-                  //         color: currentTab == 1 ? Colors.blue : Colors.grey,
+                  //         color: currentTab == 1 ? Colors.deepOrange : Colors.grey,
                   //       ),
                   //       Text(
                   //         'Measure',
                   //         style: TextStyle(
                   //             color:
-                  //                 currentTab == 1 ? Colors.blue : Colors.grey),
+                  //                 currentTab == 1 ? Colors.deepOrange : Colors.grey),
                   //       ),
                   //     ],
                   //   ),
@@ -105,13 +107,15 @@ class homeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.restaurant, //Fix icon
-                          color: currentTab == 1 ? Colors.blue : Colors.grey,
+                          color:
+                              currentTab == 1 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Nutrition',
                           style: TextStyle(
-                              color:
-                                  currentTab == 1 ? Colors.blue : Colors.grey),
+                              color: currentTab == 1
+                                  ? Colors.deepOrange
+                                  : Colors.grey),
                         ),
                       ],
                     ),
@@ -135,13 +139,15 @@ class homeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.fitness_center, //Fix Icon
-                          color: currentTab == 2 ? Colors.blue : Colors.grey,
+                          color:
+                              currentTab == 2 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Exercise',
                           style: TextStyle(
-                              color:
-                                  currentTab == 2 ? Colors.blue : Colors.grey),
+                              color: currentTab == 2
+                                  ? Colors.deepOrange
+                                  : Colors.grey),
                         ),
                       ],
                     ),
@@ -161,13 +167,15 @@ class homeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.pie_chart, //Fix Icon
-                          color: currentTab == 3 ? Colors.blue : Colors.grey,
+                          color:
+                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Progress',
                           style: TextStyle(
-                              color:
-                                  currentTab == 3 ? Colors.blue : Colors.grey),
+                              color: currentTab == 3
+                                  ? Colors.deepOrange
+                                  : Colors.grey),
                         ),
                       ],
                     ),
