@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hashtag_fitness/page/detail_page.dart';
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
@@ -26,42 +27,59 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  Future getExercises() async {
+  Stream<QuerySnapshot> getExercises() {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn =
-        await firestore.collection("exercises").get(); //getDocuments()???
-    return qn.docs; //qn.documents???
+    Stream<QuerySnapshot<Map<String, dynamic>>> qn =
+        firestore.collection("exercises").snapshots(); //getDocuments()???
+    return qn;
   }
 
+<<<<<<< HEAD
   navigateToDetail(DocumentSnapshot exercise) {
+=======
+  navigateToDetail(QueryDocumentSnapshot exercise) {
+>>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => DetailPage(
                   exercise: exercise,
                 )));
+<<<<<<< HEAD
+=======
+    // DetailPage(
+    //   exercise: exercise,
+    // );
+>>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
-          future: getExercises(),
-          builder: (_, snapshot) {
+      child: StreamBuilder<QuerySnapshot>(
+          stream: getExercises(),
+          builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Text("Loading..."),
               );
             } else {
-              ListView.builder(
+              return ListView.builder(
                   itemCount: snapshot
-                      .data.length, // getting length of exercise database
-                  itemBuilder: (_, index) {
+                      .data!.docs.length, // getting length of exercise database
+                  itemBuilder: (context, index) {
                     return ListTile(
+<<<<<<< HEAD
                       title: Text(snapshot.data[index].data[
                           "name"]), //Outputting a tile with the exercise name
                       onTap: () => navigateToDetail(
                           snapshot.data[index]), //Navigate to specific exercise
+=======
+                      title: Text(snapshot.data!.docs[index]
+                          ['name']), //Outputting a tile with the exercise name
+                      onTap: () => navigateToDetail(snapshot
+                          .data!.docs[index]), //Navigate to specific exercise
+>>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
                     );
                   });
             }
@@ -69,6 +87,7 @@ class _ListPageState extends State<ListPage> {
     );
   }
 }
+<<<<<<< HEAD
 
 
 class DetailPage extends StatefulWidget {
@@ -94,3 +113,5 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 }
+=======
+>>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
