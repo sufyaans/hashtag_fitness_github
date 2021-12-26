@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hashtag_fitness/page/detail_page.dart';
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
@@ -26,63 +27,49 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  Future getExercises() async {
+  Stream<QuerySnapshot> getExercises() {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn =
-        await firestore.collection("exercises").get(); //getDocuments()???
-    return qn.docs; //qn.documents???
+    Stream<QuerySnapshot<Map<String, dynamic>>> qn =
+        firestore.collection("exercises").snapshots(); //getDocuments()???
+    return qn;
   }
 
-  navigateToDetail(DocumentSnapshot exercise){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(exercise: exercise,)));
+  navigateToDetail(QueryDocumentSnapshot exercise) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailPage(
+                  exercise: exercise,
+                )));
+    // DetailPage(
+    //   exercise: exercise,
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
-          future: getExercises(),
-          builder: (_, snapshot) {
+      child: StreamBuilder<QuerySnapshot>(
+          stream: getExercises(),
+          builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Text("Loading..."),
               );
             } else {
-              ListView.builder(
+              return ListView.builder(
                   itemCount: snapshot
-                      .data.length, // getting length of exercise database
-                  itemBuilder: (_, index) {
+                      .data!.docs.length, // getting length of exercise database
+                  itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(snapshot.data[index].data["name"]), //Outputting a tile with the exercise name
-                      onTap: () => navigateToDetail(snapshot.data[index]), //Navigate to specific exercise
+                      title: Text(snapshot.data!.docs[index]
+                          ['name']), //Outputting a tile with the exercise name
+                      onTap: () => navigateToDetail(snapshot
+                          .data!.docs[index]), //Navigate to specific exercise
                     );
                   });
             }
           }),
-    );
-  }
-}
-
-class DetailPage extends StatefulWidget {
-  final DocumentSnapshot exercise;
-
-  DetailPage({this.exercise});
-
-  @override
-  _DetailPageState createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.exercise.data["name"]),),
-      body: Container(
-        child: Card(
-          child: ListTile(
-            title: Text(widget.exercise.data["name"]),
-            subtitle: Text(widget.exercise.data["instructions"]), //Will add others later on
-      ),
     );
   }
 }
