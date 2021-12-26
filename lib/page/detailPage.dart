@@ -16,6 +16,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.exercise!["name"]),
+          backgroundColor: Colors.deepOrange,
         ),
         body: Container(
             child: Card(

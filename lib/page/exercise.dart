@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hashtag_fitness/page/detail_page.dart';
+import 'package:hashtag_fitness/page/detailPage.dart';
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
@@ -34,23 +34,16 @@ class _ListPageState extends State<ListPage> {
     return qn;
   }
 
-<<<<<<< HEAD
-  navigateToDetail(DocumentSnapshot exercise) {
-=======
   navigateToDetail(QueryDocumentSnapshot exercise) {
->>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => DetailPage(
                   exercise: exercise,
                 )));
-<<<<<<< HEAD
-=======
     // DetailPage(
     //   exercise: exercise,
     // );
->>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
   }
 
   @override
@@ -69,17 +62,12 @@ class _ListPageState extends State<ListPage> {
                       .data!.docs.length, // getting length of exercise database
                   itemBuilder: (context, index) {
                     return ListTile(
-<<<<<<< HEAD
-                      title: Text(snapshot.data[index].data[
-                          "name"]), //Outputting a tile with the exercise name
-                      onTap: () => navigateToDetail(
-                          snapshot.data[index]), //Navigate to specific exercise
-=======
-                      title: Text(snapshot.data!.docs[index]
-                          ['name']), //Outputting a tile with the exercise name
+                      title: Text(snapshot.data!.docs[index]['name']),
+                      subtitle: Text(snapshot.data!.docs[index]
+                              ["primaryMuscles"][
+                          0]), //Outputting a tile with the exercise name  ["primaryMuscles"][0]
                       onTap: () => navigateToDetail(snapshot
                           .data!.docs[index]), //Navigate to specific exercise
->>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
                     );
                   });
             }
@@ -87,31 +75,3 @@ class _ListPageState extends State<ListPage> {
     );
   }
 }
-<<<<<<< HEAD
-
-
-class DetailPage extends StatefulWidget {
-  final DocumentSnapshot exercise;
-
-  DetailPage({this.exercise});
-
-  @override
-  _DetailPageState createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.exercise.data["name"]),),
-      body: Container(
-        child: Card(
-          child: ListTile(
-            title: Text(widget.exercise.data["name"]),
-            subtitle: Text(widget.exercise.data["instructions"]), //Will add others later on
-      ),
-    );
-  }
-}
-=======
->>>>>>> 4e9779ea965fe4edc5c0f997a9e6dfcddc566f06
