@@ -33,8 +33,13 @@ class _ListPageState extends State<ListPage> {
     return qn.docs; //qn.documents???
   }
 
-  navigateToDetail(DocumentSnapshot exercise){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(exercise: exercise,)));
+  navigateToDetail(DocumentSnapshot exercise) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailPage(
+                  exercise: exercise,
+                )));
   }
 
   @override
@@ -53,8 +58,10 @@ class _ListPageState extends State<ListPage> {
                       .data.length, // getting length of exercise database
                   itemBuilder: (_, index) {
                     return ListTile(
-                      title: Text(snapshot.data[index].data["name"]), //Outputting a tile with the exercise name
-                      onTap: () => navigateToDetail(snapshot.data[index]), //Navigate to specific exercise
+                      title: Text(snapshot.data[index].data[
+                          "name"]), //Outputting a tile with the exercise name
+                      onTap: () => navigateToDetail(
+                          snapshot.data[index]), //Navigate to specific exercise
                     );
                   });
             }
@@ -62,6 +69,7 @@ class _ListPageState extends State<ListPage> {
     );
   }
 }
+
 
 class DetailPage extends StatefulWidget {
   final DocumentSnapshot exercise;
