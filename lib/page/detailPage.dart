@@ -25,7 +25,7 @@ class _DetailPageState extends State<DetailPage> {
             child: Card(
           child: ListTile(
             title: Text(widget.exercise!["name"]),
-            subtitle: Text(widget.exercise!["equipments"]),
+            subtitle: Text(widget.exercise!["instructions"][0]),
 
             // Text(
             //     widget.exercise!["instructions"][0]), //Will add others later on

@@ -61,13 +61,26 @@ class _ListPageState extends State<ListPage> {
                   itemCount: snapshot
                       .data!.docs.length, // getting length of exercise database
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(snapshot.data!.docs[index]['name']),
-                      subtitle: Text(snapshot.data!.docs[index]
-                              ["primaryMuscles"][
-                          0]), //Outputting a tile with the exercise name  ["primaryMuscles"][0]
-                      onTap: () => navigateToDetail(snapshot
-                          .data!.docs[index]), //Navigate to specific exercise
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 4.0),
+                      height: 100,
+                      child: ListTile(
+                        // -------- Format -----------
+                        tileColor: const Color(0xFFFFE2C7),
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+
+                        // ------------ Format end -----------------
+                        title: Text(snapshot.data!.docs[index]['name']),
+                        //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
+                        subtitle: Text(snapshot.data!.docs[index]["level"]),
+                        //Outputting a tile with the exercise name  ["primaryMuscles"][0]
+                        onTap: () => navigateToDetail(snapshot
+                            .data!.docs[index]), //Navigate to specific exercise
+                      ),
                     );
                   });
             }
