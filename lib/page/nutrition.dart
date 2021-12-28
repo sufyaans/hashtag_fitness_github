@@ -9,9 +9,10 @@ class _NutritionState extends State<Nutrition> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
         title: Text('Nutrition'),
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Color(0xFF03111C),
       ),
       body: Center(
         child: Text('Nutrition Screen', style: TextStyle(fontSize: 40)),

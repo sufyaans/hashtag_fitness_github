@@ -10,9 +10,10 @@ class _ProgressState extends State<Progress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
         title: Text('Progress'),
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Color(0xFF03111C),
         actions: [
           IconButton(
             icon: Icon(Icons.straighten),

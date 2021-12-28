@@ -26,11 +26,13 @@ class homeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF03111C),
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Color(0xFF03111C),
         child: Container(
           height: 60,
           child: Row(
@@ -66,32 +68,6 @@ class homeState extends State<Home> {
                       ],
                     ),
                   ),
-
-                  //Measurement
-                  // MaterialButton(
-                  //   //minWidth: 40,
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       currentScreen = Measurement();
-                  //       currentTab = 1;
-                  //     });
-                  //   },
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Icon(
-                  //         Icons.square_foot, //Fix Icon
-                  //         color: currentTab == 1 ? Colors.deepOrange : Colors.grey,
-                  //       ),
-                  //       Text(
-                  //         'Measure',
-                  //         style: TextStyle(
-                  //             color:
-                  //                 currentTab == 1 ? Colors.deepOrange : Colors.grey),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
 
                   // Nutrition
                   MaterialButton(

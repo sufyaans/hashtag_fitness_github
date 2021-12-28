@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
@@ -12,9 +14,10 @@ class _ExerciseState extends State<Exercise> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
         title: Text('Exercise'),
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Color(0xFF03111C),
       ),
       body: ListPage(),
     );
@@ -34,6 +37,7 @@ class _ListPageState extends State<ListPage> {
     return qn;
   }
 
+  //Navigate to exercise details
   navigateToDetail(QueryDocumentSnapshot exercise) {
     Navigator.push(
         context,
@@ -54,20 +58,29 @@ class _ListPageState extends State<ListPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: Text("Loading..."),
+                child: Text("Loading..."), //Get animated loading screen
               );
             } else {
               return ListView.builder(
                   itemCount: snapshot
                       .data!.docs.length, // getting length of exercise database
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 4.0),
-                      height: 100,
+                    return Padding(
+                      padding: EdgeInsets.all(8),
+
+                      // decoration: BoxDecoration(
+                      // gradient: LinearGradient(
+                      //   colors: const [Color(0xFFFFE2C7), Color(0xFFFAF3E0)],
+                      //   begin: Alignment.centerLeft,
+                      //   end: Alignment.centerRight,
+                      // ),
+                      //   borderRadius: BorderRadius.all(
+                      //     Radius.circular(24),
+                      //   ),
+                      // ),
                       child: ListTile(
                         // -------- Format -----------
-                        tileColor: const Color(0xFFFFE2C7),
+                        tileColor: const Color(0xFFF4F5F5),
 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
@@ -76,8 +89,9 @@ class _ListPageState extends State<ListPage> {
                         // ------------ Format end -----------------
                         title: Text(snapshot.data!.docs[index]['name']),
                         //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-                        subtitle: Text(snapshot.data!.docs[index]["level"]),
-                        //Outputting a tile with the exercise name  ["primaryMuscles"][0]
+                        subtitle: Text(
+                            snapshot.data!.docs[index]["primaryMuscles"][0]),
+
                         onTap: () => navigateToDetail(snapshot
                             .data!.docs[index]), //Navigate to specific exercise
                       ),
