@@ -18,6 +18,20 @@ class _ExerciseState extends State<Exercise> {
       appBar: AppBar(
         title: Text('Exercise'),
         backgroundColor: Color(0xFF03111C),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: 'Search',
+            //color: Colors.black,
+            onPressed: () => {},
+          ),
+          IconButton(
+            icon: Icon(Icons.filter_alt),
+            tooltip: 'Filter',
+            //color: Colors.black,
+            onPressed: () => {},
+          ),
+        ],
       ),
       body: ListPage(),
     );
