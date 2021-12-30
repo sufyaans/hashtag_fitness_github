@@ -15,34 +15,12 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    /*
     return Scaffold(
-        backgroundColor: Color(0xFF03111C),
-        appBar: AppBar(
-          title: Text(widget.exercise!["name"]),
-          backgroundColor: Color(0xFF03111C),
-        ),
-        // ignore: avoid_unnecessary_containers
-        body: Container(
-            child: Card(
-          child: ListTile(
-            tileColor: Color(0xFF03111C),
-
-            title: Text(
-              widget.exercise!["name"],),
-            subtitle: Text(widget.exercise!["instructions"][0]),
-
-            // Text(
-            //     widget.exercise!["instructions"][0]), //Will add others later on
-          ),
-        )));
-        */
-    return Scaffold(
-      backgroundColor: Color(0xFF03111C),
-      appBar: AppBar(
-        title: Text(widget.exercise!["name"]),
-        backgroundColor: Color(0xFF03111C),
-      ),
+      backgroundColor: Colors.white, //Color(0xFF03111C),
+      // appBar: AppBar(
+      //   title: Text(widget.exercise!["name"]),
+      //   backgroundColor: Color(0xFF03111C),
+      // ),
       body: getBody(),
     );
   }
@@ -55,15 +33,6 @@ class _DetailPageState extends State<DetailPage> {
         Container(
             width: size.width,
             height: size.height,
-            decoration: BoxDecoration(),
-            // child: SafeArea(
-            //   child: Column(
-            //     children: <Widget>[
-
-            //     ],
-            //   ),
-
-            // ),
 
             // Exercise name should be output in large (Similar to appbar)
             // --- Following below should have labels saying what they are e.g. Level: Beginner
@@ -84,7 +53,7 @@ class _DetailPageState extends State<DetailPage> {
                   '\n' +
                   ' Muscle worked: ' +
                   widget.exercise!["primaryMuscles"][0],
-              style: TextStyle(fontSize: 18, color: Colors.white, height: 1.5),
+              style: TextStyle(fontSize: 18, color: Colors.black, height: 1.5),
             )),
       ]),
     );

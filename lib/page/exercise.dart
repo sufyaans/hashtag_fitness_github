@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
@@ -59,9 +60,6 @@ class _ListPageState extends State<ListPage> {
             builder: (context) => DetailPage(
                   exercise: exercise,
                 )));
-    // DetailPage(
-    //   exercise: exercise,
-    // );
   }
 
   @override

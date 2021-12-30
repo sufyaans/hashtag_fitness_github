@@ -7,10 +7,10 @@ import 'page/workout.dart';
 
 class Home extends StatefulWidget {
   @override
-  homeState createState() => homeState();
+  _homeState createState() => _homeState();
 }
 
-class homeState extends State<Home> {
+class _homeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
     Exercise(),
