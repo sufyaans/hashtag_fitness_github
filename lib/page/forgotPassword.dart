@@ -1,21 +1,18 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 
-import 'errorHandling.dart';
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({Key? key}) : super(key: key);
 
-class SignUpPage extends StatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _ResetPasswordState createState() => _ResetPasswordState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _ResetPasswordState extends State<ResetPassword> {
   final formKey = new GlobalKey<FormState>();
 
-  late String email, password;
+  late String email;
   Color orangeColor = Colors.deepOrange;
 
   //To check fields during submit
@@ -52,13 +49,13 @@ class _SignUpPageState extends State<SignUpPage> {
         width: MediaQuery.of(context).size.width,
         child: Form(
           key: formKey,
-          child: _buildSignupForm(),
+          child: _buildPasswordForm(),
         ),
       ),
     );
   }
 
-  _buildSignupForm() {
+  _buildPasswordForm() {
     return Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: ListView(children: [
@@ -68,23 +65,12 @@ class _SignUpPageState extends State<SignUpPage> {
               width: 200.0,
               child: Stack(
                 children: [
-                  Text(
-                    'Signup',
-                    style: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  // Positioned(
-                  //     top: 62.0,
-                  //     left: 200.0,
-                  //     child: Container(
-                  //         height: 10.0,
-                  //         width: 10.0,
-                  //         decoration: BoxDecoration(
-                  //             shape: BoxShape.circle, color: orangeColor),),),
+                  Text('Reset Password',
+                      style: TextStyle(
+                        fontFamily: 'Trueno',
+                        fontSize: 40,
+                        color: Colors.white,
+                      )),
                 ],
               )),
           SizedBox(height: 25.0),
@@ -104,53 +90,24 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
-          TextFormField(
-              style: TextStyle(color: Colors.white.withOpacity(0.5)),
-              decoration: InputDecoration(
-                  labelText: 'PASSWORD',
-                  labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.white.withOpacity(0.5)),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
-                  )),
-              obscureText: true,
-              onChanged: (value) {
-                this.password = value;
-              },
-              validator: (value) =>
-                  value!.isEmpty ? 'Password is required' : null),
           SizedBox(height: 50.0),
           GestureDetector(
             onTap: () {
               if (checkFields()) {
-                AuthService().signUp(email, password).then((userCreds) {
-                  Navigator.of(context).pop();
-                }).catchError((e) {
-                  ErrorHandle().errorDialog(context, e);
-                });
-
-                //Work around to Signup method from services/authentication
-                // FirebaseAuth.instance
-                //     .createUserWithEmailAndPassword(
-                //         email: email, password: password)
-                //     .then((userCreds) {
-                //   Navigator.of(context).pop();
-                // }).catchError((e) {
-                //   ErrorHandle().errorDialog(context, e);
-                // });
+                //Not working
+                AuthService().resetPass(email);
+                //FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                Navigator.of(context).pop();
               }
             },
             child: Container(
                 height: 50.0,
                 child: Material(
                     borderRadius: BorderRadius.circular(25.0),
-                    //shadowColor: Colors.orangeAccent,
                     color: orangeColor,
                     elevation: 7.0,
                     child: Center(
-                        child: Text('SIGN UP',
+                        child: Text('RESET',
                             style: TextStyle(
                                 color: Colors.white, fontFamily: 'Trueno'))))),
           ),
@@ -158,8 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Navigator.of(context).pop();
                 },
                 child: Text('Go back',
                     style: TextStyle(

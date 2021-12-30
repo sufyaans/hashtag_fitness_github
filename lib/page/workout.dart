@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtag_fitness/page/settings.dart';
+import 'package:hashtag_fitness/services/authentication.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Workout extends StatefulWidget {
   const Workout({Key? key}) : super(key: key);
@@ -15,6 +19,19 @@ class _WorkoutState extends State<Workout> {
       appBar: AppBar(
         title: Text('Workout'),
         backgroundColor: Color(0xFF03111C),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.settings),
+              tooltip: 'Settings',
+              //color: Colors.black,
+              onPressed: () => {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Settings(),
+                      ),
+                    ),
+                  }),
+        ],
       ),
       body: Center(
         child: Text('Workout Screen', style: TextStyle(fontSize: 40)),

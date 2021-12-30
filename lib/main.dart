@@ -1,26 +1,30 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtag_fitness/services/authentication.dart';
+import 'package:provider/provider.dart';
 import 'home.dart';
 import 'package:hashtag_fitness/page/login.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hashtag Fitness',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Home(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => GoogleSignInProvider(),
+        child: MaterialApp(
+          title: 'Hashtag Fitness',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: AuthService().handleAuth(),
+          //home: Home(),
+          debugShowCheckedModeBanner: false,
+        ),
+      );
 }
