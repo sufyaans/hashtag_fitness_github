@@ -67,6 +67,7 @@ class _DetailPageState extends State<DetailPage> {
 
   Widget getExercise() => makeDismissible(
         child: DraggableScrollableSheet(
+          //ModalBottomSheet takes up the whole page rather than 90% of it for 50% of it
           initialChildSize: 0.9,
           minChildSize: 0.5,
           maxChildSize: 0.9,
@@ -95,10 +96,12 @@ class _DetailPageState extends State<DetailPage> {
                   style: TextStyle(fontSize: 16),
                 ),
                 //Need to output array of instructions
-                // Text(
-                //   'Instructions: ' + widget.exercise!["instructions"][0],
-                //   style: TextStyle(fontSize: 16),
-                // ),
+/*
+                Text(
+                  'Instructions: ' + widget.exercise!["instructions"][0],
+                  style: TextStyle(fontSize: 16),
+                ),
+*/
               ],
             ),
           ),

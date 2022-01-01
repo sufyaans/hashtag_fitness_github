@@ -58,7 +58,7 @@ class _ListPageState extends State<ListPage> {
     // https://www.youtube.com/watch?v=AjAQglJKcb4&t=43s
     showModalBottomSheet(
         context: context,
-        isScrollControlled: true,
+        //isScrollControlled: true,
         builder: (context) => DetailPage(
               exercise: exercise,
             ));
