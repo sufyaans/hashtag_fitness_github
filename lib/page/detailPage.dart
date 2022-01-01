@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatefulWidget {
@@ -15,11 +16,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white, //Color(0xFF03111C),
-
-      body: getExercise(),
-    );
+    return getExercise();
   }
   /*
   Widget getExercise() {
@@ -65,27 +62,34 @@ class _DetailPageState extends State<DetailPage> {
         child: GestureDetector(onTap: () {}, child: child),
       );
 
-  Widget getExercise() => makeDismissible(
-        child: DraggableScrollableSheet(
-          //ModalBottomSheet takes up the whole page rather than 90% of it for 50% of it
-          initialChildSize: 0.9,
-          minChildSize: 0.5,
-          maxChildSize: 0.9,
-          builder: (context, controller) => Container(
-            // Top corners need to be rounded
+  Widget getExercise() {
+    //ModalBottomSheet takes up the whole page rather than 90% of it for 50% of it
+    return makeDismissible(
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.9,
+        maxChildSize: 0.9,
+        minChildSize: 0.5,
+        builder: (BuildContext context, ScrollController scrollController) {
+          int index = 0;
+          return Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(18.0)),
             ),
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.0),
             child: ListView(
+              controller: scrollController,
               // Distance between the name and the top of the ShowModalSheet need to be smaller
               children: [
-                Text(
-                  widget.exercise!['name'],
-                  style: TextStyle(fontSize: 24),
-                  textAlign: TextAlign.center,
+                Center(
+                  child: Text(
+                    widget.exercise!['name'],
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Text(
                   'Level: ' + widget.exercise!['level'],
@@ -96,15 +100,41 @@ class _DetailPageState extends State<DetailPage> {
                   style: TextStyle(fontSize: 16),
                 ),
                 //Need to output array of instructions
-/*
-                Text(
-                  'Instructions: ' + widget.exercise!["instructions"][0],
-                  style: TextStyle(fontSize: 16),
+                SizedBox(
+                  height: 5.0,
                 ),
-*/
+                Text(
+                  'Instructions: ',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                ...widget.exercise!["instructions"]
+                    .map((title) => Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${++index}",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Expanded(child: Text(title)),
+                              ],
+                            ),
+                            SizedBox(height: 8.0),
+                          ],
+                        ))
+                    .toList()
               ],
             ),
-          ),
-        ),
-      );
+          );
+        },
+      ),
+    );
+  }
 }

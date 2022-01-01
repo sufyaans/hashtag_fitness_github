@@ -52,6 +52,7 @@ class _ListPageState extends State<ListPage> {
     return qn;
   }
 
+/*
   //Navigate to exercise details
   navigateToDetail(QueryDocumentSnapshot exercise) {
     //Following this youtube video
@@ -61,6 +62,22 @@ class _ListPageState extends State<ListPage> {
         //isScrollControlled: true,
         builder: (context) => DetailPage(
               exercise: exercise,
+            ));
+  }
+*/
+
+  //Navigate to exercise details
+  navigateToDetail(QueryDocumentSnapshot exercise) {
+    //Following this youtube video
+    // https://www.youtube.com/watch?v=AjAQglJKcb4&t=43s
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => SafeArea(
+              child: DetailPage(
+                exercise: exercise,
+              ),
             ));
   }
 
