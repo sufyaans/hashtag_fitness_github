@@ -54,12 +54,14 @@ class _ListPageState extends State<ListPage> {
 
   //Navigate to exercise details
   navigateToDetail(QueryDocumentSnapshot exercise) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DetailPage(
-                  exercise: exercise,
-                )));
+    //Following this youtube video
+    // https://www.youtube.com/watch?v=AjAQglJKcb4&t=43s
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => DetailPage(
+              exercise: exercise,
+            ));
   }
 
   @override
