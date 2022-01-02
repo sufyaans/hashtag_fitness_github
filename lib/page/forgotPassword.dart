@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -14,6 +15,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   late String email;
   Color orangeColor = Colors.deepOrange;
+  String basicFont = 'Trueno';
 
   //To check fields during submit
   checkFields() {
@@ -57,20 +59,23 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   _buildPasswordForm() {
     return Padding(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: ListView(children: [
+      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      child: ListView(
+        children: [
           SizedBox(height: 75.0),
           Container(
               height: 125.0,
               width: 200.0,
               child: Stack(
                 children: [
-                  Text('Reset Password',
-                      style: TextStyle(
-                        fontFamily: 'Trueno',
-                        fontSize: 40,
-                        color: Colors.white,
-                      )),
+                  Text(
+                    'Reset Password',
+                    style: TextStyle(
+                      fontFamily: basicFont,
+                      fontSize: 40,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               )),
           SizedBox(height: 25.0),
@@ -79,9 +84,10 @@ class _ResetPasswordState extends State<ResetPassword> {
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.white.withOpacity(0.5)),
+                    fontFamily: basicFont,
+                    fontSize: 12.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: orangeColor),
                   )),
@@ -91,7 +97,8 @@ class _ResetPasswordState extends State<ResetPassword> {
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
           SizedBox(height: 50.0),
-          GestureDetector(
+          //RESET
+          Bounceable(
             onTap: () {
               if (checkFields()) {
                 //Not working
@@ -101,29 +108,42 @@ class _ResetPasswordState extends State<ResetPassword> {
               }
             },
             child: Container(
-                height: 50.0,
-                child: Material(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: orangeColor,
-                    elevation: 7.0,
-                    child: Center(
-                        child: Text('RESET',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'Trueno'))))),
+              height: 50.0,
+              child: Material(
+                borderRadius: BorderRadius.circular(25.0),
+                color: orangeColor,
+                elevation: 7.0,
+                child: Center(
+                  child: Text(
+                    'RESET',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: basicFont),
+                  ),
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 20.0),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            InkWell(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Go back',
-                    style: TextStyle(
-                        color: orangeColor,
-                        fontFamily: 'Trueno',
-                        fontSize: 18,
-                        decoration: TextDecoration.underline)))
-          ])
-        ]));
+                child: Text(
+                  'Go back',
+                  style: TextStyle(
+                      color: orangeColor,
+                      fontFamily: basicFont,
+                      fontSize: 18,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

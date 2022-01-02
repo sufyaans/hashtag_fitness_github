@@ -5,19 +5,22 @@ import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class Workout extends StatefulWidget {
-  const Workout({Key? key}) : super(key: key);
-
   @override
   _WorkoutState createState() => _WorkoutState();
 }
 
 class _WorkoutState extends State<Workout> {
+  String basicFont = 'Trueno';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
-        title: Text('Workout'),
+        title: Text(
+          'Workout',
+          style: TextStyle(fontFamily: basicFont),
+        ),
         backgroundColor: Color(0xFF03111C),
         actions: [
           IconButton(

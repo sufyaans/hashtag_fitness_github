@@ -7,12 +7,16 @@ class Progress extends StatefulWidget {
 }
 
 class _ProgressState extends State<Progress> {
+  String basicFont = 'Trueno';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
-        title: Text('Progress'),
+        title: Text(
+          'Progress',
+          style: TextStyle(fontFamily: basicFont),
+        ),
         backgroundColor: Color(0xFF03111C),
         actions: [
           IconButton(

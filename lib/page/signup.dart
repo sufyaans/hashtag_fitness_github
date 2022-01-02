@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 
@@ -17,6 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   late String email, password;
   Color orangeColor = Colors.deepOrange;
+  String basicFont = 'Trueno';
 
   //To check fields during submit
   checkFields() {
@@ -60,42 +62,36 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _buildSignupForm() {
     return Padding(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: ListView(children: [
+      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      child: ListView(
+        children: [
           SizedBox(height: 75.0),
           Container(
-              height: 125.0,
-              width: 200.0,
-              child: Stack(
-                children: [
-                  Text(
-                    'Signup',
-                    style: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 50,
-                      color: Colors.white,
-                    ),
+            height: 125.0,
+            width: 200.0,
+            child: Stack(
+              children: [
+                Text(
+                  'Signup',
+                  style: TextStyle(
+                    fontFamily: basicFont,
+                    fontSize: 50,
+                    color: Colors.white,
                   ),
-
-                  // Positioned(
-                  //     top: 62.0,
-                  //     left: 200.0,
-                  //     child: Container(
-                  //         height: 10.0,
-                  //         width: 10.0,
-                  //         decoration: BoxDecoration(
-                  //             shape: BoxShape.circle, color: orangeColor),),),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: 25.0),
           TextFormField(
               style: TextStyle(color: Colors.white.withOpacity(0.5)),
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.white.withOpacity(0.5)),
+                    fontFamily: basicFont,
+                    fontSize: 12.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: orangeColor),
                   )),
@@ -105,13 +101,16 @@ class _SignUpPageState extends State<SignUpPage> {
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
           TextFormField(
-              style: TextStyle(color: Colors.white.withOpacity(0.5)),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
               decoration: InputDecoration(
                   labelText: 'PASSWORD',
                   labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.white.withOpacity(0.5)),
+                    fontFamily: basicFont,
+                    fontSize: 12.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: orangeColor),
                   )),
@@ -122,7 +121,8 @@ class _SignUpPageState extends State<SignUpPage> {
               validator: (value) =>
                   value!.isEmpty ? 'Password is required' : null),
           SizedBox(height: 50.0),
-          GestureDetector(
+          //Signup
+          Bounceable(
             onTap: () {
               if (checkFields()) {
                 AuthService().signUp(email, password).then((userCreds) {
@@ -143,31 +143,49 @@ class _SignUpPageState extends State<SignUpPage> {
               }
             },
             child: Container(
-                height: 50.0,
-                child: Material(
-                    borderRadius: BorderRadius.circular(25.0),
-                    //shadowColor: Colors.orangeAccent,
-                    color: orangeColor,
-                    elevation: 7.0,
-                    child: Center(
-                        child: Text('SIGN UP',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'Trueno'))))),
+              height: 50.0,
+              child: Material(
+                borderRadius: BorderRadius.circular(25.0),
+                //shadowColor: Colors.orangeAccent,
+                color: orangeColor,
+                elevation: 7.0,
+                child: Center(
+                  child: Text(
+                    'SIGN UP',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: basicFont),
+                  ),
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 20.0),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            InkWell(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //Go back (InkWell)
+              Bounceable(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                  );
                 },
-                child: Text('Go back',
-                    style: TextStyle(
-                        color: orangeColor,
-                        fontFamily: 'Trueno',
-                        fontSize: 18,
-                        decoration: TextDecoration.underline)))
-          ])
-        ]));
+                child: Text(
+                  'Go back',
+                  style: TextStyle(
+                      color: orangeColor,
+                      fontFamily: basicFont,
+                      fontSize: 18,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

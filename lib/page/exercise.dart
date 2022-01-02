@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -12,12 +13,16 @@ class Exercise extends StatefulWidget {
 }
 
 class _ExerciseState extends State<Exercise> {
+  String basicFont = 'Trueno';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF03111C),
       appBar: AppBar(
-        title: Text('Exercise'),
+        title: Text(
+          'Exercise',
+          style: TextStyle(fontFamily: basicFont),
+        ),
         backgroundColor: Color(0xFF03111C),
         actions: [
           IconButton(
@@ -83,13 +88,18 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
+    const spinKit = SpinKitRing(
+      color: Colors.white,
+      size: 50.0,
+    );
+
     return Container(
       child: StreamBuilder<QuerySnapshot>(
           stream: getExercises(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: Text("Loading..."), //Get animated loading screen
+                child: spinKit, //Get animated loading screen
               );
             } else {
               return ListView.builder(

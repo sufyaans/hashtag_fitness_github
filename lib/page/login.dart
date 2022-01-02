@@ -2,11 +2,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/forgotPassword.dart';
 import 'package:hashtag_fitness/page/signup.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:provider/provider.dart';
-
 import 'errorHandling.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   late String email, password;
   Color orangeColor = Colors.deepOrange;
+  String basicFont = 'Trueno';
 
   //To check fields during submit
   checkFields() {
@@ -78,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Welcome to',
                     style: TextStyle(
-                      fontFamily: 'Trueno',
+                      fontFamily: basicFont,
                       fontSize: 50,
                       color: Colors.white,
                     ),
@@ -88,22 +89,12 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       '#FITNESS',
                       style: TextStyle(
-                        fontFamily: 'Trueno',
+                        fontFamily: basicFont,
                         fontSize: 40,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  // Positioned(
-                  //   top: 97.0,
-                  //   left: 175.0,
-                  //   child: Container(
-                  //     height: 10.0,
-                  //     width: 10.0,
-                  //     decoration: BoxDecoration(
-                  //         shape: BoxShape.circle, color: orangeColor),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -111,17 +102,16 @@ class _LoginPageState extends State<LoginPage> {
               height: 25,
             ),
             TextFormField(
-              style: TextStyle(color: Colors.white.withOpacity(0.5)),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12,
-                      color: Colors.white.withOpacity(0.5)),
-                  //Underline border should be white
-                  // border: UnderlineInputBorder(
-                  //   borderSide: BorderSide(color: Colors.white),
-                  // ),
+                    fontFamily: basicFont,
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: orangeColor),
                   )),
@@ -131,17 +121,16 @@ class _LoginPageState extends State<LoginPage> {
               validator: (value) => value!.isEmpty ? 'Email is required' : null,
             ),
             TextFormField(
-              style: TextStyle(color: Colors.white.withOpacity(0.5)),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
               decoration: InputDecoration(
                   labelText: 'PASSWORD',
                   labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.white.withOpacity(0.5)),
-                  //Underline border should be white
-                  // border: UnderlineInputBorder(
-                  //   borderSide: BorderSide(color: Colors.white),
-                  // ),
+                    fontFamily: basicFont,
+                    fontSize: 12.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: orangeColor),
                   )),
@@ -153,10 +142,15 @@ class _LoginPageState extends State<LoginPage> {
                   value!.isEmpty ? 'Password is required' : null,
             ),
             SizedBox(height: 5.0),
-            GestureDetector(
+            //Forgot Password
+            Bounceable(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ResetPassword()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResetPassword(),
+                  ),
+                );
               },
               child: Container(
                 alignment: Alignment(1, 0),
@@ -166,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Forgot Password',
                     style: TextStyle(
                         color: orangeColor,
-                        fontFamily: 'Trueno',
+                        fontFamily: basicFont,
                         fontSize: 15,
                         decoration: TextDecoration.underline),
                   ),
@@ -174,20 +168,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 50),
-            GestureDetector(
+            //Email Login
+            Bounceable(
               onTap: () {
+                //Email Password Login
                 if (checkFields()) {
                   AuthService().signIn(email, password, context);
-
-                  //Work around to Signin method from services/authentication
-                  // FirebaseAuth.instance
-                  //     .signInWithEmailAndPassword(
-                  //         email: email, password: password)
-                  //     .then((val) {
-                  //   print('signed in');
-                  // }).catchError((e) {
-                  //   ErrorHandle().errorDialog(context, e);
-                  // });
                 }
               },
               child: Container(
@@ -200,16 +186,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'LOGIN',
                       style:
-                          TextStyle(color: Colors.white, fontFamily: 'Trueno'),
+                          TextStyle(color: Colors.white, fontFamily: basicFont),
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(height: 20),
-            GestureDetector(
+            //Google Login
+            Bounceable(
               onTap: () {
-                //Google sign in
+                //Google Login
                 final provider =
                     Provider.of<GoogleSignInProvider>(context, listen: false);
                 provider.googleLogin();
@@ -245,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Login with Google',
                           style: TextStyle(
-                            fontFamily: 'Trueno',
+                            fontFamily: basicFont,
                             color: Colors.white,
                           ),
                         ),
@@ -255,6 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+
             SizedBox(height: 25.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
@@ -265,16 +253,20 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(width: 5.0),
-              InkWell(
+              Bounceable(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUpPage(),
+                    ),
+                  );
                 },
                 child: Text(
                   'Sign up',
                   style: TextStyle(
                       color: orangeColor,
-                      fontFamily: 'Trueno',
+                      fontFamily: basicFont,
                       fontSize: 18,
                       decoration: TextDecoration.underline),
                 ),
