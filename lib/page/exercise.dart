@@ -3,237 +3,71 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
-import 'package:firestore_search/firestore_search.dart';
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
+  const Exercise({Key? key}) : super(key: key);
+
   @override
   _ExerciseState createState() => _ExerciseState();
 }
 
 class _ExerciseState extends State<Exercise> {
   Color orangeColor = Colors.deepOrange;
+  Color backGround = Color(0xFF03111C);
   String basicFont = 'roughMotion';
   bool searchState = false;
 
-  @override
-  Widget build(BuildContext context) {
-/*
-    return Scaffold(
-      backgroundColor: Color(0xFF03111C),
-      appBar: AppBar(
-        title: !searchState
-            ? Text(
-                'Exercise',
-                style: TextStyle(fontFamily: basicFont),
-              )
-            //Search field
-            : TextField(
-                onChanged: (value) {
-                  // --------- Search function ----------
-                },
-                
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  hintText: 'Search...',
-                  hintStyle: TextStyle(color: Colors.white),
-                  contentPadding: EdgeInsets.all(15),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-        backgroundColor: Color(0xFF03111C),
-        actions: [
-          !searchState
-              ? IconButton(
-                  icon: Icon(Icons.search),
-                  tooltip: 'Search',
-                  onPressed: () => {
-                        //showSearch(context: context, delegate: exerciseSearch()),
-                        setState(() {
-                          searchState = !searchState;
-                        })
-                      })
-              : IconButton(
-                  icon: Icon(Icons.cancel),
-                  tooltip: 'Cancel',
-                  onPressed: () {
-                    setState(() {
-                      searchState = !searchState;
-                      //Navigator.of(context).pop();
-                    });
-                  },
-                ),
-          //Might not have to hide filter
-          !searchState
-              ? IconButton(
-                  icon: Icon(Icons.filter_alt),
-                  tooltip: 'Filter',
-                  onPressed: () => {},
-                )
-              : IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.filter),
-                  color: Colors.white.withOpacity(0),
-                ),
-        ],
-      ),
-      body: ListPage(),
-    );
-  }
-*/
-
-    return Scaffold(
-      backgroundColor: Color(0xFF03111C),
-      appBar: AppBar(
-        title: Text('Exercise'),
-        backgroundColor: Color(0xFF03111C),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            tooltip: 'Search',
-            //color: Colors.black,
-            onPressed: () =>
-                {showSearch(context: context, delegate: exerciseSearch())},
-          ),
-          IconButton(
-            icon: Icon(Icons.filter_alt),
-            tooltip: 'Filter',
-            //color: Colors.black,
-            onPressed: () => {},
-          ),
-        ],
-      ),
-      body: ListPage(),
-    );
-  }
-}
-
-// exerciseSearch with searchDelegate
-class exerciseSearch extends SearchDelegate {
-  var query = '';
-  //List<DocumentSnapshot> exerciseList;
-  Future<QuerySnapshot<Map<String, dynamic>>> exerciseList = FirebaseFirestore
-      .instance
-      .collection('exercises')
-      .where('name', isGreaterThanOrEqualTo: query)
-      .get();
-
-  @override
-  //Actions for the app bar
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
-
-  @override
-  //Leading icon on the left of app bar
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  //Show results based on the selection
-  Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var exercise in exerciseList) {
-      if (exercise.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(exercise);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return Padding(
-          padding: EdgeInsets.all(8),
-          child: ListTile(
-            // -------- Format -----------
-            tileColor: const Color(0xFFF4F5F5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-
-            // ------------ Format end -----------------
-            title: Text(snapshot.data!.docs[index]['name']),
-            //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-            subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-
-            onTap: () => navigateToDetail(
-                snapshot.data!.docs[index]), //Navigate to specific exercise
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  //Show when someone seaches for something
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var exercise in exerciseList) {
-      if (exercise.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(exercise);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return Padding(
-          padding: EdgeInsets.all(8),
-          child: ListTile(
-            // -------- Format -----------
-            tileColor: const Color(0xFFF4F5F5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-
-            // ------------ Format end -----------------
-            title: Text(snapshot.data!.docs[index]['name']),
-            //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-            subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-
-            onTap: () => navigateToDetail(
-                snapshot.data!.docs[index]), //Navigate to specific exercise
-          ),
-        );
-      },
-    );
-  }
-}
-
-class ListPage extends StatefulWidget {
-  @override
-  _ListPageState createState() => _ListPageState();
-}
-
-class _ListPageState extends State<ListPage> {
-  //Gets exercise database
   Stream<QuerySnapshot> getExercises() {
     var firestore = FirebaseFirestore.instance;
     Stream<QuerySnapshot<Map<String, dynamic>>> qn =
-        firestore.collection("exercises").snapshots(); //getDocuments()???
+        firestore.collection("exercises").snapshots();
     return qn;
   }
 
-  //Navigate to exercise details
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: getExercises(),
+        builder: (context, snapshot) {
+          return Scaffold(
+              backgroundColor: backGround,
+              appBar: AppBar(
+                title: Text('Exercise'),
+                backgroundColor: backGround,
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    tooltip: 'Search',
+                    onPressed: () {
+                      if (!snapshot.hasData) {
+                        return;
+                      }
+                      showSearch(
+                          context: context,
+                          delegate: ExerciceSearch(snapshot.data!));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.filter_alt),
+                    tooltip: 'Filter',
+                    onPressed: () => {},
+                  ),
+                ],
+              ),
+              body: snapshot.hasData
+                  ? ListPage(context: context, snapshot: snapshot.data!)
+                  : SpinKitRing(color: Colors.white, size: 50.0));
+        });
+  }
+}
+
+class ListPage extends StatelessWidget {
+  final BuildContext context;
+  final QuerySnapshot snapshot;
+  const ListPage({Key? key, required this.context, required this.snapshot})
+      : super(key: key);
+
   navigateToDetail(QueryDocumentSnapshot exercise) {
     showModalBottomSheet(
         context: context,
@@ -248,46 +82,125 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    const spinKit = SpinKitRing(
-      color: Colors.white,
-      size: 50.0,
-    );
+    return ListView.builder(
+        itemCount: snapshot.docs.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.all(8),
+            child: ListTile(
+              // -------- Format -----------
+              tileColor: const Color(0xFFF4F5F5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
 
-    return Container(
-      child: StreamBuilder<QuerySnapshot>(
-          stream: getExercises(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: spinKit, //Get animated loading screen
+              // ------------ Format end -----------------
+              title: Text(snapshot.docs[index]['name']),
+              //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
+              subtitle: Text(snapshot.docs[index]["primaryMuscles"][0]),
+
+              onTap: () => navigateToDetail(
+                  snapshot.docs[index]), //Navigate to specific exercise
+            ),
+          );
+        });
+  }
+}
+
+class ExerciceSearch extends SearchDelegate {
+  QuerySnapshot exerices;
+  ExerciceSearch(this.exerices);
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) => IconButton(
+      onPressed: () => Navigator.of(context).pop(),
+      icon: Icon(Icons.adaptive.arrow_back));
+
+  // @override
+  // ThemeData appBarTheme(BuildContext context) {
+  //   return ThemeData(
+  //     appBarTheme: const AppBarTheme(
+  //       color: Color(0xFF03111C), // affects AppBar's background color
+  //       //hintColy, // affects the initial 'Search' text
+  //       textTheme: const TextTheme(
+  //           headline6: TextStyle(
+  //               // headline 6 affects the query text
+  //               color: Colors.white,
+  //               fontSize: 16.0,
+  //               fontWeight: FontWeight.bold)),
+  //     ),
+  //   );
+  // }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    var searchResult = exerices.docs.where((element) =>
+        (element.get('name') as String)
+            .toLowerCase()
+            .contains(query.toLowerCase()));
+
+    return searchResult.isEmpty
+        ? Center(child: Text('Not found'))
+        : ListView.builder(
+            itemCount: searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+
+              return ListTile(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => SafeArea(
+                            child: DetailPage(
+                              exercise: item,
+                            ),
+                          ));
+                },
+                tileColor: const Color(0xFFF4F5F5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                title: Text(item['name']),
+                subtitle: Text(item["primaryMuscles"][0]),
               );
-            } else {
-              return ListView.builder(
-                  itemCount: snapshot
-                      .data!.docs.length, // getting length of exercise database
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.all(8),
-                      child: ListTile(
-                        // -------- Format -----------
-                        tileColor: const Color(0xFFF4F5F5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
+            });
+  }
 
-                        // ------------ Format end -----------------
-                        title: Text(snapshot.data!.docs[index]['name']),
-                        //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-                        subtitle: Text(
-                            snapshot.data!.docs[index]["primaryMuscles"][0]),
+  //TODO adding searching suggestion
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    var searchResult = exerices.docs.toList();
+    searchResult.shuffle();
 
-                        onTap: () => navigateToDetail(snapshot
-                            .data!.docs[index]), //Navigate to specific exercise
-                      ),
-                    );
-                  });
-            }
-          }),
-    );
+    return true
+        ? Center(
+            child: Text('Type to search'),
+          )
+        : ListView.builder(
+            itemCount: searchResult.length > 4 ? 4 : searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+              return ListTile(
+                tileColor: const Color(0xFFF4F5F5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                title: Text(item['name']),
+                subtitle: Text(item["primaryMuscles"][0]),
+              );
+            });
   }
 }

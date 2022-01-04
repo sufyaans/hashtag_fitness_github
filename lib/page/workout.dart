@@ -36,8 +36,24 @@ class _WorkoutState extends State<Workout> {
                   }),
         ],
       ),
-      body: Center(
-        child: Text('Workout Screen', style: TextStyle(fontSize: 40)),
+      body: WorkoutPage(),
+    );
+  }
+}
+
+class WorkoutPage extends StatefulWidget {
+  @override
+  _WorkoutPageState createState() => _WorkoutPageState();
+}
+
+class _WorkoutPageState extends State<WorkoutPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF03111C),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }
