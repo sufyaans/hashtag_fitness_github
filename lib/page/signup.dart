@@ -18,7 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   late String email, password;
   Color orangeColor = Colors.deepOrange;
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
 
   //To check fields during submit
   checkFields() {
@@ -62,13 +62,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _buildSignupForm() {
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      padding: const EdgeInsets.only(left: 25, right: 25),
       child: ListView(
         children: [
-          SizedBox(height: 75.0),
+          SizedBox(height: 75),
           Container(
-            height: 125.0,
-            width: 200.0,
+            height: 125,
+            width: 200,
             child: Stack(
               children: [
                 Text(
@@ -82,19 +82,22 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
           ),
-          SizedBox(height: 25.0),
+          SizedBox(height: 25),
           TextFormField(
-              style: TextStyle(color: Colors.white.withOpacity(0.5)),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
               decoration: InputDecoration(
-                  labelText: 'EMAIL',
-                  labelStyle: TextStyle(
-                    fontFamily: basicFont,
-                    fontSize: 12.0,
-                    color: Colors.white.withOpacity(0.5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
-                  )),
+                labelText: 'EMAIL',
+                labelStyle: TextStyle(
+                  fontFamily: basicFont,
+                  fontSize: 15,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: orangeColor),
+                ),
+              ),
               onChanged: (value) {
                 this.email = value;
               },
@@ -105,31 +108,34 @@ class _SignUpPageState extends State<SignUpPage> {
                 color: Colors.white.withOpacity(0.5),
               ),
               decoration: InputDecoration(
-                  labelText: 'PASSWORD',
-                  labelStyle: TextStyle(
-                    fontFamily: basicFont,
-                    fontSize: 12.0,
-                    color: Colors.white.withOpacity(0.5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
-                  )),
+                labelText: 'PASSWORD',
+                labelStyle: TextStyle(
+                  fontFamily: basicFont,
+                  fontSize: 15,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: orangeColor),
+                ),
+              ),
               obscureText: true,
               onChanged: (value) {
                 this.password = value;
               },
               validator: (value) =>
                   value!.isEmpty ? 'Password is required' : null),
-          SizedBox(height: 50.0),
+          SizedBox(height: 50),
           //Signup
           Bounceable(
             onTap: () {
               if (checkFields()) {
                 AuthService().signUp(email, password).then((userCreds) {
                   Navigator.of(context).pop();
-                }).catchError((e) {
-                  ErrorHandle().errorDialog(context, e);
-                });
+                }).catchError(
+                  (e) {
+                    ErrorHandle().errorDialog(context, e);
+                  },
+                );
 
                 //Work around to Signup method from services/authentication
                 // FirebaseAuth.instance
@@ -143,17 +149,20 @@ class _SignUpPageState extends State<SignUpPage> {
               }
             },
             child: Container(
-              height: 50.0,
+              height: 50,
               child: Material(
                 borderRadius: BorderRadius.circular(25.0),
                 //shadowColor: Colors.orangeAccent,
                 color: orangeColor,
-                elevation: 7.0,
+                elevation: 7,
                 child: Center(
                   child: Text(
                     'SIGN UP',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: basicFont),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: basicFont,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),

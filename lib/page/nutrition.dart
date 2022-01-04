@@ -6,7 +6,7 @@ class Nutrition extends StatefulWidget {
 }
 
 class _NutritionState extends State<Nutrition> {
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

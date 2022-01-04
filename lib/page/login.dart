@@ -19,7 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   late String email, password;
   Color orangeColor = Colors.deepOrange;
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
+  String funkyFont = 'Hyperwave';
 
   //To check fields during submit
   checkFields() {
@@ -79,8 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Welcome to',
                     style: TextStyle(
-                      fontFamily: basicFont,
-                      fontSize: 50,
+                      fontFamily: funkyFont,
+                      fontSize: 90,
                       color: Colors.white,
                     ),
                   ),
@@ -89,9 +90,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       '#FITNESS',
                       style: TextStyle(
-                        fontFamily: basicFont,
-                        fontSize: 40,
-                        color: Colors.white,
+                        fontFamily: funkyFont,
+                        fontSize: 80,
+                        color: Colors.deepOrange,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
@@ -109,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
                     fontFamily: basicFont,
-                    fontSize: 12,
+                    fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
@@ -128,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'PASSWORD',
                   labelStyle: TextStyle(
                     fontFamily: basicFont,
-                    fontSize: 12.0,
+                    fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
@@ -141,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
               validator: (value) =>
                   value!.isEmpty ? 'Password is required' : null,
             ),
-            SizedBox(height: 5.0),
+            SizedBox(height: 5),
             //Forgot Password
             Bounceable(
               onTap: () {
@@ -161,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         color: orangeColor,
                         fontFamily: basicFont,
-                        fontSize: 15,
+                        fontSize: 18,
                         decoration: TextDecoration.underline),
                   ),
                 ),
@@ -177,16 +179,18 @@ class _LoginPageState extends State<LoginPage> {
                 }
               },
               child: Container(
-                height: 50.0,
+                height: 50,
                 child: Material(
-                  borderRadius: BorderRadius.circular(25.0),
+                  borderRadius: BorderRadius.circular(25),
                   color: orangeColor,
-                  elevation: 7.0,
+                  elevation: 7,
                   child: Center(
                     child: Text(
                       'LOGIN',
-                      style:
-                          TextStyle(color: Colors.white, fontFamily: basicFont),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: basicFont,
+                          fontSize: 20),
                     ),
                   ),
                 ),
@@ -202,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                 provider.googleLogin();
               },
               child: Container(
-                height: 50.0,
+                height: 50,
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
@@ -234,6 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                             fontFamily: basicFont,
                             color: Colors.white,
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -243,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            SizedBox(height: 25.0),
+            SizedBox(height: 25),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 'New to Hashtag Fitness?',
@@ -252,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 18,
                 ),
               ),
-              SizedBox(width: 5.0),
+              SizedBox(width: 5),
               Bounceable(
                 onTap: () {
                   Navigator.push(

@@ -7,7 +7,7 @@ class Progress extends StatefulWidget {
 }
 
 class _ProgressState extends State<Progress> {
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

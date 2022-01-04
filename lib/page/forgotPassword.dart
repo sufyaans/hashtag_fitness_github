@@ -59,13 +59,13 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   _buildPasswordForm() {
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      padding: const EdgeInsets.only(left: 25, right: 25),
       child: ListView(
         children: [
-          SizedBox(height: 75.0),
+          SizedBox(height: 75),
           Container(
-              height: 125.0,
-              width: 200.0,
+              height: 125,
+              width: 200,
               child: Stack(
                 children: [
                   Text(
@@ -78,14 +78,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                 ],
               )),
-          SizedBox(height: 25.0),
+          SizedBox(height: 25),
           TextFormField(
               style: TextStyle(color: Colors.white.withOpacity(0.5)),
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
                     fontFamily: basicFont,
-                    fontSize: 12.0,
+                    fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
@@ -96,7 +96,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               },
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
-          SizedBox(height: 50.0),
+          SizedBox(height: 50),
           //RESET
           Bounceable(
             onTap: () {
@@ -108,22 +108,25 @@ class _ResetPasswordState extends State<ResetPassword> {
               }
             },
             child: Container(
-              height: 50.0,
+              height: 50,
               child: Material(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(25),
                 color: orangeColor,
-                elevation: 7.0,
+                elevation: 7,
                 child: Center(
                   child: Text(
                     'RESET',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: basicFont),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: basicFont,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

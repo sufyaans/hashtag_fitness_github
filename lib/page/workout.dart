@@ -10,7 +10,7 @@ class Workout extends StatefulWidget {
 }
 
 class _WorkoutState extends State<Workout> {
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
 
   @override
   Widget build(BuildContext context) {

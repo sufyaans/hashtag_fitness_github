@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Measurement extends StatefulWidget {
-  const Measurement({Key? key}) : super(key: key);
-
   @override
   _MeasurementState createState() => _MeasurementState();
 }
 
 class _MeasurementState extends State<Measurement> {
-  String basicFont = 'Trueno';
+  String basicFont = 'roughMotion';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
