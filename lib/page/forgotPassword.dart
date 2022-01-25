@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: unnecessary_new, prefer_const_constructors, file_names, sized_box_for_whitespace, unnecessary_this
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
@@ -10,12 +11,14 @@ class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState();
 }
 
+Color orangeColor = Colors.deepOrange;
+Color backGround = Color(0xFF03111C);
+String basicFont = 'roughMotion';
+
 class _ResetPasswordState extends State<ResetPassword> {
   final formKey = new GlobalKey<FormState>();
 
   late String email;
-  Color orangeColor = Colors.deepOrange;
-  String basicFont = 'Trueno';
 
   //To check fields during submit
   checkFields() {
@@ -45,7 +48,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

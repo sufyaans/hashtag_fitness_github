@@ -1,26 +1,26 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_new, sized_box_for_whitespace, unnecessary_this
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/forgotPassword.dart';
 import 'package:hashtag_fitness/page/signup.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:provider/provider.dart';
-import 'errorHandling.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
+Color orangeColor = Colors.deepOrange;
+String basicFont = 'roughMotion';
+String funkyFont = 'Hyperwave';
+Color backGround = Color(0xFF03111C);
+
 class _LoginPageState extends State<LoginPage> {
   final formKey = new GlobalKey<FormState>();
 
   late String email, password;
-  Color orangeColor = Colors.deepOrange;
-  String basicFont = 'roughMotion';
-  String funkyFont = 'Hyperwave';
 
   //To check fields during submit
   checkFields() {
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

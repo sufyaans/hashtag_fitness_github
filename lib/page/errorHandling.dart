@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, file_names
+
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class ErrorHandle {

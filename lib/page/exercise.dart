@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, dead_code
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -179,7 +179,7 @@ class ExerciceSearch extends SearchDelegate {
             });
   }
 
-  //TODO adding searching suggestion
+  //adding searching suggestion
   @override
   Widget buildSuggestions(BuildContext context) {
     var searchResult = exerices.docs.toList();

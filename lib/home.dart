@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'page/exercise.dart';
 import 'page/measurement.dart';
@@ -6,10 +8,17 @@ import 'page/progress.dart';
 import 'page/workout.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _homeState createState() => _homeState();
 }
 
+Color orangeColor = Colors.deepOrange;
+Color backGround = Color(0xFF03111C);
+String basicFont = 'roughMotion';
+
+// ignore: camel_case_types
 class _homeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
@@ -26,13 +35,13 @@ class _homeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color(0xFF03111C),
+        color: backGround,
         child: Container(
           height: 60,
           child: Row(

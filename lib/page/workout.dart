@@ -1,38 +1,35 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/page/settings.dart';
-import 'package:hashtag_fitness/services/authentication.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 
 class Workout extends StatefulWidget {
   @override
   _WorkoutState createState() => _WorkoutState();
 }
 
-class _WorkoutState extends State<Workout> {
-  String basicFont = 'roughMotion';
+Color orangeColor = Colors.deepOrange;
+Color backGround = Color(0xFF03111C);
+String basicFont = 'roughMotion';
 
+class _WorkoutState extends State<Workout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       appBar: AppBar(
         title: Text(
           'Workout',
           style: TextStyle(fontFamily: basicFont),
         ),
-        backgroundColor: Color(0xFF03111C),
+        backgroundColor: backGround,
         actions: [
           IconButton(
-              icon: Icon(Icons.settings),
-              tooltip: 'Settings',
+              icon: Icon(Icons.calendar_today),
+              tooltip: 'Calendar',
               //color: Colors.black,
               onPressed: () => {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Settings(),
-                      ),
-                    ),
+                    // View history of workouts
                   }),
         ],
       ),
@@ -50,10 +47,37 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        // height: MediaQuery.of(context).size.height,
+        // width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.all(15),
+        child: ListView(
+          children: [
+            Bounceable(
+              onTap: () {
+                //Create a workout template
+              },
+              child: Container(
+                height: 40,
+                child: Material(
+                  borderRadius: BorderRadius.circular(24),
+                  color: orangeColor,
+                  elevation: 7,
+                  child: Center(
+                    child: Text(
+                      'CREATE A WORKOUT',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: basicFont,
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

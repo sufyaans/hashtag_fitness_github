@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:hashtag_fitness/page/settings.dart';
 
 class Nutrition extends StatefulWidget {
   @override
   _NutritionState createState() => _NutritionState();
 }
+
+Color orangeColor = Colors.deepOrange;
+Color backGround = Color(0xFF03111C);
+String basicFont = 'roughMotion';
 
 class _NutritionState extends State<Nutrition> {
   String basicFont = 'roughMotion';
@@ -17,9 +23,67 @@ class _NutritionState extends State<Nutrition> {
           style: TextStyle(fontFamily: basicFont),
         ),
         backgroundColor: Color(0xFF03111C),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.settings),
+              tooltip: 'Settings',
+              //color: Colors.black,
+              onPressed: () => {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Settings(),
+                      ),
+                    ),
+                  }),
+        ],
       ),
-      body: Center(
-        child: Text('Nutrition Screen', style: TextStyle(fontSize: 40)),
+      body: NutritionPage(),
+    );
+  }
+}
+
+class NutritionPage extends StatefulWidget {
+  const NutritionPage({Key? key}) : super(key: key);
+
+  @override
+  _NutritionPageState createState() => _NutritionPageState();
+}
+
+class _NutritionPageState extends State<NutritionPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backGround,
+      body: Container(
+        // height: MediaQuery.of(context).size.height,
+        // width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.all(15),
+        child: ListView(
+          children: [
+            Bounceable(
+              onTap: () {
+                //Log a meal
+              },
+              child: Container(
+                height: 40,
+                child: Material(
+                  borderRadius: BorderRadius.circular(24),
+                  color: orangeColor,
+                  elevation: 7,
+                  child: Center(
+                    child: Text(
+                      'LOG A MEAL',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: basicFont,
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

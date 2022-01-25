@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_new, use_key_in_widget_constructors, sized_box_for_whitespace, unnecessary_this
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:hashtag_fitness/home.dart';
 import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
-
 import 'errorHandling.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -13,12 +12,14 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
+Color orangeColor = Colors.deepOrange;
+String basicFont = 'roughMotion';
+String funkyFont = 'Hyperwave';
+Color backGround = Color(0xFF03111C);
+
 class _SignUpPageState extends State<SignUpPage> {
   final formKey = new GlobalKey<FormState>();
-
   late String email, password;
-  Color orangeColor = Colors.deepOrange;
-  String basicFont = 'roughMotion';
 
   //To check fields during submit
   checkFields() {
@@ -48,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: backGround,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -172,7 +173,6 @@ class _SignUpPageState extends State<SignUpPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Go back (InkWell)
               Bounceable(
                 onTap: () {
                   Navigator.push(
