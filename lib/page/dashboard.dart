@@ -1,65 +1,18 @@
-// import 'package:flutter/material.dart';
-// import 'measurement.dart';
-
-// class Progress extends StatefulWidget {
-//   @override
-//   _ProgressState createState() => _ProgressState();
-// }
-
-// Color orangeColor = Colors.deepOrange;
-// Color backGround = Color(0xFF03111C);
-// String basicFont = 'roughMotion';
-
-// class _ProgressState extends State<Progress> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: backGround,
-//       appBar: AppBar(
-//         title: Text(
-//           'PROGRESS',
-//           style: TextStyle(fontFamily: basicFont),
-//         ),
-//         backgroundColor: backGround,
-//         actions: [
-//           IconButton(
-//             icon: Icon(Icons.straighten),
-//             tooltip: 'Measure',
-//             //color: Colors.black,
-//             onPressed: () => {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => Measurement(),
-//                 ),
-//               ),
-//             },
-//           ),
-//         ],
-//       ),
-//       body: Center(
-//         child: Text('Progress Screen', style: TextStyle(fontSize: 40)),
-//       ),
-//     );
-//   }
-// }
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 
-class Progress extends StatefulWidget {
+class DashboardScreen extends StatefulWidget {
   @override
-  _ProgressState createState() => _ProgressState();
+  _DashboardScreenState createState() => _DashboardScreenState();
 }
 
 Color orangeColor = Colors.deepOrange;
 Color backGround = Color(0xFF03111C);
 String basicFont = 'roughMotion';
 
-class _ProgressState extends State<Progress> {
+class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

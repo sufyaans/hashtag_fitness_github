@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'page/exercise.dart';
 import 'page/measurement.dart';
 import 'page/nutrition.dart';
-import 'page/progress.dart';
+import 'page/dashboard.dart';
 import 'page/workout.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +16,7 @@ class _homeState extends State<Home> {
     Exercise(),
     Measurement(),
     Nutrition(),
-    Progress(),
+    DashboardScreen(),
     Workout()
   ];
 
@@ -134,7 +134,7 @@ class _homeState extends State<Home> {
                     //minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Progress();
+                        currentScreen = DashboardScreen();
                         currentTab = 3;
                       });
                     },
