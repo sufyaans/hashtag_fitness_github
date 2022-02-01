@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hashtag_fitness/home.dart';
+import 'package:hashtag_fitness/page/errorHandling.dart';
+import 'package:hashtag_fitness/page/login.dart';
+
+class AuthService {
+  //Determine if the user is authenticated
+  handleAuth() {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return Home();
+          } else {
+            return LoginPage();
+          }
+        });
+  }
+
+  //Sign out
+  signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+  //Sign in
+  signIn(String email, String password, context) {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((val) {
+      print('signed in');
+    }).catchError((e) {
+      ErrorHandle().errorDialog(context, e);
+    });
+  }
+
+  //Sign up
+  signUp(String email, String password) {
+    return FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+  }
+
+  //Reset password
+  resetPass(String email) {
+    return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+}
+
+//Google login
+class GoogleSignInProvider extends ChangeNotifier {
+  final googlSignin = GoogleSignIn();
+
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount get user => _user!;
+
+  Future googleLogin() async {
+    final googleUser = await googlSignin.signIn();
+    if (googleUser == null) {
+      return;
+    }
+
+    _user = googleUser;
+
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    notifyListeners();
+  }
+}
