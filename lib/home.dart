@@ -147,9 +147,8 @@ class _homeState extends State<Home> {
                               currentTab == 3 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
-                          'Dashboard',
+                          'Dash',
                           style: TextStyle(
-                              fontSize: 13, //remove this fix width restraint
                               color: currentTab == 3
                                   ? Colors.deepOrange
                                   : Colors.grey),
