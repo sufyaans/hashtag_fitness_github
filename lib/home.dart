@@ -47,7 +47,7 @@ class _homeState extends State<Home> {
                     onPressed: () {
                       setState(() {
                         currentScreen = DashboardScreen();
-                        currentTab = 3;
+                        currentTab = 0;
                       });
                     },
                     child: Column(
@@ -75,7 +75,7 @@ class _homeState extends State<Home> {
                     onPressed: () {
                       setState(() {
                         currentScreen = Workout();
-                        currentTab = 0;
+                        currentTab = 1;
                       });
                     },
                     child: Column(
@@ -103,7 +103,7 @@ class _homeState extends State<Home> {
                     onPressed: () {
                       setState(() {
                         currentScreen = Nutrition();
-                        currentTab = 1;
+                        currentTab = 2;
                       });
                     },
                     child: Column(
@@ -135,7 +135,7 @@ class _homeState extends State<Home> {
                     onPressed: () {
                       setState(() {
                         currentScreen = Exercise();
-                        currentTab = 2;
+                        currentTab = 3;
                       });
                     },
                     child: Column(
