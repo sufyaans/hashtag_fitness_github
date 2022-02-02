@@ -68,12 +68,22 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     child: Text(
                       'CREATE A WORKOUT',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: basicFont,
-                          fontSize: 20),
+                        color: Colors.white,
+                        fontFamily: basicFont,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Saved Workouts",
+              style: TextStyle(
+                fontFamily: basicFont,
+                fontSize: 18,
+                color: Colors.white,
               ),
             ),
           ],

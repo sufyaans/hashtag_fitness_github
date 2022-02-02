@@ -34,7 +34,10 @@ class _ExerciseState extends State<Exercise> {
           return Scaffold(
               backgroundColor: backGround,
               appBar: AppBar(
-                title: Text('Exercise'),
+                title: Text(
+                  'Exercise',
+                  style: TextStyle(fontFamily: basicFont),
+                ),
                 backgroundColor: backGround,
                 actions: [
                   IconButton(

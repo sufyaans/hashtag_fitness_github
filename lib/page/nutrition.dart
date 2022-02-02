@@ -82,6 +82,15 @@ class _NutritionPageState extends State<NutritionPage> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
+            Text(
+              "Recent Meals",
+              style: TextStyle(
+                fontFamily: basicFont,
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
