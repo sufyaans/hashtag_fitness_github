@@ -12,10 +12,11 @@ class Exercise extends StatefulWidget {
   _ExerciseState createState() => _ExerciseState();
 }
 
+Color orangeColor = Colors.deepOrange;
+Color backGround = Color(0xFF03111C);
+String basicFont = 'roughMotion';
+
 class _ExerciseState extends State<Exercise> {
-  Color orangeColor = Colors.deepOrange;
-  Color backGround = Color(0xFF03111C);
-  String basicFont = 'roughMotion';
   bool searchState = false;
 
   Stream<QuerySnapshot> getExercises() {

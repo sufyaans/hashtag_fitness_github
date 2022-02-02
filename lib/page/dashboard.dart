@@ -17,13 +17,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backGround,
-      appBar: AppBar(
-        title: Text(
-          'DASHBOARD',
-          style: TextStyle(fontFamily: basicFont),
-        ),
-        backgroundColor: backGround,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'DASHBOARD',
+      //     style: TextStyle(fontFamily: basicFont),
+      //   ),
+      //   backgroundColor: backGround,
+      // ),
       body: Dashboard(),
     );
   }

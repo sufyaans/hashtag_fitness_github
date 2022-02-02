@@ -151,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Container(
               height: 50,
               child: Material(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(25),
                 //shadowColor: Colors.orangeAccent,
                 color: orangeColor,
                 elevation: 7,
@@ -168,7 +168,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -21,7 +21,7 @@ class _homeState extends State<Home> {
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Workout();
+  Widget currentScreen = DashboardScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,34 @@ class _homeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //Dashboard
+                  MaterialButton(
+                    //minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = DashboardScreen();
+                        currentTab = 3;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.space_dashboard,
+                          color:
+                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
+                        ),
+                        Text(
+                          'Dash',
+                          style: TextStyle(
+                              color: currentTab == 3
+                                  ? Colors.deepOrange
+                                  : Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   //Workout
                   MaterialButton(
                     //minWidth: 40,
@@ -122,34 +150,6 @@ class _homeState extends State<Home> {
                           'Exercise',
                           style: TextStyle(
                               color: currentTab == 2
-                                  ? Colors.deepOrange
-                                  : Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //Progress
-                  MaterialButton(
-                    //minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = DashboardScreen();
-                        currentTab = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.space_dashboard,
-                          color:
-                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
-                        ),
-                        Text(
-                          'Dash',
-                          style: TextStyle(
-                              color: currentTab == 3
                                   ? Colors.deepOrange
                                   : Colors.grey),
                         ),
