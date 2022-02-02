@@ -33,6 +33,7 @@ class _homeState extends State<Home> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Color(0xFF03111C), //other colour option 0xFF010e17
+
         child: Container(
           height: 60,
           child: Row(
@@ -56,12 +57,12 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.space_dashboard,
                           color:
-                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 0 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Dash',
                           style: TextStyle(
-                              color: currentTab == 3
+                              color: currentTab == 0
                                   ? Colors.deepOrange
                                   : Colors.grey),
                         ),
@@ -84,12 +85,12 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.add, //Fix icon
                           color:
-                              currentTab == 0 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 1 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
-                              color: currentTab == 0
+                              color: currentTab == 1
                                   ? Colors.deepOrange
                                   : Colors.grey),
                         ),
@@ -112,12 +113,12 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.restaurant, //Fix icon
                           color:
-                              currentTab == 1 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 2 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Nutrition',
                           style: TextStyle(
-                              color: currentTab == 1
+                              color: currentTab == 2
                                   ? Colors.deepOrange
                                   : Colors.grey),
                         ),
@@ -144,12 +145,12 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.fitness_center, //Fix Icon
                           color:
-                              currentTab == 2 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Exercise',
                           style: TextStyle(
-                              color: currentTab == 2
+                              color: currentTab == 3
                                   ? Colors.deepOrange
                                   : Colors.grey),
                         ),
