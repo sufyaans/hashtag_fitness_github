@@ -99,9 +99,14 @@ class ListPage extends StatelessWidget {
               ),
 
               // ------------ Format end -----------------
-              title: Text(snapshot.docs[index]['name']),
+              title: Text(
+                snapshot.docs[index]['name'],
+                style: TextStyle(fontFamily: basicFont),
+              ),
               //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
-              subtitle: Text(snapshot.docs[index]["primaryMuscles"][0]),
+              subtitle: Text(
+                snapshot.docs[index]["primaryMuscles"][0],
+              ),
 
               onTap: () => navigateToDetail(
                   snapshot.docs[index]), //Navigate to specific exercise
