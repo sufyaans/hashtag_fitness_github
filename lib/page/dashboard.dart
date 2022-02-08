@@ -1,5 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hashtag_fitness/page/createWorkout.dart';
+import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 
@@ -13,28 +19,184 @@ Color backGround = Color(0xFF03111C);
 String basicFont = 'roughMotion';
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  Stream<QuerySnapshot> getName() {
+    var firestore = FirebaseFirestore.instance;
+    Stream<QuerySnapshot<Map<String, dynamic>>> qn =
+        firestore.collection("users").snapshots();
+    return qn;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backGround,
-      // appBar: AppBar(
-      //   title: Text(
-      //     'DASHBOARD',
-      //     style: TextStyle(fontFamily: basicFont),
-      //   ),
-      //   backgroundColor: backGround,
-      // ),
-      body: Dashboard(),
-    );
+    // return Scaffold(
+    //     backgroundColor: backGround,
+    //     // appBar: AppBar(
+    //     //   title: Text(
+    //     //     'DASHBOARD',
+    //     //     style: TextStyle(fontFamily: basicFont),
+    //     //   ),
+    //     //   backgroundColor: backGround,
+    //     // ),
+    //     body: snapshot.hasData
+    //         ? Dashboard(context: context, snapshot: snapshot.data!)
+    //         : SpinKitRing(color: Colors.white, size: 50.0));
+
+    return StreamBuilder<QuerySnapshot>(
+        stream: getName(),
+        builder: (context, snapshot) {
+          return Scaffold(
+              backgroundColor: backGround,
+              // appBar: AppBar(
+              //   title: Text(
+              //     'DASHBOARD',
+              //     style: TextStyle(fontFamily: basicFont),
+              //   ),
+              //   backgroundColor: backGround,
+              // ),
+              body: snapshot.hasData
+                  ? Dashboard(context: context, snapshot: snapshot.data!)
+                  : SpinKitRing(color: Colors.white, size: 50.0));
+        });
   }
 }
 
-class Dashboard extends StatefulWidget {
-  @override
-  _DashboardState createState() => _DashboardState();
-}
+// class Dashboard extends StatefulWidget {
+//   @override
+//   _DashboardState createState() => _DashboardState();
+// }
 
-class _DashboardState extends State<Dashboard> {
+// class _DashboardState extends State<Dashboard> {
+//   // --------------------------------
+//   Stream<QuerySnapshot> getExercises() {
+//     var firestore = FirebaseFirestore.instance;
+//     Stream<QuerySnapshot<Map<String, dynamic>>> qn =
+//         firestore.collection("users").snapshots();
+//     return qn;
+//   }
+//   late QuerySnapshot snapshot;
+
+//   // -----------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Column(
+//         children: <Widget>[
+//           //Welcome and login
+//           Container(
+//             child: Padding(
+//               padding: const EdgeInsets.all(20),
+//               child: Container(
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Column(
+//                       children: <Widget>[
+//                         Text(
+//                           "Welcome to #Fitness",
+//                           style: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 30,
+//                             fontFamily: basicFont,
+//                             fontWeight: FontWeight.w900,
+//                           ),
+//                         ), //Hello + user's name/email address
+//                       ],
+//                     ),
+//                     IconButton(
+//                       onPressed: () {
+//                         //FirebaseAuth.instance.signOut();
+//                         //Navigator.of(context).pop();
+//                         AuthService().signOut();
+//                         Navigator.of(context).pop;
+//                       },
+//                       icon: Icon(Icons.logout),
+//                       color: Colors.white,
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//           //Submenu navigation
+//           Padding(
+//             padding: const EdgeInsets.only(
+//               left: 10,
+//             ),
+//             child: Container(
+//               height: 130,
+//               width: MediaQuery.of(context).size.width,
+//               child: Column(
+//                 children: <Widget>[
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Shortcuts',
+//                         style: TextStyle(
+//                           fontSize: 20,
+//                           color: Colors.white,
+//                           fontFamily: basicFont,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       children: <Widget>[
+//                         createWorkout(),
+//                         logMeal(),
+//                         logMeasurement(),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+
+//           Padding(
+//             padding: const EdgeInsets.only(
+//               left: 10,
+//             ),
+//             child: Container(
+//               height: 130,
+//               width: MediaQuery.of(context).size.width,
+//               child: Column(
+//                 children: <Widget>[
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Progress',
+//                         style: TextStyle(
+//                           fontSize: 20,
+//                           color: Colors.white,
+//                           fontFamily: basicFont,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   // SingleChildScrollView(
+//                   //   scrollDirection: Axis.horizontal,
+
+//                   // ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+class Dashboard extends StatelessWidget {
+  final BuildContext context;
+  final QuerySnapshot snapshot;
+  const Dashboard({Key? key, required this.context, required this.snapshot})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +213,7 @@ class _DashboardState extends State<Dashboard> {
                     Column(
                       children: <Widget>[
                         Text(
-                          "Welcome to #FITNESS",
+                          "Hello  " + snapshot.docs[0]['name'],
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
@@ -160,7 +322,11 @@ class createWorkout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Bounceable(
       onTap: () {
-        //Create a workout template
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CreateWorkoutScreen(),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(
@@ -180,7 +346,7 @@ class createWorkout extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.add), //Add workout image
+                  Icon(Icons.add),
                   SizedBox(width: 10),
                   // Text(
                   //   "Create a workout",
@@ -216,7 +382,12 @@ class logMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Bounceable(
       onTap: () {
-        //log a Meal
+        //Navigate to log a meal
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LogMealScreen(),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(

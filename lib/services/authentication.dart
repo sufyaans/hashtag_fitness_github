@@ -1,10 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hashtag_fitness/home.dart';
 import 'package:hashtag_fitness/page/errorHandling.dart';
 import 'package:hashtag_fitness/page/login.dart';
+import 'package:hashtag_fitness/services/database.dart';
+import 'package:hashtag_fitness/services/user.dart';
 
 class AuthService {
   //Determine if the user is authenticated
@@ -19,6 +22,11 @@ class AuthService {
           }
         });
   }
+
+  // create user obj based on firebase user
+  // User _userFromFirebaseUser(UserCredential user) {
+  //   return user != null ? User(uid: user.uid) : null;
+  // }
 
   //Sign out
   signOut() {
@@ -36,11 +44,22 @@ class AuthService {
     });
   }
 
-  //Sign up
-  signUp(String email, String password) {
-    return FirebaseAuth.instance
+  // //Sign up
+  signUp(String name, String email, String password) async {
+    UserCredential result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
+    User? user = result.user;
+    await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
+    //return _userFromFirebaseUser(user);
+
+    return result;
   }
+
+  //Sign up
+  // signUp(String email, String password) {
+  //   return FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(email: email, password: password);
+  // }
 
   //Reset password
   resetPass(String email) {

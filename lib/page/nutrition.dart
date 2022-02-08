@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/page/settings.dart';
 
 class Nutrition extends StatefulWidget {
@@ -25,15 +26,11 @@ class _NutritionState extends State<Nutrition> {
         backgroundColor: Color(0xFF03111C),
         actions: [
           IconButton(
-              icon: Icon(Icons.settings),
-              tooltip: 'Settings',
+              icon: Icon(Icons.calendar_today),
+              tooltip: 'Calendar',
               //color: Colors.black,
               onPressed: () => {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => Settings(),
-                      ),
-                    ),
+                    // View history of meals
                   }),
         ],
       ),
@@ -63,6 +60,11 @@ class _NutritionPageState extends State<NutritionPage> {
             Bounceable(
               onTap: () {
                 //Log a meal
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LogMealScreen(),
+                  ),
+                );
               },
               child: Container(
                 height: 40,

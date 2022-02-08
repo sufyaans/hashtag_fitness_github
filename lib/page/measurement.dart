@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 
@@ -50,7 +52,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Body Weight',
+              labelText: 'Body Weight (kg)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -73,7 +75,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Body Fat Percentage',
+              labelText: 'Body Fat (%)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -96,7 +98,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Chest Measurement',
+              labelText: 'Chest Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -119,7 +121,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Waist Measurement',
+              labelText: 'Waist Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -142,7 +144,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Neck Measurement',
+              labelText: 'Neck Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -165,7 +167,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Right Arm Measurement',
+              labelText: 'Right Arm Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -188,7 +190,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Left Arm Measurement',
+              labelText: 'Left Arm Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -211,7 +213,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Chest Measurement',
+              labelText: 'Chest Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -234,7 +236,30 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Left Thigh Measurement',
+              labelText: 'Left Thigh Measurement (cm)',
+              labelStyle: TextStyle(
+                fontFamily: basicFont,
+                fontSize: 18,
+                color: Colors.white.withOpacity(0.5),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: orangeColor),
+              ),
+            ),
+            onChanged: (value) {
+              //
+            },
+          ),
+
+          //Right Thigh Measurement
+          SizedBox(height: 25),
+          TextFormField(
+            keyboardType: TextInputType.number,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.5),
+            ),
+            decoration: InputDecoration(
+              labelText: 'Right Thigh Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -257,7 +282,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               color: Colors.white.withOpacity(0.5),
             ),
             decoration: InputDecoration(
-              labelText: 'Hip Measurement',
+              labelText: 'Hip Measurement (cm)',
               labelStyle: TextStyle(
                 fontFamily: basicFont,
                 fontSize: 18,
@@ -298,6 +323,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
               ),
             ),
           ),
+          SizedBox(height: 25),
         ],
       ),
     );

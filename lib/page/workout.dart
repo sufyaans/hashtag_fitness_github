@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:hashtag_fitness/page/createWorkout.dart';
 
 class Workout extends StatefulWidget {
   @override
@@ -56,7 +57,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
           children: [
             Bounceable(
               onTap: () {
-                //Create a workout template
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CreateWorkoutScreen(),
+                  ),
+                );
               },
               child: Container(
                 height: 40,

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -16,7 +17,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final formKey = new GlobalKey<FormState>();
 
-  late String email, password;
+  late String name, email, password;
   Color orangeColor = Colors.deepOrange;
   String basicFont = 'roughMotion';
 
@@ -82,6 +83,28 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
           ),
+          //NAME
+          SizedBox(height: 25),
+          TextFormField(
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: TextStyle(
+                  fontFamily: basicFont,
+                  fontSize: 15,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: orangeColor),
+                ),
+              ),
+              onChanged: (value) {
+                this.name = value;
+              },
+              validator: (value) => value!.isEmpty ? 'Name is required' : null),
+          //EMAIL
           SizedBox(height: 25),
           TextFormField(
               style: TextStyle(
@@ -103,6 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
+          //Password
           TextFormField(
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
@@ -129,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Bounceable(
             onTap: () {
               if (checkFields()) {
-                AuthService().signUp(email, password).then((userCreds) {
+                AuthService().signUp(name, email, password).then((userCreds) {
                   Navigator.of(context).pop();
                 }).catchError(
                   (e) {

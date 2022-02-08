@@ -1,13 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_new, sized_box_for_whitespace, unnecessary_this
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/forgotPassword.dart';
 import 'package:hashtag_fitness/page/signup.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:provider/provider.dart';
-import 'errorHandling.dart';
 
 class LoginPage extends StatefulWidget {
   @override
