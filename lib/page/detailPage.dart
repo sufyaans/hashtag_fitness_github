@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hashtag_fitness/page/dashboard.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class DetailPage extends StatefulWidget {
   final QueryDocumentSnapshot? exercise;
@@ -36,7 +37,7 @@ class _DetailPageState extends State<DetailPage> {
           int index = 0;
           return Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: vr.whiteColor,
               borderRadius: BorderRadius.vertical(top: Radius.circular(18.0)),
             ),
             padding: EdgeInsets.all(16.0),
@@ -48,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
                   child: Text(
                     widget.exercise!['name'],
                     style: TextStyle(
-                      fontFamily: basicFont,
+                      fontFamily: vr.basicFont,
                       fontSize: 24,
                     ),
                     textAlign: TextAlign.center,

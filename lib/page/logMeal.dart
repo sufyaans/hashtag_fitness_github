@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
-
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class LogMealScreen extends StatefulWidget {
   const LogMealScreen({Key? key}) : super(key: key);
@@ -18,13 +15,13 @@ class _LogMealScreenState extends State<LogMealScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: vr.backGround,
       appBar: AppBar(
         title: Text(
           'Add a Meal',
-          style: TextStyle(fontFamily: basicFont),
+          style: TextStyle(fontFamily: vr.basicFont),
         ),
-        backgroundColor: backGround,
+        backgroundColor: vr.backGround,
       ),
       body: LogMeal(),
     );

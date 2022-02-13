@@ -8,15 +8,12 @@ import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class DashboardScreen extends StatefulWidget {
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
-
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
 
 class _DashboardScreenState extends State<DashboardScreen> {
   Stream<QuerySnapshot> getName() {
@@ -45,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         stream: getName(),
         builder: (context, snapshot) {
           return Scaffold(
-              backgroundColor: backGround,
+              backgroundColor: vr.backGround,
               // appBar: AppBar(
               //   title: Text(
               //     'DASHBOARD',
@@ -55,141 +52,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               // ),
               body: snapshot.hasData
                   ? Dashboard(context: context, snapshot: snapshot.data!)
-                  : SpinKitRing(color: Colors.white, size: 50.0));
+                  : SpinKitRing(color: vr.whiteColor, size: 50.0));
         });
   }
 }
-
-// class Dashboard extends StatefulWidget {
-//   @override
-//   _DashboardState createState() => _DashboardState();
-// }
-
-// class _DashboardState extends State<Dashboard> {
-//   // --------------------------------
-//   Stream<QuerySnapshot> getExercises() {
-//     var firestore = FirebaseFirestore.instance;
-//     Stream<QuerySnapshot<Map<String, dynamic>>> qn =
-//         firestore.collection("users").snapshots();
-//     return qn;
-//   }
-//   late QuerySnapshot snapshot;
-
-//   // -----------------------------------------
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Column(
-//         children: <Widget>[
-//           //Welcome and login
-//           Container(
-//             child: Padding(
-//               padding: const EdgeInsets.all(20),
-//               child: Container(
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Column(
-//                       children: <Widget>[
-//                         Text(
-//                           "Welcome to #Fitness",
-//                           style: TextStyle(
-//                             color: Colors.white,
-//                             fontSize: 30,
-//                             fontFamily: basicFont,
-//                             fontWeight: FontWeight.w900,
-//                           ),
-//                         ), //Hello + user's name/email address
-//                       ],
-//                     ),
-//                     IconButton(
-//                       onPressed: () {
-//                         //FirebaseAuth.instance.signOut();
-//                         //Navigator.of(context).pop();
-//                         AuthService().signOut();
-//                         Navigator.of(context).pop;
-//                       },
-//                       icon: Icon(Icons.logout),
-//                       color: Colors.white,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//           //Submenu navigation
-//           Padding(
-//             padding: const EdgeInsets.only(
-//               left: 10,
-//             ),
-//             child: Container(
-//               height: 130,
-//               width: MediaQuery.of(context).size.width,
-//               child: Column(
-//                 children: <Widget>[
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Text(
-//                         'Shortcuts',
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                           color: Colors.white,
-//                           fontFamily: basicFont,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   SingleChildScrollView(
-//                     scrollDirection: Axis.horizontal,
-//                     child: Row(
-//                       children: <Widget>[
-//                         createWorkout(),
-//                         logMeal(),
-//                         logMeasurement(),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-
-//           Padding(
-//             padding: const EdgeInsets.only(
-//               left: 10,
-//             ),
-//             child: Container(
-//               height: 130,
-//               width: MediaQuery.of(context).size.width,
-//               child: Column(
-//                 children: <Widget>[
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Text(
-//                         'Progress',
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                           color: Colors.white,
-//                           fontFamily: basicFont,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   // SingleChildScrollView(
-//                   //   scrollDirection: Axis.horizontal,
-
-//                   // ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class Dashboard extends StatelessWidget {
   final BuildContext context;
@@ -215,9 +81,9 @@ class Dashboard extends StatelessWidget {
                         Text(
                           "Hello  " + snapshot.docs[0]['name'],
                           style: TextStyle(
-                            color: Colors.white,
+                            color: vr.whiteColor,
                             fontSize: 30,
-                            fontFamily: basicFont,
+                            fontFamily: vr.basicFont,
                             fontWeight: FontWeight.w900,
                           ),
                         ), //Hello + user's name/email address
@@ -231,7 +97,7 @@ class Dashboard extends StatelessWidget {
                         Navigator.of(context).pop;
                       },
                       icon: Icon(Icons.logout),
-                      color: Colors.white,
+                      color: vr.whiteColor,
                     ),
                   ],
                 ),
@@ -255,8 +121,8 @@ class Dashboard extends StatelessWidget {
                         'Shortcuts',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: basicFont,
+                          color: vr.whiteColor,
+                          fontFamily: vr.basicFont,
                         ),
                       ),
                     ],
@@ -292,8 +158,8 @@ class Dashboard extends StatelessWidget {
                         'Progress',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: basicFont,
+                          color: vr.whiteColor,
+                          fontFamily: vr.basicFont,
                         ),
                       ),
                     ],
@@ -337,7 +203,7 @@ class createWorkout extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: Colors.white, //Change colour later on
+            color: vr.whiteColor, //Change colour later on
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -360,7 +226,7 @@ class createWorkout extends StatelessWidget {
               Text(
                 "Create a workout",
                 style: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                 ),
               ),
@@ -398,7 +264,7 @@ class logMeal extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: Colors.white, //Change colour later on
+            color: vr.whiteColor, //Change colour later on
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -423,7 +289,7 @@ class logMeal extends StatelessWidget {
               Text(
                 "Log a meal",
                 style: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                 ),
               ),
@@ -460,7 +326,7 @@ class logMeasurement extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: Colors.white, //Change colour later on
+            color: vr.whiteColor, //Change colour later on
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -478,7 +344,7 @@ class logMeasurement extends StatelessWidget {
               Text(
                 "Log a Measurement",
                 style: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                 ),
               ),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_this
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
+
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 import 'errorHandling.dart';
 
@@ -18,8 +20,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey = new GlobalKey<FormState>();
 
   late String name, email, password;
-  Color orangeColor = Colors.deepOrange;
-  String basicFont = 'roughMotion';
 
   //To check fields during submit
   checkFields() {
@@ -75,9 +75,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Text(
                   'Signup',
                   style: TextStyle(
-                    fontFamily: basicFont,
+                    fontFamily: vr.basicFont,
                     fontSize: 50,
-                    color: Colors.white,
+                    color: vr.whiteColor,
                   ),
                 ),
               ],
@@ -92,12 +92,12 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                 labelText: 'Name',
                 labelStyle: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                   color: Colors.white.withOpacity(0.5),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: orangeColor),
+                  borderSide: BorderSide(color: vr.orangeColor),
                 ),
               ),
               onChanged: (value) {
@@ -113,12 +113,12 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                 labelText: 'EMAIL',
                 labelStyle: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                   color: Colors.white.withOpacity(0.5),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: orangeColor),
+                  borderSide: BorderSide(color: vr.orangeColor),
                 ),
               ),
               onChanged: (value) {
@@ -134,12 +134,12 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                 labelText: 'PASSWORD',
                 labelStyle: TextStyle(
-                  fontFamily: basicFont,
+                  fontFamily: vr.basicFont,
                   fontSize: 15,
                   color: Colors.white.withOpacity(0.5),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: orangeColor),
+                  borderSide: BorderSide(color: vr.orangeColor),
                 ),
               ),
               obscureText: true,
@@ -177,14 +177,14 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Material(
                 borderRadius: BorderRadius.circular(25),
                 //shadowColor: Colors.orangeAccent,
-                color: orangeColor,
+                color: vr.orangeColor,
                 elevation: 7,
                 child: Center(
                   child: Text(
                     'SIGN UP',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: basicFont,
+                      color: vr.whiteColor,
+                      fontFamily: vr.basicFont,
                       fontSize: 20,
                     ),
                   ),
@@ -209,8 +209,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Text(
                   'Go back',
                   style: TextStyle(
-                      color: orangeColor,
-                      fontFamily: basicFont,
+                      color: vr.orangeColor,
+                      fontFamily: vr.basicFont,
                       fontSize: 18,
                       decoration: TextDecoration.underline),
                 ),

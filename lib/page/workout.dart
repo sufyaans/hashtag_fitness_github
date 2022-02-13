@@ -3,27 +3,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class Workout extends StatefulWidget {
   @override
   _WorkoutState createState() => _WorkoutState();
 }
 
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
-
 class _WorkoutState extends State<Workout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: vr.backGround,
       appBar: AppBar(
         title: Text(
           'Workout',
-          style: TextStyle(fontFamily: basicFont),
+          style: TextStyle(fontFamily: vr.basicFont),
         ),
-        backgroundColor: backGround,
+        backgroundColor: vr.backGround,
         actions: [
           IconButton(
               icon: Icon(Icons.calendar_today),
@@ -48,7 +45,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: vr.backGround,
       body: Container(
         // height: MediaQuery.of(context).size.height,
         // width: MediaQuery.of(context).size.width,
@@ -67,14 +64,14 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 height: 40,
                 child: Material(
                   borderRadius: BorderRadius.circular(24),
-                  color: orangeColor,
+                  color: vr.orangeColor,
                   elevation: 7,
                   child: Center(
                     child: Text(
                       'CREATE A WORKOUT',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: basicFont,
+                        color: vr.whiteColor,
+                        fontFamily: vr.basicFont,
                         fontSize: 20,
                       ),
                     ),
@@ -86,9 +83,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
             Text(
               "Saved Workouts",
               style: TextStyle(
-                fontFamily: basicFont,
+                fontFamily: vr.basicFont,
                 fontSize: 18,
-                color: Colors.white,
+                color: vr.whiteColor,
               ),
             ),
           ],

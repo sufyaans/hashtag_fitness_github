@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 //Exercise database needs to be added
 class Exercise extends StatefulWidget {
@@ -11,10 +12,6 @@ class Exercise extends StatefulWidget {
   @override
   _ExerciseState createState() => _ExerciseState();
 }
-
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
 
 class _ExerciseState extends State<Exercise> {
   bool searchState = false;
@@ -32,13 +29,13 @@ class _ExerciseState extends State<Exercise> {
         stream: getExercises(),
         builder: (context, snapshot) {
           return Scaffold(
-              backgroundColor: backGround,
+              backgroundColor: vr.backGround,
               appBar: AppBar(
                 title: Text(
                   'Exercise',
-                  style: TextStyle(fontFamily: basicFont),
+                  style: TextStyle(fontFamily: vr.basicFont),
                 ),
-                backgroundColor: backGround,
+                backgroundColor: vr.backGround,
                 actions: [
                   IconButton(
                     icon: Icon(Icons.search),
@@ -61,7 +58,7 @@ class _ExerciseState extends State<Exercise> {
               ),
               body: snapshot.hasData
                   ? ListPage(context: context, snapshot: snapshot.data!)
-                  : SpinKitRing(color: Colors.white, size: 50.0));
+                  : SpinKitRing(color: vr.whiteColor, size: 50.0));
         });
   }
 }
@@ -101,7 +98,7 @@ class ListPage extends StatelessWidget {
               // ------------ Format end -----------------
               title: Text(
                 snapshot.docs[index]['name'],
-                style: TextStyle(fontFamily: basicFont),
+                style: TextStyle(fontFamily: vr.basicFont),
               ),
               //subtitle: Text(snapshot.data!.docs[index]["primaryMuscles"][0]),
               subtitle: Text(

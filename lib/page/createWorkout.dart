@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, file_names
 
 import 'package:flutter/material.dart';
-
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class CreateWorkoutScreen extends StatefulWidget {
   const CreateWorkoutScreen({Key? key}) : super(key: key);
@@ -17,13 +14,13 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: vr.backGround,
       appBar: AppBar(
         title: Text(
           'Create a workout',
-          style: TextStyle(fontFamily: basicFont),
+          style: TextStyle(fontFamily: vr.basicFont),
         ),
-        backgroundColor: backGround,
+        backgroundColor: vr.backGround,
       ),
       body: createWorkout(),
     );

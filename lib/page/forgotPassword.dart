@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 
+import 'package:hashtag_fitness/variables.dart' as vr;
+
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
 
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
 }
-
-Color orangeColor = Colors.deepOrange;
-Color backGround = Color(0xFF03111C);
-String basicFont = 'roughMotion';
 
 class _ResetPasswordState extends State<ResetPassword> {
   final formKey = new GlobalKey<FormState>();
@@ -48,7 +46,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: vr.backGround,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -74,9 +72,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                   Text(
                     'Reset Password',
                     style: TextStyle(
-                      fontFamily: basicFont,
+                      fontFamily: vr.basicFont,
                       fontSize: 40,
-                      color: Colors.white,
+                      color: vr.whiteColor,
                     ),
                   ),
                 ],
@@ -87,12 +85,12 @@ class _ResetPasswordState extends State<ResetPassword> {
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
-                    fontFamily: basicFont,
+                    fontFamily: vr.basicFont,
                     fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
+                    borderSide: BorderSide(color: vr.orangeColor),
                   )),
               onChanged: (value) {
                 this.email = value;
@@ -114,14 +112,14 @@ class _ResetPasswordState extends State<ResetPassword> {
               height: 50,
               child: Material(
                 borderRadius: BorderRadius.circular(25),
-                color: orangeColor,
+                color: vr.orangeColor,
                 elevation: 7,
                 child: Center(
                   child: Text(
                     'RESET',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: basicFont,
+                      color: vr.whiteColor,
+                      fontFamily: vr.basicFont,
                       fontSize: 20,
                     ),
                   ),
@@ -140,8 +138,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: Text(
                   'Go back',
                   style: TextStyle(
-                      color: orangeColor,
-                      fontFamily: basicFont,
+                      color: vr.orangeColor,
+                      fontFamily: vr.basicFont,
                       fontSize: 18,
                       decoration: TextDecoration.underline),
                 ),

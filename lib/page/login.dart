@@ -7,6 +7,8 @@ import 'package:hashtag_fitness/page/signup.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:provider/provider.dart';
 
+import 'package:hashtag_fitness/variables.dart' as vr;
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -16,9 +18,10 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = new GlobalKey<FormState>();
 
   late String email, password;
-  Color orangeColor = Colors.deepOrange;
-  String basicFont = 'roughMotion';
-  String funkyFont = 'Hyperwave';
+  // Color orangeColor = Colors.deepOrange;
+  // Color backGround = Color(0xFF03111C);
+  // String basicFont = 'roughMotion';
+  // String funkyFont = 'Hyperwave';
 
   //To check fields during submit
   checkFields() {
@@ -47,14 +50,23 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF03111C),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Form(
-          key: formKey,
-          child: _buildLoginForm(),
+    return Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     begin: Alignment.topLeft,
+      //     end: Alignment(0.0, 3.0),
+      //     colors: [backGround, backGround2],
+      //   ),
+      // ),
+      child: Scaffold(
+        backgroundColor: vr.backGround, //Colors.transparent,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Form(
+            key: formKey,
+            child: _buildLoginForm(),
+          ),
         ),
       ),
     );
@@ -78,9 +90,9 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Welcome to',
                     style: TextStyle(
-                      fontFamily: funkyFont,
+                      fontFamily: vr.funkyFont,
                       fontSize: 90,
-                      color: Colors.white,
+                      color: vr.whiteColor,
                     ),
                   ),
                   Positioned(
@@ -88,9 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       '#FITNESS',
                       style: TextStyle(
-                        fontFamily: funkyFont,
+                        fontFamily: vr.funkyFont,
                         fontSize: 80,
-                        color: Colors.deepOrange,
+                        color: vr.orangeColor,
                         letterSpacing: 1,
                       ),
                     ),
@@ -108,12 +120,12 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                   labelText: 'EMAIL',
                   labelStyle: TextStyle(
-                    fontFamily: basicFont,
+                    fontFamily: vr.basicFont,
                     fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
+                    borderSide: BorderSide(color: vr.orangeColor),
                   )),
               onChanged: (value) {
                 this.email = value;
@@ -127,12 +139,12 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                   labelText: 'PASSWORD',
                   labelStyle: TextStyle(
-                    fontFamily: basicFont,
+                    fontFamily: vr.basicFont,
                     fontSize: 15,
                     color: Colors.white.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: orangeColor),
+                    borderSide: BorderSide(color: vr.orangeColor),
                   )),
               obscureText: true,
               onChanged: (value) {
@@ -159,8 +171,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Forgot Password',
                     style: TextStyle(
-                        color: orangeColor,
-                        fontFamily: basicFont,
+                        color: vr.orangeColor,
+                        fontFamily: vr.basicFont,
                         fontSize: 18,
                         decoration: TextDecoration.underline),
                   ),
@@ -180,14 +192,14 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50,
                 child: Material(
                   borderRadius: BorderRadius.circular(25),
-                  color: orangeColor,
+                  color: vr.orangeColor,
                   elevation: 7,
                   child: Center(
                     child: Text(
                       'LOGIN',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: basicFont,
+                          color: vr.whiteColor,
+                          fontFamily: vr.basicFont,
                           fontSize: 20),
                     ),
                   ),
@@ -223,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                       Center(
                         child: ImageIcon(
                           AssetImage('assets/google.png'),
-                          color: Colors.white,
+                          color: vr.whiteColor,
                           size: 15,
                         ),
                       ),
@@ -234,8 +246,8 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Login with Google',
                           style: TextStyle(
-                            fontFamily: basicFont,
-                            color: Colors.white,
+                            fontFamily: vr.basicFont,
+                            color: vr.whiteColor,
                             fontSize: 20,
                           ),
                         ),
@@ -251,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 'New to Hashtag Fitness?',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: vr.whiteColor,
                   fontSize: 18,
                 ),
               ),
@@ -268,8 +280,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'Sign up',
                   style: TextStyle(
-                      color: orangeColor,
-                      fontFamily: basicFont,
+                      color: vr.orangeColor,
+                      fontFamily: vr.basicFont,
                       fontSize: 18,
                       decoration: TextDecoration.underline),
                 ),
