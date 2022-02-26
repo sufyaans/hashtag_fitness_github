@@ -93,6 +93,7 @@ class Dashboard extends StatelessWidget {
                       onPressed: () {
                         //FirebaseAuth.instance.signOut();
                         //Navigator.of(context).pop();
+
                         AuthService().signOut();
                         Navigator.of(context).pop;
                       },
