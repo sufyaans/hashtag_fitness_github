@@ -36,6 +36,8 @@ class LogMeal extends StatefulWidget {
 }
 
 class _LogMealState extends State<LogMeal> {
+  late String mealType, itemsConsumed, quantity, calories, fat, carbs, protein;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,7 +63,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.mealType = value;
             },
             //validator: (value) => value!.isEmpty ? 'Type of Meal is required' : null
           ),
@@ -85,7 +87,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.itemsConsumed = value;
             },
             //validator: (value) => value!.isEmpty ? 'Items consumed is required' : null
           ),
@@ -109,7 +111,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.quantity = value;
             },
             //validator: (value) => value!.isEmpty ? 'Quantity is required' : null
           ),
@@ -133,7 +135,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.calories = value;
             },
             //validator: (value) => value!.isEmpty ? 'Type of Meal is required' : null
           ),
@@ -157,7 +159,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.fat = value;
             },
             //validator: (value) => value!.isEmpty ? 'Fat is required' : null
           ),
@@ -181,7 +183,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.carbs = value;
             },
             //validator: (value) => value!.isEmpty ? 'Carbs is required' : null
           ),
@@ -205,7 +207,7 @@ class _LogMealState extends State<LogMeal> {
               ),
             ),
             onChanged: (value) {
-              //this.bodyWeight = value;
+              this.protein = value;
             },
             //validator: (value) => value!.isEmpty ? 'Protein is required' : null
           ),
