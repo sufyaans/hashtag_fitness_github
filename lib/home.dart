@@ -25,6 +25,8 @@ class _homeState extends State<Home> {
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = DashboardScreen();
 
+// FIX NAVIGATION BAR (Not central)
+// --------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +64,7 @@ class _homeState extends State<Home> {
                               currentTab == 0 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
-                          'Dash',
+                          'Dashboard',
                           style: TextStyle(
                               color: currentTab == 0
                                   ? Colors.deepOrange
@@ -101,6 +103,38 @@ class _homeState extends State<Home> {
                   ),
 
                   // Nutrition
+                  // MaterialButton(
+                  //   //minWidth: 40,
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       currentScreen = Nutrition();
+                  //       currentTab = 2;
+                  //     });
+                  //   },
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Icon(
+                  //         Icons.restaurant, //Fix icon
+                  //         color:
+                  //             currentTab == 2 ? Colors.deepOrange : Colors.grey,
+                  //       ),
+                  //       Text(
+                  //         'Nutrition',
+                  //         style: TextStyle(
+                  //             color: currentTab == 2
+                  //                 ? Colors.deepOrange
+                  //                 : Colors.grey),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Nutrition
                   MaterialButton(
                     //minWidth: 40,
                     onPressed: () {
@@ -127,11 +161,7 @@ class _homeState extends State<Home> {
                       ],
                     ),
                   ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+
                   // Exercise
                   MaterialButton(
                     //minWidth: 40,
