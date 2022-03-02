@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -18,42 +19,35 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   Stream<QuerySnapshot> getName() {
     var firestore = FirebaseFirestore.instance;
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
     Stream<QuerySnapshot<Map<String, dynamic>>> qn =
         firestore.collection("users").snapshots();
+    // firestore
+    //     .collection("users")
+    //     .where("user_id", isEqualTo: uid)
+    //     .snapshots();
     return qn;
   }
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     backgroundColor: backGround,
-    //     // appBar: AppBar(
-    //     //   title: Text(
-    //     //     'DASHBOARD',
-    //     //     style: TextStyle(fontFamily: basicFont),
-    //     //   ),
-    //     //   backgroundColor: backGround,
-    //     // ),
-    //     body: snapshot.hasData
-    //         ? Dashboard(context: context, snapshot: snapshot.data!)
-    //         : SpinKitRing(color: Colors.white, size: 50.0));
-
     return StreamBuilder<QuerySnapshot>(
-        stream: getName(),
-        builder: (context, snapshot) {
-          return Scaffold(
-              backgroundColor: vr.backGround,
-              // appBar: AppBar(
-              //   title: Text(
-              //     'DASHBOARD',
-              //     style: TextStyle(fontFamily: basicFont),
-              //   ),
-              //   backgroundColor: backGround,
-              // ),
-              body: snapshot.hasData
-                  ? Dashboard(context: context, snapshot: snapshot.data!)
-                  : SpinKitRing(color: vr.whiteColor, size: 50.0));
-        });
+      stream: getName(),
+      builder: (context, snapshot) {
+        return Scaffold(
+            backgroundColor: vr.backGround,
+            // appBar: AppBar(
+            //   title: Text(
+            //     'DASHBOARD',
+            //     style: TextStyle(fontFamily: basicFont),
+            //   ),
+            //   backgroundColor: backGround,
+            // ),
+            body: snapshot.hasData
+                ? Dashboard(context: context, snapshot: snapshot.data!)
+                : SpinKitRing(color: vr.whiteColor, size: 50.0));
+      },
+    );
   }
 }
 
@@ -93,6 +87,7 @@ class Dashboard extends StatelessWidget {
                       onPressed: () {
                         //FirebaseAuth.instance.signOut();
                         //Navigator.of(context).pop();
+
                         AuthService().signOut();
                         Navigator.of(context).pop;
                       },
