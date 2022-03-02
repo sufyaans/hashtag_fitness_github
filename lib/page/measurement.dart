@@ -22,6 +22,15 @@ class _MeasurementState extends State<Measurement> {
           style: TextStyle(fontFamily: vr.basicFont),
         ),
         backgroundColor: vr.backGround,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.calendar_today),
+              tooltip: 'Calendar',
+              //color: Colors.black,
+              onPressed: () => {
+                    // View history of meals
+                  }),
+        ],
       ),
       body: MeasurementLog(),
     );

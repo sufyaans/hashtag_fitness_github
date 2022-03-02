@@ -83,6 +83,7 @@ class Dashboard extends StatelessWidget {
                         ), //Hello + user's name/email address
                       ],
                     ),
+                    //Log out
                     IconButton(
                       onPressed: () {
                         //FirebaseAuth.instance.signOut();
@@ -92,6 +93,7 @@ class Dashboard extends StatelessWidget {
                         Navigator.of(context).pop;
                       },
                       icon: Icon(Icons.logout),
+                      tooltip: 'Log out',
                       color: vr.whiteColor,
                     ),
                   ],
