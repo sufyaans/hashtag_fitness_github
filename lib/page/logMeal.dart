@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hashtag_fitness/page/nutritionCalendar.dart';
-import 'package:hashtag_fitness/services/authentication.dart';
-import 'measurement.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 
 class LogMealScreen extends StatefulWidget {
