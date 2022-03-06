@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:hashtag_fitness/variables.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 /// Example event class.
 class Event {
@@ -89,7 +92,7 @@ class _CalendarState extends State<Calendar> {
     // print(_kEventSource);
     // Get data from docs and convert map to List
     final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
+
     for (var i in allData) {
       setState(() {
         if ((i! as Map<String, dynamic>)['Dummy'] != 'Dummy') {
@@ -121,10 +124,8 @@ class _CalendarState extends State<Calendar> {
                         '${(i as Map<String, dynamic>)['Hip Measurement (CM)']}'),
                   ]);
         }
-        print(_kEventSource);
       });
     }
-    print(allData);
   }
 
   @override
@@ -180,7 +181,7 @@ class _CalendarState extends State<Calendar> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
+    // start or end could be null
     if (start != null && end != null) {
       _selectedEvents!.value = _getEventsForRange(start, end);
     } else if (start != null) {
@@ -194,6 +195,7 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     try {
       return Scaffold(
+        backgroundColor: vr.backGround,
         appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
         body: loaded
             ? Column(
@@ -209,8 +211,26 @@ class _CalendarState extends State<Calendar> {
                     rangeSelectionMode: _rangeSelectionMode,
                     eventLoader: _getEventsForDay,
                     startingDayOfWeek: StartingDayOfWeek.monday,
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleTextStyle: TextStyle(
+                          color: Color(0xFFffffff),
+                          fontSize: 20,
+                          fontFamily: vr.basicFont),
+                      leftChevronIcon: Icon(
+                        Icons.keyboard_arrow_left,
+                        color: Color(0xFFffffff),
+                      ),
+                      rightChevronIcon: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Color(0xFFffffff),
+                      ),
+                    ),
                     calendarStyle: CalendarStyle(
+                      defaultTextStyle: const TextStyle(color: Colors.white),
+
                       // Use `CalendarStyle` to customize the UI
+
                       outsideDaysVisible: false,
                     ),
                     onDaySelected: _onDaySelected,
@@ -241,15 +261,20 @@ class _CalendarState extends State<Calendar> {
                                   vertical: 4.0,
                                 ),
                                 decoration: BoxDecoration(
-                                    color: backGround,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12))),
+                                  color: vr.backGround,
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      width: 0.3,
+                                      color: Color(0xFF354049),
+                                    ),
+                                  ),
+                                ),
                                 child: ListTile(
                                   onTap: () => print('${value[index]}'),
                                   title: Text('${value[index]}',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontFamily: basicFont)),
+                                          fontFamily: vr.basicFont)),
                                 ),
                               );
                             },
