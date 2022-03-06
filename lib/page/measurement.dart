@@ -3,8 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/dashboard.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hashtag_fitness/page/calendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:convert';
 
 class Measurement extends StatefulWidget {
   @override
@@ -27,9 +31,12 @@ class _MeasurementState extends State<Measurement> {
               icon: Icon(Icons.calendar_today),
               tooltip: 'Calendar',
               //color: Colors.black,
-              onPressed: () => {
-                    // View history of meals
-                  }),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Calendar()),
+                );
+              }),
         ],
       ),
       body: MeasurementLog(),
@@ -45,6 +52,22 @@ class MeasurementLog extends StatefulWidget {
 }
 
 class _MeasurementLogState extends State<MeasurementLog> {
+  var date = DateTime.now();
+  String time = "";
+
+  @override
+  void initState() {
+    fToast = FToast();
+    fToast.init(context);
+    setState(() {
+      time = date.year.toString() +
+          "_" +
+          date.month.toString() +
+          "_" +
+          date.day.toString();
+    });
+  }
+
   late String bodyWeight,
       bodyFat,
       chest,
@@ -56,6 +79,17 @@ class _MeasurementLogState extends State<MeasurementLog> {
       leftThigh,
       hip;
 
+  TextEditingController bodyWeightCont = TextEditingController();
+  TextEditingController bodyFatCont = TextEditingController();
+  TextEditingController chestCont = TextEditingController();
+  TextEditingController waistCont = TextEditingController();
+  TextEditingController neckCont = TextEditingController();
+  TextEditingController rightArmCont = TextEditingController();
+  TextEditingController leftArmCont = TextEditingController();
+  TextEditingController leftThighCont = TextEditingController();
+  TextEditingController rightThighCont = TextEditingController();
+  TextEditingController hipCont = TextEditingController();
+
   //To check fields during submit
   // final formKey = new GlobalKey<FormState>();
   // checkFields() {
@@ -66,6 +100,66 @@ class _MeasurementLogState extends State<MeasurementLog> {
   //   }
   //   return false;
   // }
+  late FToast fToast;
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Measurements Saved!", style: TextStyle(color: Colors.black)),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: Duration(seconds: 2),
+    );
+  }
+
+  update() async {
+    String uname = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(uname)
+        .collection("Measurements")
+        .doc(time)
+        .set({
+      "timestamp": DateTime.now(),
+      "Body Weight (KG)": int.parse(bodyWeightCont.text),
+      "Body Fat (%)": int.parse(bodyFatCont.text),
+      "Chest Measurement (CM)": int.parse(chestCont.text),
+      "Waist Measurement (CM)": int.parse(waistCont.text),
+      "Neck Measurement (CM)": int.parse(neckCont.text),
+      "Right Arm Measurement (CM)": int.parse(rightArmCont.text),
+      "Left Arm Measurement (CM)": int.parse(leftArmCont.text),
+      "Right Thigh Measurement (CM)": int.parse(rightThighCont.text),
+      "Left Thigh Measurement (CM)": int.parse(leftThighCont.text),
+      "Hip Measurement (CM)": int.parse(hipCont.text),
+    }).then((value) {
+      bodyWeightCont.clear();
+      bodyFatCont.clear();
+      chestCont.clear();
+      waistCont.clear();
+      neckCont.clear();
+      rightArmCont.clear();
+      leftArmCont.clear();
+      rightThighCont.clear();
+      leftThighCont.clear();
+      hipCont.clear();
+    }).catchError((error) =>
+            print("Failed to update measurement collection: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +172,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           SizedBox(height: 25),
           TextFormField(
             keyboardType: TextInputType.number,
+            controller: bodyWeightCont,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
             ),
@@ -101,6 +196,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Body Fat Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: bodyFatCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -125,6 +221,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Chest Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: chestCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -149,6 +246,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Waist Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: waistCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -173,6 +271,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Neck Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: neckCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -197,6 +296,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Right Arm Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: rightArmCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -221,6 +321,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Left Arm Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: leftArmCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -245,6 +346,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Right Thigh Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: rightThighCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -269,6 +371,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Left Thigh Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: leftThighCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -293,6 +396,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
           //Hips Measurement
           SizedBox(height: 25),
           TextFormField(
+            controller: hipCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -318,7 +422,8 @@ class _MeasurementLogState extends State<MeasurementLog> {
           SizedBox(height: 50),
           Bounceable(
             onTap: () {
-              //Save measurement
+              _showToast();
+              update();
             },
             child: Container(
               height: 40,

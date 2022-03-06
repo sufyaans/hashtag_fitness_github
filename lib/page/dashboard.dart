@@ -51,11 +51,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   final BuildContext context;
   final QuerySnapshot snapshot;
-  const Dashboard({Key? key, required this.context, required this.snapshot})
+
+  Dashboard({Key? key, required this.context, required this.snapshot})
       : super(key: key);
+
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  String uname = "";
+
+  getUID() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      setState(() {
+        uname = documentSnapshot['name'];
+        print(uname);
+        //print(documentSnapshot.data());
+      });
+    });
+  }
+
+  initState() {
+    getUID();
+  }
+
+  // final String uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +102,7 @@ class Dashboard extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          "Hello  " + snapshot.docs[0]['name'],
+                          "Hello  " + uname,
                           style: TextStyle(
                             color: vr.whiteColor,
                             fontSize: 30,
@@ -85,11 +114,11 @@ class Dashboard extends StatelessWidget {
                     ),
                     //Log out
                     IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         //FirebaseAuth.instance.signOut();
                         //Navigator.of(context).pop();
 
-                        AuthService().signOut();
+                        await FirebaseAuth.instance.signOut();
                         Navigator.of(context).pop;
                       },
                       icon: Icon(Icons.logout),
