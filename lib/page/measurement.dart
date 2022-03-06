@@ -5,7 +5,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hashtag_fitness/page/calendar.dart';
+import 'package:hashtag_fitness/page/measurementCalendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -34,7 +34,8 @@ class _MeasurementState extends State<Measurement> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Calendar()),
+                  MaterialPageRoute(
+                      builder: (context) => measurementCalendar()),
                 );
               }),
         ],
@@ -101,7 +102,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
   //   return false;
   // }
   late FToast fToast;
-  _showToast() {
+  showToast() {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -127,7 +128,7 @@ class _MeasurementLogState extends State<MeasurementLog> {
     );
   }
 
-  update() async {
+  saveMeasurement() async {
     String uname = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection("users")
@@ -422,8 +423,8 @@ class _MeasurementLogState extends State<MeasurementLog> {
           SizedBox(height: 50),
           Bounceable(
             onTap: () {
-              _showToast();
-              update();
+              showToast();
+              saveMeasurement();
             },
             child: Container(
               height: 40,

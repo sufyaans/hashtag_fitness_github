@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
+import 'package:hashtag_fitness/page/nutritionCalendar.dart';
 
 import 'package:hashtag_fitness/variables.dart' as vr;
 
@@ -25,9 +26,12 @@ class _NutritionState extends State<Nutrition> {
               icon: Icon(Icons.calendar_today),
               tooltip: 'Calendar',
               //color: Colors.black,
-              onPressed: () => {
-                    // View history of meals
-                  }),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => nutritionCalendar()),
+                );
+              }),
         ],
       ),
       body: NutritionPage(),

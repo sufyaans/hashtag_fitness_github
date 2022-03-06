@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hashtag_fitness/page/nutritionCalendar.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
@@ -36,7 +40,86 @@ class LogMeal extends StatefulWidget {
 }
 
 class _LogMealState extends State<LogMeal> {
+  var date = DateTime.now();
+  String time = "";
+
+  @override
+  void initState() {
+    fToast = FToast();
+    fToast.init(context);
+    setState(() {
+      time = date.year.toString() +
+          "_" +
+          date.month.toString() +
+          "_" +
+          date.day.toString();
+    });
+  }
+
   late String mealType, itemsConsumed, quantity, calories, fat, carbs, protein;
+
+  TextEditingController mealTypeCont = TextEditingController();
+  TextEditingController itemsConsumedCont = TextEditingController();
+  TextEditingController quantityCont = TextEditingController();
+  TextEditingController caloriesCont = TextEditingController();
+  TextEditingController fatCont = TextEditingController();
+  TextEditingController carbsCont = TextEditingController();
+  TextEditingController proteinCont = TextEditingController();
+
+  late FToast fToast;
+  showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Meal Saved!", style: TextStyle(color: Colors.black)),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: Duration(seconds: 2),
+    );
+  }
+
+  saveMeal() async {
+    String uname = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(uname)
+        .collection("Nutrition")
+        .doc(time)
+        .set({
+      "timestamp": DateTime.now(),
+      "Type of Meal": int.parse(mealTypeCont.text),
+      "Items Consumed": int.parse(itemsConsumedCont.text),
+      "Quantity": int.parse(quantityCont.text),
+      "Total Calories (Kcal)": int.parse(caloriesCont.text),
+      "Fat (g)": int.parse(fatCont.text),
+      "Carbs (g)": int.parse(carbsCont.text),
+      "Protein (g)": int.parse(proteinCont.text),
+    }).then((value) {
+      mealTypeCont.clear();
+      itemsConsumedCont.clear();
+      quantityCont.clear();
+      caloriesCont.clear();
+      fatCont.clear();
+      carbsCont.clear();
+      proteinCont.clear();
+    }).catchError(
+            (error) => print("Failed to update nutrition collection: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +130,8 @@ class _LogMealState extends State<LogMeal> {
           //Type of meal
           SizedBox(height: 25),
           TextFormField(
-            keyboardType: TextInputType.number,
+            controller: mealTypeCont,
+            keyboardType: TextInputType.text,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
             ),
@@ -71,7 +155,8 @@ class _LogMealState extends State<LogMeal> {
           //Items consumed
           SizedBox(height: 25),
           TextFormField(
-            keyboardType: TextInputType.number,
+            controller: itemsConsumedCont,
+            keyboardType: TextInputType.text,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
             ),
@@ -95,6 +180,7 @@ class _LogMealState extends State<LogMeal> {
           //Quantity
           SizedBox(height: 25),
           TextFormField(
+            controller: quantityCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -119,6 +205,7 @@ class _LogMealState extends State<LogMeal> {
           //Total calories
           SizedBox(height: 25),
           TextFormField(
+            controller: caloriesCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -143,6 +230,7 @@ class _LogMealState extends State<LogMeal> {
           //Fat
           SizedBox(height: 25),
           TextFormField(
+            controller: fatCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -167,6 +255,7 @@ class _LogMealState extends State<LogMeal> {
           //Carbs
           SizedBox(height: 25),
           TextFormField(
+            controller: carbsCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -191,6 +280,7 @@ class _LogMealState extends State<LogMeal> {
           //Protein
           SizedBox(height: 25),
           TextFormField(
+            controller: proteinCont,
             keyboardType: TextInputType.number,
             style: TextStyle(
               color: Colors.white.withOpacity(0.5),
@@ -217,6 +307,8 @@ class _LogMealState extends State<LogMeal> {
           Bounceable(
             onTap: () {
               //Save meal
+              showToast();
+              saveMeal();
             },
             child: Container(
               height: 40,
