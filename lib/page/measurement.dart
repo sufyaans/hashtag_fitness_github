@@ -2,13 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:hashtag_fitness/page/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/page/measurementCalendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:convert';
 
 class Measurement extends StatefulWidget {
   @override

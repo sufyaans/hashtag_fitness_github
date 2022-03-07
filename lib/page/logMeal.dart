@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +64,17 @@ class _LogMealState extends State<LogMeal> {
   TextEditingController fatCont = TextEditingController();
   TextEditingController carbsCont = TextEditingController();
   TextEditingController proteinCont = TextEditingController();
+
+  //To check fields during submit
+  // final formKey = new GlobalKey<FormState>();
+  // checkFields() {
+  //   final form = formKey.currentState;
+  //   if (form!.validate()) {
+  //     form.save();
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   late FToast fToast;
   showToast() {
