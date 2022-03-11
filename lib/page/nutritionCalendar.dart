@@ -116,6 +116,21 @@ class _CalendarState extends State<nutritionCalendar> {
                         '${(i as Map<String, dynamic>)['Carbs (g)']}'),
                     Event("Protein (g): " +
                         '${(i as Map<String, dynamic>)['Protein (g)']}'),
+
+                    // Event("Type of Meal: " +
+                    //     '${(i as Map<String, dynamic>)['Type of Meal']}'),
+                    // Event("Items Consumed: " +
+                    //     '${(i as Map<String, dynamic>)['Items Consumed']}'),
+                    // Event("Quantity: " +
+                    //     '${(i as Map<String, dynamic>)['Quantity']}'),
+                    // Event("Total Calories (Kcal): " +
+                    //     '${(i as Map<String, dynamic>)['Fat (g)']}'),
+                    // Event("Fat (g): " +
+                    //     '${(i as Map<String, dynamic>)['Fat (g)']}'),
+                    // Event("Carbs (g): " +
+                    //     '${(i as Map<String, dynamic>)['Carbs (g)']}'),
+                    // Event("Protein (g): " +
+                    //     '${(i as Map<String, dynamic>)['Protein (g)']}'),
                   ]);
         }
       });

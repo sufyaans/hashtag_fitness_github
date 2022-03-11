@@ -112,8 +112,8 @@ class _LogMealState extends State<LogMeal> {
         .doc(time)
         .set({
       "timestamp": DateTime.now(),
-      "Type of Meal": int.parse(mealTypeCont.text),
-      "Items Consumed": int.parse(itemsConsumedCont.text),
+      "Type of Meal": (mealTypeCont.text).toString(),
+      "Items Consumed": (itemsConsumedCont.text).toString(),
       "Quantity": int.parse(quantityCont.text),
       "Total Calories (Kcal)": int.parse(caloriesCont.text),
       "Fat (g)": int.parse(fatCont.text),
