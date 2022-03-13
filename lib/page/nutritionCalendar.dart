@@ -53,6 +53,7 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+var cur;
 
 class nutritionCalendar extends StatefulWidget {
   @override
@@ -94,7 +95,6 @@ class _CalendarState extends State<nutritionCalendar> {
     // print(_kEventSource);
     // Get data from docs and convert map to List
     final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
-
     for (var i in allData) {
       // print(
       //   (i as Map<String, dynamic>)['timestamp'].toDate().year.toString() +
@@ -103,8 +103,15 @@ class _CalendarState extends State<nutritionCalendar> {
       //       (i as Map<String, dynamic>)['timestamp'].toDate().hour.toString() +
       //       (i as Map<String, dynamic>)['timestamp'].toDate().minute.toString(),
       // );
+      if (cur == 0) {
+        cur = (i as Map<String, dynamic>)['timestamp'].toDate().day;
+      }
       setState(() {
         if ((i! as Map<String, dynamic>)['Dummy'] != 'Dummy') {
+          if (cur != (i as Map<String, dynamic>)['timestamp'].toDate().day) {
+            cur = (i as Map<String, dynamic>)['timestamp'].toDate().day;
+            tmp = [];
+          }
           tmp.add(Event("Type of Meal: " +
               '${(i as Map<String, dynamic>)['Type of Meal']}'));
           tmp.add(Event("Items Consumed: " +
@@ -251,7 +258,7 @@ class _CalendarState extends State<nutritionCalendar> {
                       _focusedDay = focusedDay;
                     },
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 0.0),
                   Expanded(
                     child: ValueListenableBuilder<List<Event>>(
                       valueListenable: _selectedEvents!,
@@ -264,21 +271,21 @@ class _CalendarState extends State<nutritionCalendar> {
                               return Container(
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 12.0,
-                                  vertical: 4.0,
+                                  vertical: 0.0,
                                 ),
                                 decoration: BoxDecoration(
                                   color: vr.backGround,
                                   border: index % 7 == 6
                                       ? Border(
                                           bottom: BorderSide(
-                                            width: 5,
+                                            width: 0.5,
                                             color: Color(0xFF354049),
                                           ),
                                         )
                                       : Border(
                                           bottom: BorderSide(
-                                            width: 0.3,
-                                            color: Color(0xFF354049),
+                                            width: 0,
+                                            color: Color(0x00000000),
                                           ),
                                         ),
                                 ),
