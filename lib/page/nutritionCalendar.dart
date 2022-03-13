@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
+import 'dart:io';
 
 /// Example event class.
 class Event {
@@ -68,13 +69,14 @@ class _CalendarState extends State<nutritionCalendar> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   bool loaded = false;
+  List<Event> tmp = [];
 
   Future<void> getData() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('Measurements')
+        .collection('Nutrition')
         .get();
     // setState(() {
     //   _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
@@ -94,45 +96,39 @@ class _CalendarState extends State<nutritionCalendar> {
     final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
 
     for (var i in allData) {
+      // print(
+      //   (i as Map<String, dynamic>)['timestamp'].toDate().year.toString() +
+      //       (i as Map<String, dynamic>)['timestamp'].toDate().month.tostring() +
+      //       (i as Map<String, dynamic>)['timestamp'].toDate().day.toString() +
+      //       (i as Map<String, dynamic>)['timestamp'].toDate().hour.toString() +
+      //       (i as Map<String, dynamic>)['timestamp'].toDate().minute.toString(),
+      // );
       setState(() {
         if ((i! as Map<String, dynamic>)['Dummy'] != 'Dummy') {
-          _kEventSource.putIfAbsent(
-              DateTime.utc(
-                  (i as Map<String, dynamic>)['timestamp'].toDate().year,
-                  (i as Map<String, dynamic>)['timestamp'].toDate().month,
-                  (i as Map<String, dynamic>)['timestamp'].toDate().day),
-              () => [
-                    Event("Type of Meal: " +
-                        '${(i as Map<String, dynamic>)['Type of Meal']}'),
-                    Event("Items Consumed: " +
-                        '${(i as Map<String, dynamic>)['Items Consumed']}'),
-                    Event("Quantity: " +
-                        '${(i as Map<String, dynamic>)['Quantity']}'),
-                    Event("Total Calories (Kcal): " +
-                        '${(i as Map<String, dynamic>)['Fat (g)']}'),
-                    Event("Fat (g): " +
-                        '${(i as Map<String, dynamic>)['Fat (g)']}'),
-                    Event("Carbs (g): " +
-                        '${(i as Map<String, dynamic>)['Carbs (g)']}'),
-                    Event("Protein (g): " +
-                        '${(i as Map<String, dynamic>)['Protein (g)']}'),
-
-                    // Event("Type of Meal: " +
-                    //     '${(i as Map<String, dynamic>)['Type of Meal']}'),
-                    // Event("Items Consumed: " +
-                    //     '${(i as Map<String, dynamic>)['Items Consumed']}'),
-                    // Event("Quantity: " +
-                    //     '${(i as Map<String, dynamic>)['Quantity']}'),
-                    // Event("Total Calories (Kcal): " +
-                    //     '${(i as Map<String, dynamic>)['Fat (g)']}'),
-                    // Event("Fat (g): " +
-                    //     '${(i as Map<String, dynamic>)['Fat (g)']}'),
-                    // Event("Carbs (g): " +
-                    //     '${(i as Map<String, dynamic>)['Carbs (g)']}'),
-                    // Event("Protein (g): " +
-                    //     '${(i as Map<String, dynamic>)['Protein (g)']}'),
-                  ]);
+          tmp.add(Event("Type of Meal: " +
+              '${(i as Map<String, dynamic>)['Type of Meal']}'));
+          tmp.add(Event("Items Consumed: " +
+              '${(i as Map<String, dynamic>)['Items Consumed']}'));
+          tmp.add(Event(
+              "Quantity: " + '${(i as Map<String, dynamic>)['Quantity']}'));
+          tmp.add(Event("Total Calories (Kcal): " +
+              '${(i as Map<String, dynamic>)['Fat (g)']}'));
+          tmp.add(
+              Event("Fat (g): " + '${(i as Map<String, dynamic>)['Fat (g)']}'));
+          tmp.add(Event(
+              "Carbs (g): " + '${(i as Map<String, dynamic>)['Carbs (g)']}'));
+          tmp.add(Event("Protein (g): " +
+              '${(i as Map<String, dynamic>)['Protein (g)']}'));
         }
+        _kEventSource.putIfAbsent(
+            DateTime.utc(
+                (i as Map<String, dynamic>)['timestamp'].toDate().year,
+                (i as Map<String, dynamic>)['timestamp'].toDate().month,
+                (i as Map<String, dynamic>)['timestamp'].toDate().day,
+                (i as Map<String, dynamic>)['timestamp'].toDate().hour,
+                (i as Map<String, dynamic>)['timestamp'].toDate().minute,
+                (i as Map<String, dynamic>)['timestamp'].toDate().second),
+            () => tmp);
       });
     }
   }
@@ -262,6 +258,7 @@ class _CalendarState extends State<nutritionCalendar> {
                       builder: (context, value, _) {
                         try {
                           return ListView.builder(
+                            shrinkWrap: true,
                             itemCount: value.length,
                             itemBuilder: (context, index) {
                               return Container(
@@ -271,19 +268,30 @@ class _CalendarState extends State<nutritionCalendar> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: vr.backGround,
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      width: 0.3,
-                                      color: Color(0xFF354049),
-                                    ),
-                                  ),
+                                  border: index % 7 == 6
+                                      ? Border(
+                                          bottom: BorderSide(
+                                            width: 5,
+                                            color: Color(0xFF354049),
+                                          ),
+                                        )
+                                      : Border(
+                                          bottom: BorderSide(
+                                            width: 0.3,
+                                            color: Color(0xFF354049),
+                                          ),
+                                        ),
                                 ),
-                                child: ListTile(
-                                  onTap: () => print('${value[index]}'),
-                                  title: Text('${value[index]}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: vr.basicFont)),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      onTap: () => print('${value[index]}'),
+                                      title: Text('${value[index]}',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: vr.basicFont)),
+                                    ),
+                                  ],
                                 ),
                               );
                             },
@@ -291,6 +299,7 @@ class _CalendarState extends State<nutritionCalendar> {
                         } on Exception catch (e) {
                           return Container();
                         }
+                        ;
                       },
                     ),
                   ),

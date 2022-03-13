@@ -51,7 +51,11 @@ class _LogMealState extends State<LogMeal> {
           "_" +
           date.month.toString() +
           "_" +
-          date.day.toString();
+          date.day.toString() +
+          "_" +
+          date.hour.toString() +
+          "_" +
+          date.minute.toString();
     });
   }
 
@@ -112,8 +116,8 @@ class _LogMealState extends State<LogMeal> {
         .doc(time)
         .set({
       "timestamp": DateTime.now(),
-      "Type of Meal": (mealTypeCont.text).toString(),
-      "Items Consumed": (itemsConsumedCont.text).toString(),
+      "Type of Meal": mealTypeCont.text,
+      "Items Consumed": itemsConsumedCont.text,
       "Quantity": int.parse(quantityCont.text),
       "Total Calories (Kcal)": int.parse(caloriesCont.text),
       "Fat (g)": int.parse(fatCont.text),
