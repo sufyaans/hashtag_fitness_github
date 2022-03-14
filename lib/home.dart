@@ -25,8 +25,7 @@ class _homeState extends State<Home> {
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = DashboardScreen();
 
-// FIX NAVIGATION BAR (Not central)
-// --------------------------------------------------------------------
+// NAVIGATION BAR
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +65,7 @@ class _homeState extends State<Home> {
                         Text(
                           'Dashboard',
                           style: TextStyle(
+                              fontSize: 13,
                               color: currentTab == 0
                                   ? Colors.deepOrange
                                   : Colors.grey),
@@ -87,13 +87,14 @@ class _homeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.add, //Fix icon
+                          Icons.add,
                           color:
                               currentTab == 1 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
+                              fontSize: 13,
                               color: currentTab == 1
                                   ? Colors.deepOrange
                                   : Colors.grey),
@@ -115,7 +116,7 @@ class _homeState extends State<Home> {
                   //     mainAxisAlignment: MainAxisAlignment.center,
                   //     children: [
                   //       Icon(
-                  //         Icons.restaurant, //Fix icon
+                  //         Icons.restaurant,
                   //         color:
                   //             currentTab == 2 ? Colors.deepOrange : Colors.grey,
                   //       ),
@@ -147,13 +148,14 @@ class _homeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.restaurant, //Fix icon
+                          Icons.restaurant,
                           color:
                               currentTab == 2 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Nutrition',
                           style: TextStyle(
+                              fontSize: 13,
                               color: currentTab == 2
                                   ? Colors.deepOrange
                                   : Colors.grey),
@@ -175,13 +177,14 @@ class _homeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.fitness_center, //Fix Icon
+                          Icons.fitness_center,
                           color:
                               currentTab == 3 ? Colors.deepOrange : Colors.grey,
                         ),
                         Text(
                           'Exercise',
                           style: TextStyle(
+                              fontSize: 13,
                               color: currentTab == 3
                                   ? Colors.deepOrange
                                   : Colors.grey),

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hashtag_fitness/page/createExercise.dart';
 import 'package:hashtag_fitness/page/detailPage.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 
@@ -50,9 +51,14 @@ class _ExerciseState extends State<Exercise> {
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.filter_alt),
-                    tooltip: 'Filter',
-                    onPressed: () => {},
+                    icon: Icon(Icons.add),
+                    tooltip: 'Add Exercise',
+                    onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddExercise()),
+                      ),
+                    },
                   ),
                 ],
               ),
