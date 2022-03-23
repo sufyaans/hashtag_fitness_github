@@ -336,6 +336,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_popup_dialog:
+    dependency: "direct main"
+    description:
+      name: slide_popup_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   sliding_up_panel:
     dependency: "direct main"
     description:

@@ -55,6 +55,7 @@ dependencies:
 
   #Toast
   fluttertoast: ^8.0.9
+  slide_popup_dialog: ^0.0.2
 
   #firebase_database: ^8.1.0
 
