@@ -6,7 +6,7 @@ import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
+//import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class Workout extends StatefulWidget {
   @override
@@ -67,6 +67,103 @@ class _WorkoutPageState extends State<WorkoutPage> {
     print(allData);
   }
 
+  bottomSheet(var i) {
+    Widget makeDismissible({required Widget child}) => GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: Navigator.of(context).pop,
+          child: GestureDetector(onTap: () {}, child: child),
+        );
+
+    //Need to fix the scroll behaviour
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SafeArea(
+        child: makeDismissible(
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.9,
+            maxChildSize: 0.9,
+            minChildSize: 0.2,
+            builder: (BuildContext context, ScrollController scrollController) {
+              int index = 0;
+              return Container(
+                decoration: BoxDecoration(
+                  color: vr.whiteColor,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(18.0)),
+                ),
+                padding: EdgeInsets.all(16.0),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    ListView.builder(
+                        itemCount: workouts[i]['workoutList'].length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            // leading: Icon(Icons.list),
+                            trailing: Padding(
+                                padding: EdgeInsetsDirectional.only(start: 10),
+                                child: Text(
+                                  workouts[i]["sets"][index],
+                                  style: TextStyle(
+                                    fontFamily: vr.basicFont,
+                                    fontSize: 18,
+                                    color: vr.orangeColor,
+                                  ),
+                                )),
+                            title: Padding(
+                                padding: EdgeInsetsDirectional.only(end: 10),
+                                child: Text(
+                                  workouts[i]["workoutList"][index],
+                                  style: TextStyle(
+                                    fontFamily: vr.basicFont,
+                                    fontSize: 18,
+                                    //color: vr.whiteColor,
+                                  ),
+                                )),
+                          );
+                        }),
+                    Bounceable(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CreateWorkoutScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        height: 40,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(24),
+                          color: vr.orangeColor,
+                          elevation: 7,
+                          child: Center(
+                            child: Text(
+                              'START WORKOUT',
+                              style: TextStyle(
+                                color: vr.whiteColor,
+                                fontFamily: vr.basicFont,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+/*
   _showDialog(var i) {
     slideDialog.showSlideDialog(
       context: context,
@@ -136,7 +233,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
       backgroundColor: Colors.black,
     );
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +260,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   elevation: 7,
                   child: Center(
                     child: Text(
-                      'CREATE A WORKOUT',
+                      'CREATE A WORKOUT TEMPLATE',
                       style: TextStyle(
                         color: vr.whiteColor,
                         fontFamily: vr.basicFont,
@@ -189,7 +286,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return Bounceable(
                       onTap: () {
-                        _showDialog(index);
+                        bottomSheet(index);
                       },
                       child: ListTile(
                           leading: Icon(Icons.list, color: Colors.white),
