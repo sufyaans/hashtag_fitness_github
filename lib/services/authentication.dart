@@ -7,7 +7,6 @@ import 'package:hashtag_fitness/home.dart';
 import 'package:hashtag_fitness/page/errorHandling.dart';
 import 'package:hashtag_fitness/page/login.dart';
 import 'package:hashtag_fitness/services/database.dart';
-import 'package:hashtag_fitness/services/user.dart';
 
 class AuthService {
   //Determine if the user is authenticated
@@ -70,6 +69,7 @@ class AuthService {
 //Google login
 class GoogleSignInProvider extends ChangeNotifier {
   final googlSignin = GoogleSignIn();
+  AuthService authService = AuthService();
 
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
@@ -89,6 +89,7 @@ class GoogleSignInProvider extends ChangeNotifier {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
+    await authService.signUp(_user!.displayName!, _user!.email, "");
     notifyListeners();
   }
 }

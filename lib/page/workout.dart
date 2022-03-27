@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
+import 'package:hashtag_fitness/page/performWorkout.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
@@ -67,7 +69,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
     print(allData);
   }
 
-  bottomSheet(var i) {
+  bottomSheet(var i, var name) {
     Widget makeDismissible({required Widget child}) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: Navigator.of(context).pop,
@@ -129,7 +131,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => CreateWorkoutScreen(),
+                            builder: (context) =>
+                                PerformWorkout(workoutName: name),
                           ),
                         );
                       },
@@ -286,7 +289,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return Bounceable(
                       onTap: () {
-                        bottomSheet(index);
+                        bottomSheet(index, workouts[index]["name"]);
                       },
                       child: ListTile(
                           leading: Icon(Icons.list, color: Colors.white),
