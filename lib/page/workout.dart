@@ -84,8 +84,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
       builder: (context) => SafeArea(
         child: makeDismissible(
           child: DraggableScrollableSheet(
-            initialChildSize: 0.9,
-            maxChildSize: 0.9,
+            initialChildSize: 0.7,
+            maxChildSize: 0.8,
             minChildSize: 0.2,
             builder: (BuildContext context, ScrollController scrollController) {
               int index = 0;
@@ -108,7 +108,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             trailing: Padding(
                                 padding: EdgeInsetsDirectional.only(start: 10),
                                 child: Text(
-                                  workouts[i]["sets"][index],
+                                  'Sets: ' + workouts[i]["sets"][index],
                                   style: TextStyle(
                                     fontFamily: vr.basicFont,
                                     fontSize: 18,
@@ -166,77 +166,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
     );
   }
 
-/*
-  _showDialog(var i) {
-    slideDialog.showSlideDialog(
-      context: context,
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          ListView.builder(
-              itemCount: workouts[i]['workoutList'].length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  // leading: Icon(Icons.list),
-                  trailing: Padding(
-                      padding: EdgeInsetsDirectional.only(start: 10),
-                      child: Text(
-                        workouts[i]["sets"][index],
-                        style: TextStyle(
-                          fontFamily: vr.basicFont,
-                          fontSize: 18,
-                          color: vr.orangeColor,
-                        ),
-                      )),
-                  title: Padding(
-                      padding: EdgeInsetsDirectional.only(end: 10),
-                      child: Text(
-                        workouts[i]["workoutList"][index],
-                        style: TextStyle(
-                          fontFamily: vr.basicFont,
-                          fontSize: 18,
-                          color: vr.whiteColor,
-                        ),
-                      )),
-                );
-              }),
-          Bounceable(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => CreateWorkoutScreen(),
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              height: 40,
-              child: Material(
-                borderRadius: BorderRadius.circular(24),
-                color: vr.orangeColor,
-                elevation: 7,
-                child: Center(
-                  child: Text(
-                    'START WORKOUT',
-                    style: TextStyle(
-                      color: vr.whiteColor,
-                      fontFamily: vr.basicFont,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      barrierColor: Colors.white.withOpacity(0.7),
-      pillColor: Colors.white,
-      backgroundColor: Colors.black,
-    );
-  }
-*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -283,6 +212,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 color: vr.whiteColor,
               ),
             ),
+            SizedBox(height: 20),
             ListView.builder(
                 shrinkWrap: true,
                 itemCount: workouts.length,
@@ -292,7 +222,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         bottomSheet(index, workouts[index]["name"]);
                       },
                       child: ListTile(
-                          leading: Icon(Icons.list, color: Colors.white),
+                          leading: Icon(Icons.list),
+                          tileColor: const Color(0xFFF4F5F5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
                           // trailing: Text(
                           //   workouts[index]["name"],
                           //   style: TextStyle(
@@ -305,7 +239,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               style: TextStyle(
                                 fontFamily: vr.basicFont,
                                 fontSize: 18,
-                                color: vr.whiteColor,
+                                //color: vr.black,
                               ))));
                 }),
           ],

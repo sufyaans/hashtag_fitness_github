@@ -89,6 +89,7 @@ class GoogleSignInProvider extends ChangeNotifier {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
+    //Double check this works (A User collection is made for users signing in with google)
     await authService.signUp(_user!.displayName!, _user!.email, "");
     notifyListeners();
   }
