@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
+import 'package:hashtag_fitness/page/workoutCalendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:hashtag_fitness/page/performWorkout.dart';
 
@@ -33,6 +34,11 @@ class _WorkoutState extends State<Workout> {
               //color: Colors.black,
               onPressed: () => {
                     // View history of workouts
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => workoutCalendar(),
+                      ),
+                    ),
                   }),
         ],
       ),
@@ -217,30 +223,33 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 shrinkWrap: true,
                 itemCount: workouts.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Bounceable(
-                      onTap: () {
-                        bottomSheet(index, workouts[index]["name"]);
-                      },
-                      child: ListTile(
-                          leading: Icon(Icons.list),
-                          tileColor: const Color(0xFFF4F5F5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          // trailing: Text(
-                          //   workouts[index]["name"],
-                          //   style: TextStyle(
-                          //     fontFamily: vr.basicFont,
-                          //     fontSize: 18,
-                          //     color: vr.whiteColor,
-                          //   ),
-                          // ),
-                          title: Text(workouts[index]["name"],
-                              style: TextStyle(
-                                fontFamily: vr.basicFont,
-                                fontSize: 18,
-                                //color: vr.black,
-                              ))));
+                  return Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Bounceable(
+                        onTap: () {
+                          bottomSheet(index, workouts[index]["name"]);
+                        },
+                        child: ListTile(
+                            leading: Icon(Icons.list),
+                            tileColor: const Color(0xFFF4F5F5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            // trailing: Text(
+                            //   workouts[index]["name"],
+                            //   style: TextStyle(
+                            //     fontFamily: vr.basicFont,
+                            //     fontSize: 18,
+                            //     color: vr.whiteColor,
+                            //   ),
+                            // ),
+                            title: Text(workouts[index]["name"],
+                                style: TextStyle(
+                                  fontFamily: vr.basicFont,
+                                  fontSize: 18,
+                                  //color: vr.black,
+                                )))),
+                  );
                 }),
           ],
         ),

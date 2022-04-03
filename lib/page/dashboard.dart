@@ -160,6 +160,7 @@ class _DashboardState extends State<Dashboard> {
                         createWorkout(),
                         logMeal(),
                         logMeasurement(),
+                        findGym(),
                       ],
                     ),
                   ),
@@ -369,6 +370,63 @@ class logMeasurement extends StatelessWidget {
               ),
               Text(
                 "Log a Measurement",
+                style: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class findGym extends StatefulWidget {
+  const findGym({Key? key}) : super(key: key);
+
+  @override
+  State<findGym> createState() => _findGymState();
+}
+
+class _findGymState extends State<findGym> {
+  @override
+  Widget build(BuildContext context) {
+    return Bounceable(
+      onTap: () {
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => Measurement(),
+        //   ),
+        // );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 6,
+        ),
+        child: Container(
+          height: 80,
+          width: 140,
+          margin: EdgeInsets.only(top: 8),
+          decoration: BoxDecoration(
+            color: vr.whiteColor, //Change colour later on
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.fitness_center_rounded,
+                  ),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text(
+                "Find Gym Near Me",
                 style: TextStyle(
                   fontFamily: vr.basicFont,
                   fontSize: 15,
