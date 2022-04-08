@@ -10,6 +10,8 @@ import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
+import './charts.dart';
+import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -65,7 +67,12 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   String uname = "";
-
+  String dropdownValue = 'Chest Measurement (CM)';
+  String timeRange = 'by Day';
+  String timeRange2 = 'by Day';
+  String Nutrition = "Carbs (g)";
+  var chartValues = [];
+  var nutritions = [];
   getUID() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -80,126 +87,356 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+  Future<void> getMeasurements() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('Measurements')
+        .get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    for (var i in allData) {
+      setState(() {
+        chartValues.add([
+          (i as Map<String, dynamic>)['timestamp'],
+          (i as Map<String, dynamic>)[dropdownValue]
+        ]);
+      });
+    }
+  }
+
+  Future<void> getNutrients() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('Nutrition')
+        .get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    for (var i in allData) {
+      setState(() {
+        nutritions.add([
+          (i as Map<String, dynamic>)['timestamp'],
+          (i as Map<String, dynamic>)[Nutrition]
+        ]);
+      });
+    }
+  }
+
   initState() {
     getUID();
+    getMeasurements();
   }
 
   // final String uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
+    // print(chartValues);
     return SafeArea(
-      child: Column(
-        children: <Widget>[
-          //Welcome and login
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            //Welcome and login
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            "Hello  " + uname,
+                            style: TextStyle(
+                              color: vr.whiteColor,
+                              fontSize: 30,
+                              fontFamily: vr.basicFont,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ), //Hello + user's name/email address
+                        ],
+                      ),
+                      //Log out
+                      IconButton(
+                        onPressed: () async {
+                          //FirebaseAuth.instance.signOut();
+                          //Navigator.of(context).pop();
+
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.of(context).pop;
+                        },
+                        icon: Icon(Icons.logout),
+                        tooltip: 'Log out',
+                        color: vr.whiteColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            //Submenu navigation
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
               child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: <Widget>[
+                height: 130,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
-                          "Hello  " + uname,
+                          'Shortcuts',
                           style: TextStyle(
+                            fontSize: 20,
                             color: vr.whiteColor,
-                            fontSize: 30,
                             fontFamily: vr.basicFont,
-                            fontWeight: FontWeight.w900,
                           ),
-                        ), //Hello + user's name/email address
+                        ),
                       ],
                     ),
-                    //Log out
-                    IconButton(
-                      onPressed: () async {
-                        //FirebaseAuth.instance.signOut();
-                        //Navigator.of(context).pop();
-
-                        await FirebaseAuth.instance.signOut();
-                        Navigator.of(context).pop;
-                      },
-                      icon: Icon(Icons.logout),
-                      tooltip: 'Log out',
-                      color: vr.whiteColor,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: <Widget>[
+                          createWorkout(),
+                          logMeal(),
+                          logMeasurement(),
+                          findGym(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-          //Submenu navigation
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Container(
-              height: 130,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Shortcuts',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: vr.whiteColor,
-                          fontFamily: vr.basicFont,
+
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 11 * 5,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Progress',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: vr.whiteColor,
+                            fontFamily: vr.basicFont,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: <Widget>[
-                        createWorkout(),
-                        logMeal(),
-                        logMeasurement(),
-                        findGym(),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Container(
-              height: 130,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Progress',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: vr.whiteColor,
-                          fontFamily: vr.basicFont,
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(start: 25),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: const Icon(Icons.arrow_downward),
+                              elevation: 16,
+                              enableFeedback: true,
+                              borderRadius: BorderRadius.circular(10),
+                              dropdownColor: vr.backGround,
+                              style: TextStyle(
+                                fontFamily: vr.basicFont,
+                                fontSize: 15,
+                              ),
+                              underline: Container(
+                                height: 2,
+                                color: vr.orangeColor,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  chartValues = [];
+                                  dropdownValue = newValue!;
+                                  getMeasurements();
+                                });
+                              },
+                              items: <String>[
+                                'Chest Measurement (CM)',
+                                'Hip Measurement (CM)',
+                                'Left Arm Measurement (CM)',
+                                'Right Arm Measurement (CM)',
+                                'Left Thigh Measurement (CM)',
+                                'Right Thigh Measurement (CM)',
+                                'Neck Measurement (CM)',
+                                'Waist Measurement (CM)'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  // SingleChildScrollView(
-                  //   scrollDirection: Axis.horizontal,
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(start: 25),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: DropdownButton<String>(
+                              value: timeRange,
+                              icon: const Icon(Icons.arrow_downward),
+                              elevation: 16,
+                              enableFeedback: true,
+                              borderRadius: BorderRadius.circular(10),
+                              dropdownColor: vr.backGround,
+                              style: TextStyle(
+                                fontFamily: vr.basicFont,
+                                fontSize: 15,
+                              ),
+                              underline: Container(
+                                height: 2,
+                                color: vr.orangeColor,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  timeRange = newValue!;
+                                });
+                              },
+                              items: <String>[
+                                'by Day',
+                                // 'by Week',
+                                'by Month',
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
-                  // ),
-                ],
+                    Padding(padding: EdgeInsetsDirectional.only(top: 20)),
+                    // SingleChildScrollView(
+                    //   scrollDirection: Axis.horizontal,
+                    Container(
+                      height: MediaQuery.of(context).size.height / 11 * 3,
+                      width: 500,
+                      child: SimpleLineChart.withSampleData(
+                          chartValues, timeRange),
+                    ),
+                    // ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.only(start: 25),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: DropdownButton<String>(
+                      value: Nutrition,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      enableFeedback: true,
+                      borderRadius: BorderRadius.circular(10),
+                      dropdownColor: vr.backGround,
+                      style: TextStyle(
+                        fontFamily: vr.basicFont,
+                        fontSize: 15,
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: vr.orangeColor,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          nutritions = [];
+                          Nutrition = newValue!;
+                          getNutrients();
+                        });
+                      },
+                      items: <String>[
+                        'Carbs (g)',
+                        'Fat (g)',
+                        'Protein (g)',
+                        'Total Calories (Kcal)',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.only(start: 25),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: DropdownButton<String>(
+                      value: timeRange2,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      enableFeedback: true,
+                      borderRadius: BorderRadius.circular(10),
+                      dropdownColor: vr.backGround,
+                      style: TextStyle(
+                        fontFamily: vr.basicFont,
+                        fontSize: 15,
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: vr.orangeColor,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(
+                          () {
+                            timeRange2 = newValue!;
+                          },
+                        );
+                      },
+                      items: <String>[
+                        'by Day',
+                        // 'by Week',
+                        'by Month',
+                      ].map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Padding(padding: EdgeInsetsDirectional.only(top: 20)),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            Container(
+              height: MediaQuery.of(context).size.height / 11 * 3,
+              width: 500,
+              child: SimpleLineChart.withSampleData(nutritions, timeRange2),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -383,6 +620,7 @@ class logMeasurement extends StatelessWidget {
   }
 }
 
+//Find gym
 class findGym extends StatefulWidget {
   const findGym({Key? key}) : super(key: key);
 

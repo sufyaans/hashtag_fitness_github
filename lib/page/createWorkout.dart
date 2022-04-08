@@ -42,6 +42,7 @@ class _createWorkoutState extends State<createWorkout> {
   TextEditingController workoutName = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+  ScrollController _controller = new ScrollController(); //New
   final List<TextEditingController> _controllers = [];
   var exercises = [];
   var chosen = [];
@@ -188,6 +189,8 @@ class _createWorkoutState extends State<createWorkout> {
                 SingleChildScrollView(
                   child: Container(
                     child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(), //New
+                      controller: _controller, //New
                       shrinkWrap: true,
                       itemCount: (chosen.length != 0) ? chosen.length : 0,
                       itemBuilder: (BuildContext context, int index) {
