@@ -1,8 +1,7 @@
-import 'dart:math';
+// ignore_for_file: unnecessary_new, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // class chartScreen extends StatefulWidget {
 //   @override

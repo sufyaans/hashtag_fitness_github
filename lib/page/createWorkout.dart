@@ -81,7 +81,7 @@ class _createWorkoutState extends State<createWorkout> {
           SizedBox(
             width: 12.0,
           ),
-          Text("Please enter your workout name!",
+          Text("Please enter a workout name",
               style: TextStyle(color: Colors.black)),
         ],
       ),
@@ -108,8 +108,7 @@ class _createWorkoutState extends State<createWorkout> {
           SizedBox(
             width: 12.0,
           ),
-          Text("Please enter all your sets!",
-              style: TextStyle(color: Colors.black)),
+          Text("Please enter all sets", style: TextStyle(color: Colors.black)),
         ],
       ),
     );
@@ -187,169 +186,166 @@ class _createWorkoutState extends State<createWorkout> {
                   height: 20,
                 ),
                 SingleChildScrollView(
-                  child: Container(
-                    child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(), //New
-                      controller: _controller, //New
-                      shrinkWrap: true,
-                      itemCount: (chosen.length != 0) ? chosen.length : 0,
-                      itemBuilder: (BuildContext context, int index) {
-                        _controllers.add(new TextEditingController());
-                        return ListTile(
-                          title: Column(
-                            children: [
-                              Container(
-                                width:
-                                    MediaQuery.of(context).size.width / 10 * 9,
-                                decoration: BoxDecoration(
-                                    color: vr.backGround,
-                                    border: Border.all(
-                                        color: vr.whiteColor, width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                10 *
-                                                6,
-                                            child: Text(
-                                              chosen[index],
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: vr.whiteColor,
-                                                fontFamily: vr.basicFont,
-                                                height: 1.75,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                20,
-                                            child: IconButton(
-                                              icon: Icon(Icons.info_outline,
-                                                  color: vr.whiteColor),
-                                              onPressed: (() {
-                                                var tmp = 0;
-                                                for (var i = 0;
-                                                    i < exercises.length;
-                                                    i++) {
-                                                  if (chosen[index] ==
-                                                      exercises[i]["name"])
-                                                    tmp = i;
-                                                }
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          workoutInfoScreen(
-                                                            exercise:
-                                                                exercises[tmp]
-                                                                    ['name'],
-                                                            category: exercises[
-                                                                    tmp]
-                                                                ['category'],
-                                                            equipment: exercises[
-                                                                    tmp]
-                                                                ['equipment'],
-                                                            force:
-                                                                exercises[tmp]
-                                                                    ['force'],
-                                                            instructions:
-                                                                exercises[tmp][
-                                                                    'instructions'],
-                                                            level:
-                                                                exercises[tmp]
-                                                                    ['level'],
-                                                            mechanic: exercises[
-                                                                    tmp]
-                                                                ['mechanic'],
-                                                            primaryMuscle:
-                                                                exercises[tmp][
-                                                                    'primaryMuscle'],
-                                                            secondaryMuscle:
-                                                                exercises[tmp][
-                                                                    'secondaryMuscle'],
-                                                          )),
-                                                );
-                                              }),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  40),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                20,
-                                            child: IconButton(
-                                              icon: Icon(Icons.delete,
-                                                  color: vr.whiteColor),
-                                              onPressed: (() {
-                                                setState(() {
-                                                  delete(chosen[index]);
-                                                });
-                                                print(chosen);
-                                              }),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                5 *
-                                                4,
-                                        child: TextFormField(
-                                          controller: _controllers[index],
-                                          validator: (String? value) {
-                                            if (value!.isEmpty)
-                                              return 'Please enter the number of sets';
-                                            return null;
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          style: TextStyle(
-                                            color:
-                                                Colors.white.withOpacity(0.5),
-                                          ),
-                                          decoration: InputDecoration(
-                                            labelText: 'Sets',
-                                            labelStyle: TextStyle(
+                  //New
+                  // child: Container(
+
+                  child: ListView.builder(
+                    physics: ScrollPhysics(), //New
+                    controller: _controller, //New
+                    shrinkWrap: true,
+                    itemCount: (chosen.length != 0) ? chosen.length : 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      _controllers.add(new TextEditingController());
+                      return ListTile(
+                        title: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 10 * 9,
+                              decoration: BoxDecoration(
+                                  color: vr.backGround,
+                                  border: Border.all(
+                                      color: vr.whiteColor, width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              10 *
+                                              6,
+                                          child: Text(
+                                            chosen[index],
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: vr.whiteColor,
                                               fontFamily: vr.basicFont,
-                                              fontSize: 18,
-                                              color:
-                                                  Colors.white.withOpacity(0.5),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: vr.orangeColor),
+                                              height: 1.75,
                                             ),
                                           ),
                                         ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20,
+                                          child: IconButton(
+                                            icon: Icon(Icons.info_outline,
+                                                color: vr.whiteColor),
+                                            onPressed: (() {
+                                              var tmp = 0;
+                                              for (var i = 0;
+                                                  i < exercises.length;
+                                                  i++) {
+                                                if (chosen[index] ==
+                                                    exercises[i]["name"])
+                                                  tmp = i;
+                                              }
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        workoutInfoScreen(
+                                                          exercise:
+                                                              exercises[tmp]
+                                                                  ['name'],
+                                                          category:
+                                                              exercises[tmp]
+                                                                  ['category'],
+                                                          equipment:
+                                                              exercises[tmp]
+                                                                  ['equipment'],
+                                                          force: exercises[tmp]
+                                                              ['force'],
+                                                          instructions: exercises[
+                                                                  tmp]
+                                                              ['instructions'],
+                                                          level: exercises[tmp]
+                                                              ['level'],
+                                                          mechanic:
+                                                              exercises[tmp]
+                                                                  ['mechanic'],
+                                                          primaryMuscle: exercises[
+                                                                  tmp]
+                                                              ['primaryMuscle'],
+                                                          secondaryMuscle:
+                                                              exercises[tmp][
+                                                                  'secondaryMuscle'],
+                                                        )),
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                40),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20,
+                                          child: IconButton(
+                                            icon: Icon(Icons.delete,
+                                                color: vr.whiteColor),
+                                            onPressed: (() {
+                                              setState(() {
+                                                delete(chosen[index]);
+                                              });
+                                              print(chosen);
+                                            }),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          5 *
+                                          4,
+                                      child: TextFormField(
+                                        controller: _controllers[index],
+                                        validator: (String? value) {
+                                          if (value!.isEmpty)
+                                            return 'Please enter the number of sets';
+                                          return null;
+                                        },
+                                        keyboardType: TextInputType.number,
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(0.5),
+                                        ),
+                                        decoration: InputDecoration(
+                                          labelText: 'Sets',
+                                          labelStyle: TextStyle(
+                                            fontFamily: vr.basicFont,
+                                            fontSize: 18,
+                                            color:
+                                                Colors.white.withOpacity(0.5),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: vr.orangeColor),
+                                          ),
+                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            ),
+                            SizedBox(height: 20),
+                          ],
+                        ),
+                      );
+                    },
                   ),
+                  // ),
                 ),
                 GestureDetector(
                     child: Center(

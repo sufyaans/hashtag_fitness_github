@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -169,34 +171,37 @@ class _NutritionPageState extends State<NutritionPage> {
                   //   onTap: () {
                   //     //bottomSheet(index, nutritions[index]["Type of Meal"]);
                   //   },
-                  child: ListTile(
-                    tileColor: const Color(0xFFF4F5F5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    // trailing: Text(
-                    //   workouts[index]["name"],
-                    //   style: TextStyle(
-                    //     fontFamily: vr.basicFont,
-                    //     fontSize: 18,
-                    //     color: vr.whiteColor,
-                    //   ),
-                    // ),
-                    title: Text(
-                      nutritions[index]["Type of Meal"],
-                      style: TextStyle(
-                        fontFamily: vr.basicFont,
-                        fontSize: 18,
-                        //color: vr.black,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ListTile(
+                      tileColor: const Color(0xFFF4F5F5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                    ),
-                    subtitle: Text(
-                      nutritions[index]["Items Consumed"],
-                    ),
+                      // trailing: Text(
+                      //   workouts[index]["name"],
+                      //   style: TextStyle(
+                      //     fontFamily: vr.basicFont,
+                      //     fontSize: 18,
+                      //     color: vr.whiteColor,
+                      //   ),
+                      // ),
+                      title: Text(
+                        nutritions[index]["Type of Meal"],
+                        style: TextStyle(
+                          fontFamily: vr.basicFont,
+                          fontSize: 18,
+                          //color: vr.black,
+                        ),
+                      ),
+                      subtitle: Text(
+                        nutritions[index]["Items Consumed"],
+                      ),
 
-                    onTap: () {
-                      bottomSheet(index, nutritions[index]["Type of Meal"]);
-                    },
+                      onTap: () {
+                        bottomSheet(index, nutritions[index]["Type of Meal"]);
+                      },
+                    ),
                   ),
                   // ),
                 );
