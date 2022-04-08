@@ -104,6 +104,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 padding: EdgeInsets.all(16.0),
                 child: ListView(
                   shrinkWrap: true,
+                  controller: scrollController,
                   children: [
                     ListView.builder(
                         itemCount: workouts[i]['workoutList'].length,
@@ -225,30 +226,37 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(top: 10),
-                    child: Bounceable(
-                        onTap: () {
-                          bottomSheet(index, workouts[index]["name"]);
-                        },
-                        child: ListTile(
-                            leading: Icon(Icons.list),
-                            tileColor: const Color(0xFFF4F5F5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            // trailing: Text(
-                            //   workouts[index]["name"],
-                            //   style: TextStyle(
-                            //     fontFamily: vr.basicFont,
-                            //     fontSize: 18,
-                            //     color: vr.whiteColor,
-                            //   ),
-                            // ),
-                            title: Text(workouts[index]["name"],
-                                style: TextStyle(
-                                  fontFamily: vr.basicFont,
-                                  fontSize: 18,
-                                  //color: vr.black,
-                                )))),
+                    // child: Bounceable(
+                    //   onTap: () {
+                    //     bottomSheet(index, workouts[index]["name"]);
+                    //   },
+                    child: ListTile(
+                      leading: Icon(Icons.list),
+                      tileColor: const Color(0xFFF4F5F5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      // trailing: Text(
+                      //   workouts[index]["name"],
+                      //   style: TextStyle(
+                      //     fontFamily: vr.basicFont,
+                      //     fontSize: 18,
+                      //     color: vr.whiteColor,
+                      //   ),
+                      // ),
+                      title: Text(
+                        workouts[index]["name"],
+                        style: TextStyle(
+                          fontFamily: vr.basicFont,
+                          fontSize: 18,
+                          //color: vr.black,
+                        ),
+                      ),
+                      onTap: () {
+                        bottomSheet(index, workouts[index]["Type of Meal"]);
+                      },
+                    ),
+                    // ),
                   );
                 }),
           ],
