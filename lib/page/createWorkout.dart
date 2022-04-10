@@ -38,16 +38,18 @@ class createWorkout extends StatefulWidget {
   _createWorkoutState createState() => _createWorkoutState();
 }
 
+var chosen = [];
+TextEditingController workoutName = TextEditingController();
+final List<TextEditingController> _controllers = [];
+
 class _createWorkoutState extends State<createWorkout> {
-  TextEditingController workoutName = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
-  ScrollController _controller = new ScrollController(); //New
-  final List<TextEditingController> _controllers = [];
-  var exercises = [];
-  var chosen = [];
+  static var exercises = [];
+  var size = 0;
   var sets = [];
   bool proceed = true;
+  ScrollController _controller = new ScrollController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
 
   void initState() {
     getExercise();
@@ -147,6 +149,16 @@ class _createWorkoutState extends State<createWorkout> {
 
   @override
   Widget build(BuildContext context) {
+    if (size != chosen.length) {
+      var tmp = chosen;
+      chosen = [];
+      for (var t in tmp) {
+        setState(() {
+          chosen.add(t);
+        });
+      }
+      size = chosen.length;
+    }
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -416,7 +428,10 @@ class _createWorkoutState extends State<createWorkout> {
                       //     break;
                       //   }
                       // }
-                      if (proceed) saveWorkout();
+                      if (proceed) {
+                        saveWorkout();
+                        Navigator.pop(context);
+                      }
                     }),
               ],
             ),
@@ -426,62 +441,211 @@ class _createWorkoutState extends State<createWorkout> {
     );
   }
 
+  bool searchState = false;
+  Stream<QuerySnapshot> getExercises() {
+    var firestore = FirebaseFirestore.instance;
+    Stream<QuerySnapshot<Map<String, dynamic>>> qn =
+        firestore.collection("exercises").snapshots();
+    return qn;
+  }
+
   Widget _buildPopupDialog(BuildContext context) {
-    return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 5 * 4,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: exercises.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                    child: ListTile(
-                      title: Text(exercises[index]['name']),
-                      subtitle: Text(exercises[index]['primaryMuscles'][0]),
-                      trailing: Column(children: [
-                        IconButton(
-                          icon: Icon(Icons.help),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => workoutInfoScreen(
-                                        exercise: exercises[index]['name'],
-                                        category: exercises[index]['category'],
-                                        equipment: exercises[index]
-                                            ['equipment'],
-                                        force: exercises[index]['force'],
-                                        instructions: exercises[index]
-                                            ['instructions'],
-                                        level: exercises[index]['level'],
-                                        mechanic: exercises[index]['mechanic'],
-                                        primaryMuscle: exercises[index]
-                                            ['primaryMuscle'],
-                                        secondaryMuscle: exercises[index]
-                                            ['secondaryMuscle'],
-                                      )),
-                            );
-                          },
-                        )
-                      ]),
-                    ),
+    return StreamBuilder<QuerySnapshot>(
+        stream: getExercises(),
+        builder: (context, snapshot) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 20,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(
+                            5.0) //                 <--- border radius here
+                        ),
+                  ),
+                  child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        chosen.add(exercises[index]['name']);
-                      });
-                      Navigator.pop(context);
-                      print(chosen);
-                    });
-              },
+                      if (!snapshot.hasData) {
+                        return;
+                      }
+                      showSearch(
+                          context: context,
+                          delegate: ExerciceSearch(snapshot.data!));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height / 100),
+                      child: Text(
+                        "Search...",
+                        style: TextStyle(
+                          fontFamily: vr.basicFont,
+                          fontSize: 18,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 4 * 3,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: exercises.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                          child: ListTile(
+                            title: Text(exercises[index]['name']),
+                            subtitle:
+                                Text(exercises[index]['primaryMuscles'][0]),
+                            trailing: Column(children: [
+                              IconButton(
+                                icon: Icon(Icons.help),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => workoutInfoScreen(
+                                              exercise: exercises[index]
+                                                  ['name'],
+                                              category: exercises[index]
+                                                  ['category'],
+                                              equipment: exercises[index]
+                                                  ['equipment'],
+                                              force: exercises[index]['force'],
+                                              instructions: exercises[index]
+                                                  ['instructions'],
+                                              level: exercises[index]['level'],
+                                              mechanic: exercises[index]
+                                                  ['mechanic'],
+                                              primaryMuscle: exercises[index]
+                                                  ['primaryMuscle'],
+                                              secondaryMuscle: exercises[index]
+                                                  ['secondaryMuscle'],
+                                            )),
+                                  );
+                                },
+                              )
+                            ]),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              chosen.add(exercises[index]['name']);
+                            });
+                            Navigator.pop(context);
+                            print(chosen);
+                          });
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        });
+  }
+}
+
+class ExerciceSearch extends SearchDelegate {
+  QuerySnapshot exerices;
+  ExerciceSearch(this.exerices);
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
       ),
-    );
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) => IconButton(
+      onPressed: () => Navigator.of(context).pop(),
+      icon: Icon(Icons.adaptive.arrow_back));
+
+  // @override
+  // ThemeData appBarTheme(BuildContext context) {
+  //   return ThemeData(
+  //     appBarTheme: const AppBarTheme(
+  //       color: Color(0xFF03111C), // affects AppBar's background color
+  //       //hintColy, // affects the initial 'Search' text
+  //       textTheme: const TextTheme(
+  //           headline6: TextStyle(
+  //               // headline 6 affects the query text
+  //               color: Colors.white,
+  //               fontSize: 16.0,
+  //               fontWeight: FontWeight.bold)),
+  //     ),
+  //   );
+  // }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    var searchResult = exerices.docs.where((element) =>
+        (element.get('name') as String)
+            .toLowerCase()
+            .contains(query.toLowerCase()));
+
+    return searchResult.isEmpty
+        ? Center(child: Text('Not found'))
+        : ListView.builder(
+            itemCount: searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+              return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                return ListTile(
+                  onTap: () {
+                    setState(() {
+                      chosen.add(item['name']);
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateWorkoutScreen()));
+                    });
+                  },
+                  tileColor: const Color(0xFFF4F5F5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  title: Text(item['name']),
+                  subtitle: Text(item["primaryMuscles"][0]),
+                );
+              });
+            });
+  }
+
+  //adding searching suggestion
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    var searchResult = exerices.docs.toList();
+    searchResult.shuffle();
+
+    return true
+        ? Center(
+            child: Text('Type to search'),
+          )
+        : ListView.builder(
+            itemCount: searchResult.length > 4 ? 4 : searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+              return ListTile(
+                tileColor: const Color(0xFFF4F5F5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                title: Text(item['name']),
+                subtitle: Text(item["primaryMuscles"][0]),
+              );
+            });
   }
 }

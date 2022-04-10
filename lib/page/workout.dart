@@ -54,6 +54,7 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   var workouts = [];
+  ScrollController _controller = new ScrollController(); //New
   initState() {
     getData();
   }
@@ -134,6 +135,32 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                 )),
                           );
                         }),
+                    SizedBox(height: 10),
+                    Bounceable(
+                      onTap: () {
+                        //Delete workout
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        height: 40,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(24),
+                          color: vr.errorColor,
+                          elevation: 7,
+                          child: Center(
+                            child: Text(
+                              'DELETE WORKOUT',
+                              style: TextStyle(
+                                color: vr.whiteColor,
+                                fontFamily: vr.basicFont,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Bounceable(
                       onTap: () {
                         Navigator.of(context).push(
@@ -223,9 +250,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
             ListView.builder(
                 shrinkWrap: true,
                 itemCount: workouts.length,
+                physics: ScrollPhysics(),
+                controller: _controller, //New
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(top: 10),
+
                     // child: Bounceable(
                     //   onTap: () {
                     //     bottomSheet(index, workouts[index]["name"]);

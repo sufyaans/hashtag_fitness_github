@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
+import 'package:intl/intl.dart';
 
 class LogMealScreen extends StatefulWidget {
   const LogMealScreen({Key? key}) : super(key: key);

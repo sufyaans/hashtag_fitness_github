@@ -173,6 +173,7 @@ class _NutritionPageState extends State<NutritionPage> {
                   //   },
                   child: Padding(
                     padding: EdgeInsets.only(top: 10),
+                    //Needs to show in chronological order
                     child: ListTile(
                       tileColor: const Color(0xFFF4F5F5),
                       shape: RoundedRectangleBorder(
@@ -194,8 +195,9 @@ class _NutritionPageState extends State<NutritionPage> {
                           //color: vr.black,
                         ),
                       ),
+                      //See if the datetime 'timestamp' can be reformatted using DateFormat('yyyy-MM-dd – kk:mm').format('timestamp')
                       subtitle: Text(
-                        nutritions[index]["Items Consumed"],
+                        (nutritions[index]["Items Consumed"]).toString(),
                       ),
 
                       onTap: () {
