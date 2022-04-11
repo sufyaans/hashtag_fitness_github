@@ -59,6 +59,7 @@ class _workoutCalendarState extends State<workoutCalendar> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   bool loaded = false;
+  var workName = [];
   List<Event> tmp = [];
 
   Future<void> getData() async {
@@ -82,14 +83,45 @@ class _workoutCalendarState extends State<workoutCalendar> {
             cur = (i as Map<String, dynamic>)['timestamp'].toDate().day;
             tmp = [];
           }
-          tmp.add(Event("Type of Meal: " +
-              '${(i as Map<String, dynamic>)['Type of Meal']}'));
-          tmp.add(Event("Items Consumed: " +
-              '${(i as Map<String, dynamic>)['Items Consumed']}'));
-          tmp.add(Event(
-              "Quantity: " + '${(i as Map<String, dynamic>)['Quantity']}'));
-          tmp.add(Event("Total Calories (Kcal): " +
-              '${(i as Map<String, dynamic>)['Fat (g)']}'));
+          tmp.add(Event('${(i as Map<String, dynamic>)['name']}'));
+          tmp.add(
+              Event("Time: " + '${(i as Map<String, dynamic>)['stopwatch']}'));
+          var tmpWorkoutWeight = [];
+          var tmpWorkoutReps = [];
+          i['weights'].forEach((k, v) => tmpWorkoutWeight.add(v));
+          i['reps'].forEach((k, v) => tmpWorkoutReps.add(v));
+          for (int j = 0; j < i['workouts'].length; j++) {
+            tmp.add(Event(i['workouts'][j]));
+            for (int k = 0; k < tmpWorkoutWeight[j].length; k++) {
+              // print(tmpWorkoutWeight[j][k]);
+              // print(tmpWorkoutReps[j][k]);
+              tmp.add(Event("Set " +
+                  (k + 1).toString() +
+                  "     weight (KG): " +
+                  tmpWorkoutWeight[j][k] +
+                  "     reps: " +
+                  tmpWorkoutReps[j][k]));
+            }
+          }
+          // var tmpWorkoutWeight = [];
+          // var tmpWorkSets = [];
+          // i['workouts'].forEach((k, v) => tmpWorkoutWeight.add(k));
+          // i['workouts'].forEach((k, v) => tmpWorkSets.add(v));
+          // print(tmpWorkoutWeight);
+          // for (int j = 0; j < tmpWorkoutWeight.length; j++) {
+          //   tmp.add(
+          //       Event("Exercise" + (j + 1).toString() + ": " + tmpWorkoutWeight[j]));
+          //   for (int k = 0; k < tmpWorkSets.length; k += 2) {
+          //     tmp.add(Event("Set #" +
+          //         (k + 1).toString() +
+          //         " weight: " +
+          //         tmpWorkSets[j][k]));
+          //     tmp.add(Event("Set #" +
+          //         (k + 1).toString() +
+          //         " work: " +
+          //         tmpWorkSets[j][k + 1]));
+          //   }
+          // }
         }
         _kEventSource.putIfAbsent(
             DateTime.utc(
@@ -107,6 +139,7 @@ class _workoutCalendarState extends State<workoutCalendar> {
   @override
   void initState() {
     super.initState();
+    getName();
     getData().then((item) {
       _selectedDay = _focusedDay;
       _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
@@ -118,6 +151,29 @@ class _workoutCalendarState extends State<workoutCalendar> {
   void dispose() {
     _selectedEvents!.dispose();
     super.dispose();
+  }
+
+  getName() async {
+    CollectionReference _collectionRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('WorkoutTemplates');
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    final tmptmp = await querySnapshot.docs.map((doc) => doc.id).toList();
+    setState(() {
+      for (var a in tmptmp) {
+        workName.add(a);
+      }
+    });
+  }
+
+  bool checkName(String curName) {
+    for (int i = 0; i < workName.length; i++) {
+      if (workName[i] == curName) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -232,6 +288,8 @@ class _workoutCalendarState extends State<workoutCalendar> {
                             shrinkWrap: true,
                             itemCount: value.length,
                             itemBuilder: (context, index) {
+                              // print('${value[index]}');
+                              // print(checkName('${value[index]}'));
                               return Container(
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 12.0,
@@ -239,15 +297,15 @@ class _workoutCalendarState extends State<workoutCalendar> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: vr.backGround,
-                                  border: index % 7 == 6
+                                  border: checkName('${value[index]}')
                                       ? Border(
-                                          bottom: BorderSide(
+                                          top: BorderSide(
                                             width: 0.5,
                                             color: Color(0xFF354049),
                                           ),
                                         )
                                       : Border(
-                                          bottom: BorderSide(
+                                          top: BorderSide(
                                             width: 0,
                                             color: Color(0x00000000),
                                           ),

@@ -73,6 +73,8 @@ class _NutritionPageState extends State<NutritionPage> {
       nutritions = allData;
       docnames = tmpData;
     });
+    nutritions = List.from(nutritions.reversed);
+    docnames = List.from(docnames.reversed);
     print(allData);
     print(tmpData);
   }

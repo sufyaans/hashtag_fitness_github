@@ -62,8 +62,8 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   List<List<bool>> isChecked = [];
   ScrollController _controller = new ScrollController();
   var _timer;
-  List<TextEditingController> _weightControllers = [];
-  List<TextEditingController> _repControllers = [];
+  List<List<TextEditingController>> _weightControllers = [];
+  List<List<TextEditingController>> _repControllers = [];
 
   initState() {
     if (this.mounted) {
@@ -87,7 +87,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: vr.orangeColor,
+        color: Colors.white,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -108,16 +108,39 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   }
 
   finishWorkout() async {
-    Map<String, List<String>> workouts = new Map<String, List<String>>();
+    List<String> workouts = [];
+    Map<String, List<String>> reps = new Map<String, List<String>>();
+    Map<String, List<String>> weights = new Map<String, List<String>>();
+    // List<List<String>> reps = [];
+    // List<List<String>> weights = [];
+    // Map<String, List<String>> workouts = new Map<String, List<String>>();
     print(_weightControllers.length);
-    for (var i = 0; i < workoutList.length; i++) {
-      // print(workoutList[i]);
-      // workouts.putIfAbsent(workoutList[i], () => )
-      workouts[workoutList[i]] = [
-        _weightControllers[i].text,
-        _repControllers[i].text
-      ];
-    }
+    setState(() {
+      for (var i = 0; i < workoutList.length; i++) {
+        // print(workoutList[i]);
+        // workouts.putIfAbsent(workoutList[i], () => )
+        // workouts[workoutList[i]] = [
+        //   _weightControllers[i].text,
+        //   _repControllers[i].text
+        // ];
+        workouts.add(workoutList[i]);
+        List<String> tmptmp = [];
+        for (var j = 0; j < _weightControllers[i].length; j++) {
+          if (_weightControllers[i][j].text != "") {
+            tmptmp.add(_weightControllers[i][j].text);
+          }
+        }
+        weights[i.toString()] = tmptmp;
+        tmptmp = [];
+        for (var j = 0; j < _repControllers[i].length; j++) {
+          if (_repControllers[i][j].text != "") {
+            tmptmp.add(_repControllers[i][j].text);
+          }
+        }
+        reps[i.toString()] = tmptmp;
+      }
+    });
+
     // print(workouts);
     await FirebaseFirestore.instance
         .collection('users')
@@ -125,8 +148,11 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
         .collection('Workouts')
         .add({
       'workouts': workouts,
+      'reps': reps,
+      'weights': weights,
       'timestamp': Timestamp.now(),
-      'stopwatch': formatTime(stopwatch.elapsedMilliseconds)
+      'stopwatch': formatTime(stopwatch.elapsedMilliseconds),
+      'name': widget.workoutName,
     });
   }
 
@@ -185,12 +211,12 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       body: Container(
         // height: MediaQuery.of(context).size.height,
         // width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(0),
         child: ListView(
           shrinkWrap: true,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.only(start: 25),
+              padding: EdgeInsetsDirectional.only(start: 15),
               child: Text(
                 formatTime(stopwatch.elapsedMilliseconds),
                 style: TextStyle(
@@ -207,14 +233,14 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                   physics: ScrollPhysics(),
                   controller: _controller,
                   itemBuilder: (BuildContext context, int index) {
-                    _weightControllers.add(new TextEditingController());
-                    _repControllers.add(new TextEditingController());
+                    _weightControllers.add([]);
+                    _repControllers.add([]);
                     return Padding(
                       padding: EdgeInsetsDirectional.only(top: 15),
                       child: ListTile(
                         // leading: Icon(Icons.list),
                         title: Padding(
-                          padding: EdgeInsetsDirectional.only(start: 10),
+                          padding: EdgeInsetsDirectional.only(start: 0),
                           child: Column(
                             children: [
                               Container(
@@ -234,8 +260,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                               Row(
                                 children: [
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 8,
+                                    width: MediaQuery.of(context).size.width /
+                                        60 *
+                                        10,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Sets",
@@ -247,8 +274,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                     ),
                                   ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 5,
+                                    width: MediaQuery.of(context).size.width /
+                                        60 *
+                                        18,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Weight",
@@ -260,8 +288,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                     ),
                                   ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 4,
+                                    width: MediaQuery.of(context).size.width /
+                                        60 *
+                                        18,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Reps",
@@ -273,8 +302,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                     ),
                                   ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 8,
+                                    width: MediaQuery.of(context).size.width /
+                                        60 *
+                                        8,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Done?",
@@ -292,6 +322,10 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                 physics: ClampingScrollPhysics(),
                                 itemCount: int.parse(sets[index]),
                                 itemBuilder: (BuildContext context, int ind) {
+                                  _weightControllers[index]
+                                      .add(new TextEditingController());
+                                  _repControllers[index]
+                                      .add(new TextEditingController());
                                   return Column(
                                     children: [
                                       SizedBox(
@@ -305,7 +339,8 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                8,
+                                                60 *
+                                                10,
                                             alignment: Alignment.center,
                                             child: Text(
                                               (ind + 1).toString(),
@@ -325,15 +360,19 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width /
-                                                              5,
+                                                              60 *
+                                                              17,
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height /
                                                               20),
                                               child: TextFormField(
+                                                controller:
+                                                    _weightControllers[index]
+                                                        [ind],
                                                 keyboardType:
-                                                    TextInputType.text,
+                                                    TextInputType.number,
                                                 style: TextStyle(
                                                   color: Colors.white
                                                       .withOpacity(0.5),
@@ -355,7 +394,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                     borderSide: BorderSide(
                                                         color: Colors.white),
                                                   ),
-                                                  labelText: 'Weight',
+                                                  // labelText: 'Weight',
                                                   labelStyle: TextStyle(
                                                       color: Colors.white),
                                                 ),
@@ -377,15 +416,19 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                                     context)
                                                                 .size
                                                                 .width /
-                                                            5,
+                                                            60 *
+                                                            17,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .height /
                                                             20),
                                                 child: TextFormField(
+                                                  controller:
+                                                      _repControllers[index]
+                                                          [ind],
                                                   keyboardType:
-                                                      TextInputType.text,
+                                                      TextInputType.number,
                                                   style: TextStyle(
                                                     color: Colors.white
                                                         .withOpacity(0.5),
@@ -407,7 +450,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                       borderSide: BorderSide(
                                                           color: Colors.white),
                                                     ),
-                                                    labelText: 'Reps',
+                                                    // labelText: 'Reps',
                                                     labelStyle: TextStyle(
                                                         color: Colors.white),
                                                   ),
@@ -415,17 +458,20 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                               ),
                                             ),
                                           ),
-                                          Checkbox(
-                                              checkColor: vr.whiteColor,
-                                              fillColor: MaterialStateProperty
-                                                  .resolveWith(getColor),
-                                              value: isChecked[index][ind],
-                                              onChanged: (bool? value) {
-                                                setState(() {
-                                                  isChecked[index][ind] =
-                                                      value!;
-                                                });
-                                              }),
+                                          Transform.scale(
+                                            scale: 1.6,
+                                            child: Checkbox(
+                                                checkColor: vr.whiteColor,
+                                                fillColor: MaterialStateProperty
+                                                    .resolveWith(getColor),
+                                                value: isChecked[index][ind],
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    isChecked[index][ind] =
+                                                        value!;
+                                                  });
+                                                }),
+                                          ),
                                         ],
                                       ),
                                     ],
