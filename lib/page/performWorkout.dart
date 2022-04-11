@@ -28,6 +28,20 @@ class _PerformWorkoutState extends State<PerformWorkout> {
           style: TextStyle(fontFamily: vr.basicFont),
         ),
         backgroundColor: vr.backGround,
+        // actions: [
+        //   IconButton(
+        //       icon: Icon(Icons.calendar_today),
+        //       tooltip: 'Calendar',
+        //       //color: Colors.black,
+        //       onPressed: () {
+        //         Navigator.of(context).push(
+        //           MaterialPageRoute(
+        //             builder: (context) => workoutCalendar(),
+        //           ),
+        //         );
+
+        //       }),
+        // ],
       ),
       body: PerformWorkoutPage(workoutName: widget.workoutName),
     );

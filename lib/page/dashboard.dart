@@ -68,8 +68,8 @@ class _DashboardState extends State<Dashboard> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   String uname = "";
   String dropdownValue = 'Chest Measurement (CM)';
-  String timeRange = 'by Day';
-  String timeRange2 = 'by Day';
+  String timeRange = 'by Month';
+  String timeRange2 = 'By Month';
   String Nutrition = "Carbs (g)";
   var chartValues = [];
   var nutritions = [];
@@ -130,6 +130,7 @@ class _DashboardState extends State<Dashboard> {
   initState() {
     getUID();
     getMeasurements();
+    getNutrients();
   }
 
   // final String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -277,7 +278,9 @@ class _DashboardState extends State<Dashboard> {
                                 'Left Thigh Measurement (CM)',
                                 'Right Thigh Measurement (CM)',
                                 'Neck Measurement (CM)',
-                                'Waist Measurement (CM)'
+                                'Waist Measurement (CM)',
+                                'Body Fat (%)',
+                                'Body Weight (%)'
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -312,9 +315,9 @@ class _DashboardState extends State<Dashboard> {
                                 });
                               },
                               items: <String>[
-                                'by Day',
-                                // 'by Week',
                                 'by Month',
+                                'by Year',
+                                // 'by Week',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -333,7 +336,7 @@ class _DashboardState extends State<Dashboard> {
                     Container(
                       height: MediaQuery.of(context).size.height / 11 * 3,
                       width: 500,
-                      child: SimpleLineChart.withSampleData(
+                      child: PointsLineChart.withSampleData(
                           chartValues, timeRange),
                     ),
                     // ),
@@ -374,6 +377,7 @@ class _DashboardState extends State<Dashboard> {
                         'Fat (g)',
                         'Protein (g)',
                         'Total Calories (Kcal)',
+                        'Total',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -412,7 +416,8 @@ class _DashboardState extends State<Dashboard> {
                       items: <String>[
                         'by Day',
                         // 'by Week',
-                        'by Month',
+                        // 'by Month',
+                        'By Month',
                       ].map<DropdownMenuItem<String>>(
                         (String value) {
                           return DropdownMenuItem<String>(
@@ -433,7 +438,7 @@ class _DashboardState extends State<Dashboard> {
             Container(
               height: MediaQuery.of(context).size.height / 11 * 3,
               width: 500,
-              child: SimpleLineChart.withSampleData(nutritions, timeRange2),
+              child: PointsLineChart.withSampleData(nutritions, timeRange2),
             ),
           ],
         ),

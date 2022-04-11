@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/page/measurementCalendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class Measurement extends StatefulWidget {
   @override
@@ -53,17 +54,14 @@ class MeasurementLog extends StatefulWidget {
 class _MeasurementLogState extends State<MeasurementLog> {
   var date = DateTime.now();
   String time = "";
+  static final DateFormat formatter = DateFormat('yyyy_MM_dd');
 
   @override
   void initState() {
     fToast = FToast();
     fToast.init(context);
     setState(() {
-      time = date.year.toString() +
-          "_" +
-          date.month.toString() +
-          "_" +
-          date.day.toString();
+      time = formatter.format(date);
     });
   }
 

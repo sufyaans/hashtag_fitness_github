@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/page/nutritionCalendar.dart';
-
+import 'dart:io';
 import 'package:hashtag_fitness/variables.dart' as vr;
 
 class Nutrition extends StatefulWidget {
@@ -52,6 +52,7 @@ class NutritionPage extends StatefulWidget {
 
 class _NutritionPageState extends State<NutritionPage> {
   var nutritions = [];
+  var docnames = [];
   initState() {
     getData();
   }
@@ -67,13 +68,61 @@ class _NutritionPageState extends State<NutritionPage> {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    final tmpData = querySnapshot.docs.map((doc) => doc.id).toList();
     setState(() {
       nutritions = allData;
+      docnames = tmpData;
     });
     print(allData);
+    print(tmpData);
   }
 
-  bottomSheet(var i, var name) {
+  String parseDate(String timeDate) {
+    String day = "";
+    String month = "";
+    String year = "";
+    String time = "";
+    String tmp = "";
+    List<String> months = [
+      "",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    for (int i = 0; i < timeDate.length; i++) {
+      if (i == 2 || i == 3)
+        year += timeDate[i];
+      else if (i == 4)
+        year += " ";
+      else if (i == 5) {
+        String tmptmp = timeDate[i] + timeDate[i + 1];
+        int tmp2 = int.parse(tmptmp);
+        month += months[tmp2] + " ";
+        i++;
+      } else if (i == 8 || i == 9)
+        day += timeDate[i];
+      else if (i == 10)
+        day += " ";
+      else if (i == 13)
+        time += ":";
+      else if (i >= 11 && i <= 15) time += timeDate[i];
+      if (i == 15) time += " ";
+    }
+    tmp = time + day + month + year;
+    return tmp;
+  }
+
+//  bottomSheet(var i, var name) {
+  bottomSheet() {
     Widget makeDismissible({required Widget child}) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: Navigator.of(context).pop,
@@ -88,8 +137,8 @@ class _NutritionPageState extends State<NutritionPage> {
       builder: (context) => SafeArea(
         child: makeDismissible(
           child: DraggableScrollableSheet(
-            initialChildSize: 0.7,
-            maxChildSize: 0.8,
+            initialChildSize: 0.3,
+            maxChildSize: 0.5,
             minChildSize: 0.2,
             builder: (BuildContext context, ScrollController scrollController) {
               int index = 0;
@@ -104,7 +153,51 @@ class _NutritionPageState extends State<NutritionPage> {
                   shrinkWrap: true,
                   controller: scrollController,
                   children: [
-                    // Add meal data
+                    //Check this
+                    Center(
+                      child: Text(
+                        (nutritions[index]["Type of Meal"]).toString(),
+                        style: TextStyle(
+                          fontFamily: vr.basicFont,
+                          fontSize: 24,
+                          //color: vr.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      'Items Consumed: ' +
+                          (nutritions[index]['Items Consumed']).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      'Quantity: ' + (nutritions[index]['Quantity']).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      'Total Calories (Kcal): ' +
+                          (nutritions[index]['Total Calories (Kcal)'])
+                              .toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      'Fat (g): ' + (nutritions[index]['Fat (g)']).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      'Carbs (g): ' +
+                          (nutritions[index]['Carbs (g)']).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      'Protein (g): ' +
+                          (nutritions[index]['Protein (g)']).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    // ------------
                   ],
                 ),
               );
@@ -114,6 +207,8 @@ class _NutritionPageState extends State<NutritionPage> {
       ),
     );
   }
+
+  ScrollController _controller = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -162,52 +257,54 @@ class _NutritionPageState extends State<NutritionPage> {
               ),
             ),
             SizedBox(height: 20),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: nutritions.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  // child: Bounceable(
-                  //   onTap: () {
-                  //     //bottomSheet(index, nutritions[index]["Type of Meal"]);
-                  //   },
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    //Needs to show in chronological order
-                    child: ListTile(
-                      tileColor: const Color(0xFFF4F5F5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      // trailing: Text(
-                      //   workouts[index]["name"],
-                      //   style: TextStyle(
-                      //     fontFamily: vr.basicFont,
-                      //     fontSize: 18,
-                      //     color: vr.whiteColor,
-                      //   ),
-                      // ),
-                      title: Text(
-                        nutritions[index]["Type of Meal"],
-                        style: TextStyle(
-                          fontFamily: vr.basicFont,
-                          fontSize: 18,
-                          //color: vr.black,
+            SingleChildScrollView(
+              child: ListView.builder(
+                shrinkWrap: true,
+                controller: _controller,
+                physics: ScrollPhysics(),
+                itemCount: nutritions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    // child: Bounceable(
+                    //   onTap: () {
+                    //     //bottomSheet(index, nutritions[index]["Type of Meal"]);
+                    //   },
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: ListTile(
+                        tileColor: const Color(0xFFF4F5F5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
-                      ),
-                      //See if the datetime 'timestamp' can be reformatted using DateFormat('yyyy-MM-dd – kk:mm').format('timestamp')
-                      subtitle: Text(
-                        (nutritions[index]["Items Consumed"]).toString(),
-                      ),
+                        // trailing: Text(
+                        //   workouts[index]["name"],
+                        //   style: TextStyle(
+                        //     fontFamily: vr.basicFont,
+                        //     fontSize: 18,
+                        //     color: vr.whiteColor,
+                        //   ),
+                        // ),
+                        title: Text(
+                          nutritions[index]["Type of Meal"],
+                          style: TextStyle(
+                            fontFamily: vr.basicFont,
+                            fontSize: 18,
+                            //color: vr.black,
+                          ),
+                        ),
+                        subtitle: Text(
+                          parseDate(docnames[index]),
+                        ),
 
-                      onTap: () {
-                        bottomSheet(index, nutritions[index]["Type of Meal"]);
-                      },
+                        onTap: () {
+                          bottomSheet();
+                        },
+                      ),
                     ),
-                  ),
-                  // ),
-                );
-              },
+                    // ),
+                  );
+                },
+              ),
             ),
           ],
         ),

@@ -54,7 +54,6 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   var workouts = [];
-  ScrollController _controller = new ScrollController(); //New
   initState() {
     getData();
   }
@@ -200,6 +199,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
     );
   }
 
+  ScrollController _controller = new ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -247,48 +248,49 @@ class _WorkoutPageState extends State<WorkoutPage> {
               ),
             ),
             SizedBox(height: 20),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: workouts.length,
-                physics: ScrollPhysics(),
-                controller: _controller, //New
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 10),
-
-                    // child: Bounceable(
-                    //   onTap: () {
-                    //     bottomSheet(index, workouts[index]["name"]);
-                    //   },
-                    child: ListTile(
-                      leading: Icon(Icons.list),
-                      tileColor: const Color(0xFFF4F5F5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      // trailing: Text(
-                      //   workouts[index]["name"],
-                      //   style: TextStyle(
-                      //     fontFamily: vr.basicFont,
-                      //     fontSize: 18,
-                      //     color: vr.whiteColor,
-                      //   ),
-                      // ),
-                      title: Text(
-                        workouts[index]["name"],
-                        style: TextStyle(
-                          fontFamily: vr.basicFont,
-                          fontSize: 18,
-                          //color: vr.black,
+            SingleChildScrollView(
+              child: ListView.builder(
+                  physics: ScrollPhysics(),
+                  controller: _controller,
+                  shrinkWrap: true,
+                  itemCount: workouts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      // child: Bounceable(
+                      //   onTap: () {
+                      //     bottomSheet(index, workouts[index]["name"]);
+                      //   },
+                      child: ListTile(
+                        leading: Icon(Icons.list),
+                        tileColor: const Color(0xFFF4F5F5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
                         ),
+                        // trailing: Text(
+                        //   workouts[index]["name"],
+                        //   style: TextStyle(
+                        //     fontFamily: vr.basicFont,
+                        //     fontSize: 18,
+                        //     color: vr.whiteColor,
+                        //   ),
+                        // ),
+                        title: Text(
+                          workouts[index]["name"],
+                          style: TextStyle(
+                            fontFamily: vr.basicFont,
+                            fontSize: 18,
+                            //color: vr.black,
+                          ),
+                        ),
+                        onTap: () {
+                          bottomSheet(index, workouts[index]["name"]);
+                        },
                       ),
-                      onTap: () {
-                        bottomSheet(index, workouts[index]["Type of Meal"]);
-                      },
-                    ),
-                    // ),
-                  );
-                }),
+                      // ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),

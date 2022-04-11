@@ -41,6 +41,7 @@ class LogMeal extends StatefulWidget {
 
 class _LogMealState extends State<LogMeal> {
   var date = DateTime.now();
+  static final DateFormat formatter = DateFormat('yyyy_MM_dd_HH_mm');
   String time = "";
 
   @override
@@ -48,15 +49,7 @@ class _LogMealState extends State<LogMeal> {
     fToast = FToast();
     fToast.init(context);
     setState(() {
-      time = date.year.toString() +
-          "_" +
-          date.month.toString() +
-          "_" +
-          date.day.toString() +
-          "_" +
-          date.hour.toString() +
-          "_" +
-          date.minute.toString();
+      time = formatter.format(date);
     });
   }
 
@@ -124,6 +117,10 @@ class _LogMealState extends State<LogMeal> {
       "Fat (g)": int.parse(fatCont.text),
       "Carbs (g)": int.parse(carbsCont.text),
       "Protein (g)": int.parse(proteinCont.text),
+      "Total": int.parse(caloriesCont.text) +
+          int.parse(fatCont.text) +
+          int.parse(carbsCont.text) +
+          int.parse(proteinCont.text),
     }).then((value) {
       mealTypeCont.clear();
       itemsConsumedCont.clear();
