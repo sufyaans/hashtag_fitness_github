@@ -280,7 +280,7 @@ class _DashboardState extends State<Dashboard> {
                                 'Neck Measurement (CM)',
                                 'Waist Measurement (CM)',
                                 'Body Fat (%)',
-                                'Body Weight (%)'
+                                'Body Weight (KG)'
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,

@@ -22,7 +22,7 @@ class PointsLineChart extends StatelessWidget {
     return new PointsLineChart(
       _createSampleData(values, timeRange),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
     );
   }
 

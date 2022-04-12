@@ -87,7 +87,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.white,
+        color: vr.orangeColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -276,7 +276,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                   Container(
                                     width: MediaQuery.of(context).size.width /
                                         60 *
-                                        18,
+                                        17,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Weight",
@@ -290,7 +290,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                   Container(
                                     width: MediaQuery.of(context).size.width /
                                         60 *
-                                        18,
+                                        17,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Reps",
@@ -361,7 +361,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                                   .size
                                                                   .width /
                                                               60 *
-                                                              17,
+                                                              16,
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
@@ -372,7 +372,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                     _weightControllers[index]
                                                         [ind],
                                                 keyboardType:
-                                                    TextInputType.number,
+                                                    TextInputType.text,
                                                 style: TextStyle(
                                                   color: Colors.white
                                                       .withOpacity(0.5),
@@ -417,7 +417,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                                 .size
                                                                 .width /
                                                             60 *
-                                                            17,
+                                                            16,
                                                         height: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -428,7 +428,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                       _repControllers[index]
                                                           [ind],
                                                   keyboardType:
-                                                      TextInputType.number,
+                                                      TextInputType.text,
                                                   style: TextStyle(
                                                     color: Colors.white
                                                         .withOpacity(0.5),
@@ -561,14 +561,17 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
             Padding(padding: EdgeInsetsDirectional.only(top: 20)),
             Bounceable(
               onTap: () {
-                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => _buildPopupDialog(context),
+                );
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 height: 40,
                 child: Material(
                   borderRadius: BorderRadius.circular(24),
-                  color: vr.orangeColor,
+                  color: vr.errorColor,
                   elevation: 7,
                   child: Center(
                     child: Text(
@@ -585,6 +588,101 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: vr.backGround,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 5,
+              color: vr.backGround,
+              child: Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          0,
+                          MediaQuery.of(context).size.height / 40,
+                          0,
+                          MediaQuery.of(context).size.height / 20),
+                      child: Text(
+                          "Are you sure you want to cancel this workout?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: vr.basicFont,
+                              color: vr.whiteColor,
+                              fontSize: 18)),
+                    ),
+                  ),
+                  Center(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: 40,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(24),
+                                color: vr.orangeColor,
+                                elevation: 7,
+                                child: Center(
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(
+                                      color: vr.whiteColor,
+                                      fontFamily: vr.basicFont,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            onTap: () => Navigator.pop(context)),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 100,
+                        ),
+                        GestureDetector(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: 40,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(24),
+                                color: vr.whiteColor,
+                                elevation: 7,
+                                child: Center(
+                                  child: Text(
+                                    'YES',
+                                    style: TextStyle(
+                                      color: vr.orangeColor,
+                                      fontFamily: vr.basicFont,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                // deleteWorkout(name);
+                                // workouts.remove(workouts[index]);
+                                // print(workouts);
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ))
+        ],
       ),
     );
   }

@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_return_type_for_catch_error
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names
 
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/page/detailPage.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -59,7 +58,7 @@ class _createWorkoutState extends State<createWorkout> {
   }
 
   getExercise() async {
-    final QuerySnapshot querySnapshot =
+    QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('exercises').get();
     final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
     for (var i in allData) {
@@ -146,19 +145,6 @@ class _createWorkoutState extends State<createWorkout> {
       workoutName.clear();
     }).catchError((error) =>
             print("Failed to update workout template collection: $error"));
-  }
-
-  //Navigates user to detailPage
-  navigateToDetail(QueryDocumentSnapshot exercise) {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) => SafeArea(
-              child: DetailPage(
-                exercise: exercise,
-              ),
-            ));
   }
 
   @override
@@ -264,11 +250,7 @@ class _createWorkoutState extends State<createWorkout> {
                                           child: IconButton(
                                             icon: Icon(Icons.info_outline,
                                                 color: vr.whiteColor),
-                                            // onPressed: () => navigateToDetail(
-                                            //     snapshots.docs[index]),
                                             onPressed: (() {
-                                              //Try use showmodel bottomsheet
-
                                               var tmp = 0;
                                               for (var i = 0;
                                                   i < exercises.length;
@@ -523,11 +505,7 @@ class _createWorkoutState extends State<createWorkout> {
                             trailing: Column(children: [
                               IconButton(
                                 icon: Icon(Icons.help),
-                                // onPressed: () =>
-                                //     navigateToDetail(snapshots.docs[index]),
                                 onPressed: () {
-                                  //See if you can change this to a bottomsheet
-
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
