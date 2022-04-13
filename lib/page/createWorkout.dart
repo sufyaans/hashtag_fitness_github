@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, unnecessary_new, prefer_final_fields, unused_field, must_call_super, annotate_overrides, await_only_futures, prefer_is_empty, sized_box_for_whitespace, curly_braces_in_flow_control_structures, dead_code
 
 import 'package:flutter/material.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
@@ -143,8 +143,7 @@ class _createWorkoutState extends State<createWorkout> {
       "sets": sets,
     }).then((value) {
       workoutName.clear();
-    }).catchError((error) =>
-            print("Failed to update workout template collection: $error"));
+    });
   }
 
   @override
@@ -198,12 +197,11 @@ class _createWorkoutState extends State<createWorkout> {
                   height: 20,
                 ),
                 SingleChildScrollView(
-                  //New
                   // child: Container(
 
                   child: ListView.builder(
-                    physics: ScrollPhysics(), //New
-                    controller: _controller, //New
+                    physics: ScrollPhysics(),
+                    controller: _controller,
                     shrinkWrap: true,
                     itemCount: (chosen.length != 0) ? chosen.length : 0,
                     itemBuilder: (BuildContext context, int index) {
@@ -251,6 +249,7 @@ class _createWorkoutState extends State<createWorkout> {
                                             icon: Icon(Icons.info_outline,
                                                 color: vr.whiteColor),
                                             onPressed: (() {
+                                              // DetailPage should come up instead (showmodelbottomsheet)
                                               var tmp = 0;
                                               for (var i = 0;
                                                   i < exercises.length;
@@ -259,6 +258,7 @@ class _createWorkoutState extends State<createWorkout> {
                                                     exercises[i]["name"])
                                                   tmp = i;
                                               }
+
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -311,7 +311,6 @@ class _createWorkoutState extends State<createWorkout> {
                                               setState(() {
                                                 delete(chosen[index]);
                                               });
-                                              print(chosen);
                                             }),
                                           ),
                                         ),
@@ -463,9 +462,7 @@ class _createWorkoutState extends State<createWorkout> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(
-                            5.0) //                 <--- border radius here
-                        ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
                   child: GestureDetector(
                     onTap: () {
@@ -506,6 +503,7 @@ class _createWorkoutState extends State<createWorkout> {
                               IconButton(
                                 icon: Icon(Icons.help),
                                 onPressed: () {
+                                  // DetailPage should come up instead (showmodelbottomsheet)
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -537,7 +535,6 @@ class _createWorkoutState extends State<createWorkout> {
                               chosen.add(exercises[index]['name']);
                             });
                             Navigator.pop(context);
-                            print(chosen);
                           });
                     },
                   ),
@@ -549,6 +546,7 @@ class _createWorkoutState extends State<createWorkout> {
   }
 }
 
+//Search function
 class ExerciceSearch extends SearchDelegate {
   QuerySnapshot exerices;
   ExerciceSearch(this.exerices);

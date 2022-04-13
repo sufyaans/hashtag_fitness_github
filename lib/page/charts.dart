@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_new, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: unnecessary_new, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, curly_braces_in_flow_control_structures
 
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
@@ -21,7 +21,6 @@ class PointsLineChart extends StatelessWidget {
   factory PointsLineChart.withSampleData(var values, var timeRange) {
     return new PointsLineChart(
       _createSampleData(values, timeRange),
-      // Disable animations for image tests.
       animate: true,
     );
   }

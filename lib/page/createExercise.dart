@@ -122,7 +122,7 @@ class _LogMealState extends State<LogMeal> {
       padding: EdgeInsets.all(8),
       child: ListView(
         children: [
-          //equipment
+          //name
           SizedBox(height: 25),
           TextFormField(
             controller: exerciseNameCont,
