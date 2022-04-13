@@ -316,99 +316,85 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
   Widget _buildPopupDialog(BuildContext context, String name, int index) {
     return AlertDialog(
-      backgroundColor: vr.backGround,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 5,
-              color: vr.backGround,
-              child: Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          MediaQuery.of(context).size.height / 40,
-                          0,
-                          MediaQuery.of(context).size.height / 20),
-                      child: Text(
-                          "Are you sure you want to delete this workout?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: vr.basicFont,
-                              color: vr.whiteColor,
-                              fontSize: 18)),
-                    ),
-                  ),
-                  Center(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            height: 40,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(24),
-                              color: vr.orangeColor,
-                              elevation: 7,
-                              child: Center(
-                                child: Text(
-                                  'NO',
-                                  style: TextStyle(
-                                    color: vr.whiteColor,
-                                    fontFamily: vr.basicFont,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 100,
-                        ),
-                        GestureDetector(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: 40,
-                              child: Material(
-                                borderRadius: BorderRadius.circular(24),
-                                color: vr.whiteColor,
-                                elevation: 7,
-                                child: Center(
-                                  child: Text(
-                                    'YES',
-                                    style: TextStyle(
-                                      color: vr.orangeColor,
-                                      fontFamily: vr.basicFont,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                deleteWorkout(name);
-                                workouts.remove(workouts[index]);
-                                print(workouts);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              });
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ))
-        ],
+      title: Text(
+        'Delete',
+        style: TextStyle(
+          color: vr.whiteColor,
+          //fontFamily: vr.basicFont,
+        ),
       ),
+      content: Text(
+        'Are you sure you want to delete this workout',
+        style: TextStyle(
+          color: vr.whiteColor,
+          //fontFamily: vr.basicFont,
+        ),
+      ),
+      backgroundColor: vr.backGround,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      actions: [
+        //Yes
+        Bounceable(
+          onTap: () {
+            setState(() {
+              deleteWorkout(name);
+              workouts.remove(workouts[index]);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            height: 40,
+            child: Material(
+              borderRadius: BorderRadius.circular(24),
+              color: vr.orangeColor,
+              elevation: 7,
+              child: Center(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: vr.whiteColor,
+                    fontFamily: vr.basicFont,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        //NO
+        Bounceable(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            height: 40,
+            child: Material(
+              borderRadius: BorderRadius.circular(24),
+              color: vr.errorColor,
+              elevation: 7,
+              child: Center(
+                child: Text(
+                  'No',
+                  style: TextStyle(
+                    color: vr.whiteColor,
+                    fontFamily: vr.basicFont,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }

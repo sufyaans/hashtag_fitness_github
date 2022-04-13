@@ -594,6 +594,87 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
 
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
+      title: Text(
+        'Delete',
+        style: TextStyle(
+          color: vr.whiteColor,
+          //fontFamily: vr.basicFont,
+        ),
+      ),
+      content: Text(
+        'Are you sure you want to delete this workout',
+        style: TextStyle(
+          color: vr.whiteColor,
+          //fontFamily: vr.basicFont,
+        ),
+      ),
+      backgroundColor: vr.backGround,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      actions: [
+        //Yes
+        Bounceable(
+          onTap: () {
+            setState(() {
+              // deleteWorkout(name);
+              // workouts.remove(workouts[index]);
+              // print(workouts);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            height: 40,
+            child: Material(
+              borderRadius: BorderRadius.circular(24),
+              color: vr.orangeColor,
+              elevation: 7,
+              child: Center(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: vr.whiteColor,
+                    fontFamily: vr.basicFont,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        //NO
+        Bounceable(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            height: 40,
+            child: Material(
+              borderRadius: BorderRadius.circular(24),
+              color: vr.errorColor,
+              elevation: 7,
+              child: Center(
+                child: Text(
+                  'No',
+                  style: TextStyle(
+                    color: vr.whiteColor,
+                    fontFamily: vr.basicFont,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
+    );
+/*
+    return AlertDialog(
       backgroundColor: vr.backGround,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -685,5 +766,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
         ],
       ),
     );
+
+*/
   }
 }
