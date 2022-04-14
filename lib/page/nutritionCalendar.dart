@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/variables.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
-import 'dart:io';
 
 // Event class.
 class Event {
