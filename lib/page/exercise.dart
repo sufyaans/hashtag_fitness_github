@@ -92,6 +92,9 @@ class ListPage extends StatelessWidget {
     return ListView.builder(
         itemCount: snapshot.docs.length,
         itemBuilder: (context, index) {
+          if (snapshot.docs[index]['name'] == "Test2") {
+            print("WTF");
+          }
           return Padding(
             padding: EdgeInsets.all(8),
             child: ListTile(

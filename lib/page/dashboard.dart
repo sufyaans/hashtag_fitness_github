@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types, must_call_super, annotate_overrides, unnecessary_cast, non_constant_identifier_names, prefer_const_constructors_in_immutables, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,9 +7,11 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
+import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import './charts.dart';
+import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -79,6 +81,8 @@ class _DashboardState extends State<Dashboard> {
         .then((DocumentSnapshot documentSnapshot) {
       setState(() {
         uname = documentSnapshot['name'];
+        print(uname);
+        //print(documentSnapshot.data());
       });
     });
   }
@@ -207,7 +211,7 @@ class _DashboardState extends State<Dashboard> {
                           createWorkout(),
                           logMeal(),
                           logMeasurement(),
-                          //findGym(),
+                          findGym(),
                         ],
                       ),
                     ),
@@ -622,59 +626,59 @@ class logMeasurement extends StatelessWidget {
 }
 
 //Find gym
-// class findGym extends StatefulWidget {
-//   const findGym({Key? key}) : super(key: key);
+class findGym extends StatefulWidget {
+  const findGym({Key? key}) : super(key: key);
 
-//   @override
-//   State<findGym> createState() => _findGymState();
-// }
+  @override
+  State<findGym> createState() => _findGymState();
+}
 
-// class _findGymState extends State<findGym> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Bounceable(
-//       onTap: () {
-//         Navigator.of(context).push(
-//           MaterialPageRoute(
-//             builder: (context) => findAGym(),
-//           ),
-//         );
-//       },
-//       child: Padding(
-//         padding: const EdgeInsets.only(
-//           right: 6,
-//         ),
-//         child: Container(
-//           height: 80,
-//           width: 140,
-//           margin: EdgeInsets.only(top: 8),
-//           decoration: BoxDecoration(
-//             color: vr.whiteColor, //Change colour later on
-//             borderRadius: BorderRadius.circular(12),
-//           ),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: <Widget>[
-//                   Icon(
-//                     Icons.fitness_center_rounded,
-//                   ),
-//                   SizedBox(width: 10),
-//                 ],
-//               ),
-//               Text(
-//                 "Find Gym Near Me",
-//                 style: TextStyle(
-//                   fontFamily: vr.basicFont,
-//                   fontSize: 15,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _findGymState extends State<findGym> {
+  @override
+  Widget build(BuildContext context) {
+    return Bounceable(
+      onTap: () {
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => Measurement(),
+        //   ),
+        // );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 6,
+        ),
+        child: Container(
+          height: 80,
+          width: 140,
+          margin: EdgeInsets.only(top: 8),
+          decoration: BoxDecoration(
+            color: vr.whiteColor, //Change colour later on
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.fitness_center_rounded,
+                  ),
+                  SizedBox(width: 10),
+                ],
+              ),
+              Text(
+                "Find Gym Near Me",
+                style: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

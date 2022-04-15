@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, unnecessary_new, prefer_final_fields, unused_field, must_call_super, annotate_overrides, await_only_futures, prefer_is_empty, sized_box_for_whitespace, curly_braces_in_flow_control_structures, dead_code
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names
 
 import 'package:flutter/material.dart';
+import 'package:hashtag_fitness/page/detailPage.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -143,7 +144,20 @@ class _createWorkoutState extends State<createWorkout> {
       "sets": sets,
     }).then((value) {
       workoutName.clear();
-    });
+    }).catchError((error) =>
+            print("Failed to update workout template collection: $error"));
+  }
+
+  navigateToDetail(QueryDocumentSnapshot exercise) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => SafeArea(
+              child: DetailPage(
+                exercise: exercise,
+              ),
+            ));
   }
 
   @override
@@ -197,11 +211,12 @@ class _createWorkoutState extends State<createWorkout> {
                   height: 20,
                 ),
                 SingleChildScrollView(
+                  //New
                   // child: Container(
 
                   child: ListView.builder(
-                    physics: ScrollPhysics(),
-                    controller: _controller,
+                    physics: ScrollPhysics(), //New
+                    controller: _controller, //New
                     shrinkWrap: true,
                     itemCount: (chosen.length != 0) ? chosen.length : 0,
                     itemBuilder: (BuildContext context, int index) {
@@ -249,48 +264,49 @@ class _createWorkoutState extends State<createWorkout> {
                                             icon: Icon(Icons.info_outline,
                                                 color: vr.whiteColor),
                                             onPressed: (() {
-                                              // DetailPage should come up instead (showmodelbottomsheet)
-                                              var tmp = 0;
-                                              for (var i = 0;
-                                                  i < exercises.length;
-                                                  i++) {
-                                                if (chosen[index] ==
-                                                    exercises[i]["name"])
-                                                  tmp = i;
-                                              }
+                                              //detail page screen should come up
+                                              //navigateToDetail(snapshot.docs[index]);
 
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        workoutInfoScreen(
-                                                          exercise:
-                                                              exercises[tmp]
-                                                                  ['name'],
-                                                          category:
-                                                              exercises[tmp]
-                                                                  ['category'],
-                                                          equipment:
-                                                              exercises[tmp]
-                                                                  ['equipment'],
-                                                          force: exercises[tmp]
-                                                              ['force'],
-                                                          instructions: exercises[
-                                                                  tmp]
-                                                              ['instructions'],
-                                                          level: exercises[tmp]
-                                                              ['level'],
-                                                          mechanic:
-                                                              exercises[tmp]
-                                                                  ['mechanic'],
-                                                          primaryMuscle: exercises[
-                                                                  tmp]
-                                                              ['primaryMuscle'],
-                                                          secondaryMuscle:
-                                                              exercises[tmp][
-                                                                  'secondaryMuscle'],
-                                                        )),
-                                              );
+                                              // var tmp = 0;
+                                              // for (var i = 0;
+                                              //     i < exercises.length;
+                                              //     i++) {
+                                              //   if (chosen[index] ==
+                                              //       exercises[i]["name"])
+                                              //     tmp = i;
+                                              // }
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           workoutInfoScreen(
+                                              //             exercise:
+                                              //                 exercises[tmp]
+                                              //                     ['name'],
+                                              //             category:
+                                              //                 exercises[tmp]
+                                              //                     ['category'],
+                                              //             equipment:
+                                              //                 exercises[tmp]
+                                              //                     ['equipment'],
+                                              //             force: exercises[tmp]
+                                              //                 ['force'],
+                                              //             instructions: exercises[
+                                              //                     tmp]
+                                              //                 ['instructions'],
+                                              //             level: exercises[tmp]
+                                              //                 ['level'],
+                                              //             mechanic:
+                                              //                 exercises[tmp]
+                                              //                     ['mechanic'],
+                                              //             primaryMuscle: exercises[
+                                              //                     tmp]
+                                              //                 ['primaryMuscle'],
+                                              //             secondaryMuscle:
+                                              //                 exercises[tmp][
+                                              //                     'secondaryMuscle'],
+                                              //           )),
+                                              // );
                                             }),
                                           ),
                                         ),
@@ -311,6 +327,7 @@ class _createWorkoutState extends State<createWorkout> {
                                               setState(() {
                                                 delete(chosen[index]);
                                               });
+                                              print(chosen);
                                             }),
                                           ),
                                         ),
@@ -462,7 +479,9 @@ class _createWorkoutState extends State<createWorkout> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(
+                            5.0) //                 <--- border radius here
+                        ),
                   ),
                   child: GestureDetector(
                     onTap: () {
@@ -503,29 +522,31 @@ class _createWorkoutState extends State<createWorkout> {
                               IconButton(
                                 icon: Icon(Icons.help),
                                 onPressed: () {
-                                  // DetailPage should come up instead (showmodelbottomsheet)
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => workoutInfoScreen(
-                                              exercise: exercises[index]
-                                                  ['name'],
-                                              category: exercises[index]
-                                                  ['category'],
-                                              equipment: exercises[index]
-                                                  ['equipment'],
-                                              force: exercises[index]['force'],
-                                              instructions: exercises[index]
-                                                  ['instructions'],
-                                              level: exercises[index]['level'],
-                                              mechanic: exercises[index]
-                                                  ['mechanic'],
-                                              primaryMuscle: exercises[index]
-                                                  ['primaryMuscle'],
-                                              secondaryMuscle: exercises[index]
-                                                  ['secondaryMuscle'],
-                                            )),
-                                  );
+                                  //Detail page screen should come up
+                                  //navigateToDetail(snapshot.docs[index]);
+
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => workoutInfoScreen(
+                                  //             exercise: exercises[index]
+                                  //                 ['name'],
+                                  //             category: exercises[index]
+                                  //                 ['category'],
+                                  //             equipment: exercises[index]
+                                  //                 ['equipment'],
+                                  //             force: exercises[index]['force'],
+                                  //             instructions: exercises[index]
+                                  //                 ['instructions'],
+                                  //             level: exercises[index]['level'],
+                                  //             mechanic: exercises[index]
+                                  //                 ['mechanic'],
+                                  //             primaryMuscle: exercises[index]
+                                  //                 ['primaryMuscle'],
+                                  //             secondaryMuscle: exercises[index]
+                                  //                 ['secondaryMuscle'],
+                                  //           )),
+                                  // );
                                 },
                               )
                             ]),
@@ -535,6 +556,7 @@ class _createWorkoutState extends State<createWorkout> {
                               chosen.add(exercises[index]['name']);
                             });
                             Navigator.pop(context);
+                            print(chosen);
                           });
                     },
                   ),
@@ -546,7 +568,6 @@ class _createWorkoutState extends State<createWorkout> {
   }
 }
 
-//Search function
 class ExerciceSearch extends SearchDelegate {
   QuerySnapshot exerices;
   ExerciceSearch(this.exerices);

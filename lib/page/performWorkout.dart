@@ -372,7 +372,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                     _weightControllers[index]
                                                         [ind],
                                                 keyboardType:
-                                                    TextInputType.text,
+                                                    TextInputType.number,
                                                 style: TextStyle(
                                                   color: Colors.white
                                                       .withOpacity(0.5),
@@ -428,7 +428,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                       _repControllers[index]
                                                           [ind],
                                                   keyboardType:
-                                                      TextInputType.text,
+                                                      TextInputType.number,
                                                   style: TextStyle(
                                                     color: Colors.white
                                                         .withOpacity(0.5),
@@ -595,14 +595,14 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
       title: Text(
-        'Delete',
+        'Cancel',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,
         ),
       ),
       content: Text(
-        'Are you sure you want to delete this workout',
+        'Are you sure you want to cancel this workout',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,

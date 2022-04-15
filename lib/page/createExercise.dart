@@ -50,14 +50,12 @@ class _LogMealState extends State<LogMeal> {
   late String exerciseName,
       exerciseLevel,
       exerciseEquipment,
-      exerciseInstructions,
-      exerciseMuscle;
+      exerciseInstructions;
 
   TextEditingController exerciseNameCont = TextEditingController();
   TextEditingController exerciseLevelCont = TextEditingController();
   TextEditingController exerciseEquipmentCont = TextEditingController();
   TextEditingController exerciseInstructionsCont = TextEditingController();
-  TextEditingController exerciseMuscleCont = TextEditingController();
 
   //To check fields during submit
   // final formKey = new GlobalKey<FormState>();
@@ -104,14 +102,11 @@ class _LogMealState extends State<LogMeal> {
       "level": exerciseLevelCont.text,
       "equipment": exerciseEquipmentCont.text,
       "instructions": [exerciseInstructionsCont.text],
-      "primaryMuscle": [exerciseMuscleCont.text],
     }).then((value) {
       exerciseNameCont.clear();
       exerciseLevelCont.clear();
       exerciseEquipmentCont.clear();
       exerciseInstructionsCont.clear();
-      exerciseMuscleCont.clear();
-      print("Exercise Added Successfully");
     }).catchError(
         (error) => print("Failed to update exercise collection: $error"));
   }
@@ -122,7 +117,7 @@ class _LogMealState extends State<LogMeal> {
       padding: EdgeInsets.all(8),
       child: ListView(
         children: [
-          //name
+          //equipment
           SizedBox(height: 25),
           TextFormField(
             controller: exerciseNameCont,
@@ -195,30 +190,6 @@ class _LogMealState extends State<LogMeal> {
               this.exerciseEquipment = value;
             },
             //validator: (value) => value!.isEmpty ? 'Equipment is required' : null
-          ),
-
-          SizedBox(height: 25),
-          TextFormField(
-            controller: exerciseMuscleCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Primary Muscle',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
-                color: Colors.white.withOpacity(0.5),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
-              ),
-            ),
-            onChanged: (value) {
-              this.exerciseMuscle = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Level is required' : null
           ),
 
           //Instructions

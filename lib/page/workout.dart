@@ -107,7 +107,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
             maxChildSize: 0.8,
             minChildSize: 0.2,
             builder: (BuildContext context, ScrollController scrollController) {
-              int index = 0;
+              // int index = 0;
+              print(name + i.toString());
               return Container(
                 decoration: BoxDecoration(
                   color: vr.whiteColor,
@@ -147,7 +148,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                 )),
                           );
                         }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Bounceable(
                       onTap: () {
                         showDialog(
@@ -176,7 +177,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Bounceable(
                       onTap: () {
                         Navigator.of(context).push(
@@ -300,6 +301,22 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             //color: vr.black,
                           ),
                         ),
+                        // trailing: IconButton(
+                        //   icon: Icon(Icons.cancel_outlined),
+                        //   onPressed: () {
+                        //     showDialog(
+                        //       context: context,
+                        //       builder: (BuildContext context) =>
+                        //           _buildPopupDialog(
+                        //               context, workouts[index]['name'], index),
+                        //     );
+                        //     setState(() {
+                        //       // deleteWorkout(workouts[index]['name']);
+                        //       // workouts.remove(workouts[index]);
+                        //       // print(workouts);
+                        //     });
+                        //   },
+                        // ),
                         onTap: () {
                           bottomSheet(index, workouts[index]["name"]);
                         },
