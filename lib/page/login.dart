@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_new, sized_box_for_whitespace, unnecessary_this
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_new, sized_box_for_whitespace, unnecessary_this, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -18,10 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = new GlobalKey<FormState>();
 
   late String email, password;
-  // Color orangeColor = Colors.deepOrange;
-  // Color backGround = Color(0xFF03111C);
-  // String basicFont = 'roughMotion';
-  // String funkyFont = 'Hyperwave';
 
   //To check fields during submit
   checkFields() {
@@ -51,15 +47,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //     begin: Alignment.topLeft,
-      //     end: Alignment(0.0, 3.0),
-      //     colors: [backGround, backGround2],
-      //   ),
-      // ),
       child: Scaffold(
-        backgroundColor: vr.backGround, //Colors.transparent,
+        backgroundColor: vr.backGround,
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -83,9 +72,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: 125,
               width: 200,
-              // ignore: prefer_const_literals_to_create_immutables
               child: Stack(
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Text(
                     'Welcome to',
@@ -230,7 +217,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Center(
                         child: ImageIcon(

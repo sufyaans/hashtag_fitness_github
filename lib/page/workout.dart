@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, unnecessary_new, prefer_final_fields, unused_local_variable, await_only_futures, must_call_super, annotate_overrides
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -6,10 +6,8 @@ import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/page/workoutCalendar.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:hashtag_fitness/page/performWorkout.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class Workout extends StatefulWidget {
   @override
@@ -31,9 +29,8 @@ class _WorkoutState extends State<Workout> {
           IconButton(
               icon: Icon(Icons.calendar_today),
               tooltip: 'Calendar',
-              //color: Colors.black,
               onPressed: () => {
-                    // View history of workouts
+                    // View workout calendar
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => workoutCalendar(),
@@ -83,11 +80,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('WorkoutTemplates');
-    await collection
-        .doc(name)
-        .delete()
-        .then((_) => print('Deleted'))
-        .catchError((error) => print('Delete failed: $error'));
+    await collection.doc(name).delete();
     getData();
   }
 
@@ -98,7 +91,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
           child: GestureDetector(onTap: () {}, child: child),
         );
 
-    //Need to fix the scroll behaviour
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -127,7 +119,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                            // leading: Icon(Icons.list),
                             trailing: Padding(
                                 padding: EdgeInsetsDirectional.only(start: 10),
                                 child: Text(
@@ -145,7 +136,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                   style: TextStyle(
                                     fontFamily: vr.basicFont,
                                     fontSize: 18,
-                                    //color: vr.whiteColor,
                                   ),
                                 )),
                           );
@@ -226,8 +216,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
     return Scaffold(
       backgroundColor: vr.backGround,
       body: Container(
-        // height: MediaQuery.of(context).size.height,
-        // width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.all(15),
         child: ListView(
           children: [
@@ -279,30 +267,17 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: EdgeInsets.only(top: 10),
-                      // child: Bounceable(
-                      //   onTap: () {
-                      //     bottomSheet(index, workouts[index]["name"]);
-                      //   },
                       child: ListTile(
                         leading: Icon(Icons.list),
                         tileColor: const Color(0xFFF4F5F5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        // trailing: Text(
-                        //   workouts[index]["name"],
-                        //   style: TextStyle(
-                        //     fontFamily: vr.basicFont,
-                        //     fontSize: 18,
-                        //     color: vr.whiteColor,
-                        //   ),
-                        // ),
                         title: Text(
                           workouts[index]["name"],
                           style: TextStyle(
                             fontFamily: vr.basicFont,
                             fontSize: 18,
-                            //color: vr.black,
                           ),
                         ),
                         onTap: () {
@@ -310,7 +285,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               workoutsName[index]);
                         },
                       ),
-                      // ),
                     );
                   }),
             ),
@@ -326,14 +300,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
         'Delete',
         style: TextStyle(
           color: vr.whiteColor,
-          //fontFamily: vr.basicFont,
         ),
       ),
       content: Text(
         'Are you sure you want to delete this workout',
         style: TextStyle(
           color: vr.whiteColor,
-          //fontFamily: vr.basicFont,
         ),
       ),
       backgroundColor: vr.backGround,

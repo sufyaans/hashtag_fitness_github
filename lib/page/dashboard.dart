@@ -22,10 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final String uid = FirebaseAuth.instance.currentUser!.uid;
     Stream<QuerySnapshot<Map<String, dynamic>>> qn =
         firestore.collection("users").snapshots();
-    // firestore
-    //     .collection("users")
-    //     .where("user_id", isEqualTo: uid)
-    //     .snapshots();
+
     return qn;
   }
 
@@ -36,13 +33,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (context, snapshot) {
         return Scaffold(
             backgroundColor: vr.backGround,
-            // appBar: AppBar(
-            //   title: Text(
-            //     'DASHBOARD',
-            //     style: TextStyle(fontFamily: basicFont),
-            //   ),
-            //   backgroundColor: backGround,
-            // ),
             body: snapshot.hasData
                 ? Dashboard(context: context, snapshot: snapshot.data!)
                 : SpinKitRing(color: vr.whiteColor, size: 50.0));
@@ -129,11 +119,8 @@ class _DashboardState extends State<Dashboard> {
     getNutrients();
   }
 
-  // final String uid = FirebaseAuth.instance.currentUser!.uid;
-
   @override
   Widget build(BuildContext context) {
-    // print(chartValues);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -156,15 +143,13 @@ class _DashboardState extends State<Dashboard> {
                               fontFamily: vr.basicFont,
                               fontWeight: FontWeight.w900,
                             ),
-                          ), //Hello + user's name/email address
+                          ),
                         ],
                       ),
+
                       //Log out
                       IconButton(
                         onPressed: () async {
-                          //FirebaseAuth.instance.signOut();
-                          //Navigator.of(context).pop();
-
                           await FirebaseAuth.instance.signOut();
                           Navigator.of(context).pop;
                         },
@@ -177,6 +162,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
+
             //Submenu navigation
             Padding(
               padding: const EdgeInsets.only(
@@ -207,7 +193,6 @@ class _DashboardState extends State<Dashboard> {
                           createWorkout(),
                           logMeal(),
                           logMeasurement(),
-                          findGym(),
                         ],
                       ),
                     ),
@@ -325,17 +310,13 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ],
                     ),
-
                     Padding(padding: EdgeInsetsDirectional.only(top: 20)),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
                     Container(
                       height: MediaQuery.of(context).size.height / 11 * 3,
                       width: 500,
                       child: PointsLineChart.withSampleData(
                           chartValues, timeRange),
                     ),
-                    // ),
                   ],
                 ),
               ),
@@ -410,8 +391,6 @@ class _DashboardState extends State<Dashboard> {
                       },
                       items: <String>[
                         'by Day',
-                        // 'by Week',
-                        // 'by Month',
                         'By Month',
                       ].map<DropdownMenuItem<String>>(
                         (String value) {
@@ -428,8 +407,7 @@ class _DashboardState extends State<Dashboard> {
             ),
 
             Padding(padding: EdgeInsetsDirectional.only(top: 20)),
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
+
             Container(
               height: MediaQuery.of(context).size.height / 11 * 3,
               width: 500,
@@ -469,7 +447,7 @@ class createWorkout extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: vr.whiteColor, //Change colour later on
+            color: vr.whiteColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -480,13 +458,6 @@ class createWorkout extends StatelessWidget {
                 children: <Widget>[
                   Icon(Icons.add),
                   SizedBox(width: 10),
-                  // Text(
-                  //   "Create a workout",
-                  //   style: TextStyle(
-                  //     fontFamily: basicFont,
-                  //     fontSize: 15,
-                  //   ),
-                  // ),
                 ],
               ),
               Text(
@@ -530,7 +501,7 @@ class logMeal extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: vr.whiteColor, //Change colour later on
+            color: vr.whiteColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -541,15 +512,8 @@ class logMeal extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     Icons.restaurant,
-                  ), //Add workout image
+                  ),
                   SizedBox(width: 10),
-                  // Text(
-                  //   "Create a workout",
-                  //   style: TextStyle(
-                  //     fontFamily: basicFont,
-                  //     fontSize: 15,
-                  //   ),
-                  // ),
                 ],
               ),
               Text(
@@ -592,7 +556,7 @@ class logMeasurement extends StatelessWidget {
           width: 140,
           margin: EdgeInsets.only(top: 8),
           decoration: BoxDecoration(
-            color: vr.whiteColor, //Change colour later on
+            color: vr.whiteColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -609,64 +573,6 @@ class logMeasurement extends StatelessWidget {
               ),
               Text(
                 "Log a Measurement",
-                style: TextStyle(
-                  fontFamily: vr.basicFont,
-                  fontSize: 15,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-//Find gym
-class findGym extends StatefulWidget {
-  const findGym({Key? key}) : super(key: key);
-
-  @override
-  State<findGym> createState() => _findGymState();
-}
-
-class _findGymState extends State<findGym> {
-  @override
-  Widget build(BuildContext context) {
-    return Bounceable(
-      onTap: () {
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => Measurement(),
-        //   ),
-        // );
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 6,
-        ),
-        child: Container(
-          height: 80,
-          width: 140,
-          margin: EdgeInsets.only(top: 8),
-          decoration: BoxDecoration(
-            color: vr.whiteColor, //Change colour later on
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.fitness_center_rounded,
-                  ),
-                  SizedBox(width: 10),
-                ],
-              ),
-              Text(
-                "Find Gym Near Me",
                 style: TextStyle(
                   fontFamily: vr.basicFont,
                   fontSize: 15,

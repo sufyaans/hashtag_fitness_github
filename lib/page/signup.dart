@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_this
+// ignore_for_file: prefer_const_constructors, unnecessary_this, use_key_in_widget_constructors, unnecessary_new, sized_box_for_whitespace
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/login.dart';
@@ -160,23 +158,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     ErrorHandle().errorDialog(context, e);
                   },
                 );
-
-                //Work around to Signup method from services/authentication
-                // FirebaseAuth.instance
-                //     .createUserWithEmailAndPassword(
-                //         email: email, password: password)
-                //     .then((userCreds) {
-                //   Navigator.of(context).pop();
-                // }).catchError((e) {
-                //   ErrorHandle().errorDialog(context, e);
-                // });
               }
             },
             child: Container(
               height: 50,
               child: Material(
                 borderRadius: BorderRadius.circular(25),
-                //shadowColor: Colors.orangeAccent,
                 color: vr.orangeColor,
                 elevation: 7,
                 child: Center(
@@ -196,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //Go back (InkWell)
+              //Go back
               Bounceable(
                 onTap: () {
                   Navigator.push(

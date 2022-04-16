@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_catch_clause, avoid_print, unnecessary_cast, use_key_in_widget_constructors, camel_case_types, prefer_collection_literals, file_names, await_only_futures, prefer_adjacent_string_concatenation
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -138,7 +138,7 @@ class _CalendarState extends State<measurementCalendar> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null;
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });

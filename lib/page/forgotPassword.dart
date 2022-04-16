@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
-
 import 'package:hashtag_fitness/variables.dart' as vr;
 
 class ResetPassword extends StatefulWidget {
@@ -102,9 +101,8 @@ class _ResetPasswordState extends State<ResetPassword> {
           Bounceable(
             onTap: () {
               if (checkFields()) {
-                //Not working
                 AuthService().resetPass(email);
-                //FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
                 Navigator.of(context).pop();
               }
             },

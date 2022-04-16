@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, sized_box_for_whitespace, prefer_const_constructors, unnecessary_this, must_call_super, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -129,8 +129,7 @@ class _LogMealState extends State<LogMeal> {
       fatCont.clear();
       carbsCont.clear();
       proteinCont.clear();
-    }).catchError(
-            (error) => print("Failed to update nutrition collection: $error"));
+    });
   }
 
   @override
@@ -142,177 +141,176 @@ class _LogMealState extends State<LogMeal> {
           //Type of meal
           SizedBox(height: 25),
           TextFormField(
-            controller: mealTypeCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Type of Meal',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: mealTypeCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Type of Meal',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.mealType = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Type of Meal is required' : null
-          ),
+              onChanged: (value) {
+                this.mealType = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Type of Meal is required' : null),
 
           //Items consumed
           SizedBox(height: 25),
           TextFormField(
-            controller: itemsConsumedCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Items consumed',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: itemsConsumedCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Items consumed',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.itemsConsumed = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Items consumed is required' : null
-          ),
+              onChanged: (value) {
+                this.itemsConsumed = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Items consumed is required' : null),
 
           //Quantity
           SizedBox(height: 25),
           TextFormField(
-            controller: quantityCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Quantity',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: quantityCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Quantity',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.quantity = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Quantity is required' : null
-          ),
+              onChanged: (value) {
+                this.quantity = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Quantity is required' : null),
 
           //Total calories
           SizedBox(height: 25),
           TextFormField(
-            controller: caloriesCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Total calories (kcal)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: caloriesCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Total calories (kcal)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.calories = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Type of Meal is required' : null
-          ),
+              onChanged: (value) {
+                this.calories = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Type of Meal is required' : null),
 
           //Fat
           SizedBox(height: 25),
           TextFormField(
-            controller: fatCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Fat (g)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: fatCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Fat (g)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.fat = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Fat is required' : null
-          ),
+              onChanged: (value) {
+                this.fat = value;
+              },
+              validator: (value) => value!.isEmpty ? 'Fat is required' : null),
 
           //Carbs
           SizedBox(height: 25),
           TextFormField(
-            controller: carbsCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Carbs (g)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: carbsCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Carbs (g)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.carbs = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Carbs is required' : null
-          ),
+              onChanged: (value) {
+                this.carbs = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Carbs is required' : null),
 
           //Protein
           SizedBox(height: 25),
           TextFormField(
-            controller: proteinCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Protein (g)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: proteinCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Protein (g)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.protein = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Protein is required' : null
-          ),
+              onChanged: (value) {
+                this.protein = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Protein is required' : null),
 
           //Save Meal
           SizedBox(height: 50),

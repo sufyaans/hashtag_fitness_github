@@ -1,13 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, unused_catch_clause, avoid_print, unnecessary_cast, await_only_futures, use_key_in_widget_constructors, camel_case_types, prefer_collection_literals, file_names, prefer_adjacent_string_concatenation
 
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/variables.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
-import 'dart:io';
 
 // Event class.
 class Event {

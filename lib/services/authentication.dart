@@ -22,11 +22,6 @@ class AuthService {
         });
   }
 
-  // create user obj based on firebase user
-  // User _userFromFirebaseUser(UserCredential user) {
-  //   return user != null ? User(uid: user.uid) : null;
-  // }
-
   //Sign out
   signOut() {
     FirebaseAuth.instance.signOut();
@@ -43,13 +38,12 @@ class AuthService {
     });
   }
 
-  // //Sign up
+  //Sign up
   signUp(String name, String email, String password) async {
     UserCredential result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
     User? user = result.user;
     await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
-    //return _userFromFirebaseUser(user);
 
     return result;
   }
@@ -89,7 +83,7 @@ class GoogleSignInProvider extends ChangeNotifier {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
-    //Double check this works (A User collection is made for users signing in with google)
+
     await authService.signUp(_user!.displayName!, _user!.email, "");
     notifyListeners();
   }

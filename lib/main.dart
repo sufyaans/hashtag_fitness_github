@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.deepOrange,
           ),
           home: AuthService().handleAuth(),
-          //home: Home(),
           debugShowCheckedModeBanner: false,
         ),
       );

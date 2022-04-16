@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/page/dashboard.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 
 class DetailPage extends StatefulWidget {
@@ -27,7 +26,6 @@ class _DetailPageState extends State<DetailPage> {
       );
 
   Widget getExercise() {
-    //ModalBottomSheet takes up the whole page rather than 90% of it for 50% of it
     return makeDismissible(
       child: DraggableScrollableSheet(
         initialChildSize: 0.9,
@@ -43,7 +41,6 @@ class _DetailPageState extends State<DetailPage> {
             padding: EdgeInsets.all(16.0),
             child: ListView(
               controller: scrollController,
-              // Distance between the name and the top of the ShowModalSheet need to be smaller
               children: [
                 Center(
                   child: Text(
@@ -66,7 +63,6 @@ class _DetailPageState extends State<DetailPage> {
                   'Equipment: ' + widget.exercise!['equipment'],
                   style: TextStyle(fontSize: 16),
                 ),
-                //Need to output array of instructions
                 SizedBox(
                   height: 5.0,
                 ),

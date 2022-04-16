@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, unnecessary_new, prefer_final_fields, unused_field, must_call_super, annotate_overrides, await_only_futures, prefer_is_empty, sized_box_for_whitespace, curly_braces_in_flow_control_structures, dead_code
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, unnecessary_new, prefer_final_fields, unused_field, must_call_super, annotate_overrides, await_only_futures, prefer_is_empty, sized_box_for_whitespace, curly_braces_in_flow_control_structures, dead_code, must_be_immutable
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hashtag_fitness/page/workoutInfo.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import './detailPage.dart';
 
@@ -298,7 +297,6 @@ class _createWorkoutState extends State<createWorkout> {
                                                   icon: Icon(Icons.info_outline,
                                                       color: vr.whiteColor),
                                                   onPressed: (() {
-                                                    // DetailPage should come up instead (showmodelbottomsheet)
                                                     var tmp = 0;
                                                     for (var i = 0;
                                                         i < exercises.length;
@@ -310,51 +308,6 @@ class _createWorkoutState extends State<createWorkout> {
 
                                                     navigateToDetail(snapshot
                                                         .data!.docs[tmp]);
-
-                                                    // Navigator.push(
-                                                    //   context,
-                                                    //   MaterialPageRoute(
-                                                    //       builder: (context) =>
-                                                    //           workoutInfoScreen(
-                                                    //             exercise:
-                                                    //                 exercises[
-                                                    //                         tmp]
-                                                    //                     [
-                                                    //                     'name'],
-                                                    //             category: exercises[
-                                                    //                     tmp][
-                                                    //                 'category'],
-                                                    //             equipment:
-                                                    //                 exercises[
-                                                    //                         tmp]
-                                                    //                     [
-                                                    //                     'equipment'],
-                                                    //             force: exercises[
-                                                    //                     tmp]
-                                                    //                 ['force'],
-                                                    //             instructions:
-                                                    //                 exercises[
-                                                    //                         tmp]
-                                                    //                     [
-                                                    //                     'instructions'],
-                                                    //             level: exercises[
-                                                    //                     tmp]
-                                                    //                 ['level'],
-                                                    //             mechanic: exercises[
-                                                    //                     tmp][
-                                                    //                 'mechanic'],
-                                                    //             primaryMuscle:
-                                                    //                 exercises[
-                                                    //                         tmp]
-                                                    //                     [
-                                                    //                     'primaryMuscle'],
-                                                    //             secondaryMuscle:
-                                                    //                 exercises[
-                                                    //                         tmp]
-                                                    //                     [
-                                                    //                     'secondaryMuscle'],
-                                                    //           )),
-                                                    // );
                                                   }),
                                                 ),
                                               ),
@@ -425,7 +378,6 @@ class _createWorkoutState extends State<createWorkout> {
                             );
                           },
                         ),
-                        // ),
                       ),
                       GestureDetector(
                           child: Center(
@@ -493,13 +445,7 @@ class _createWorkoutState extends State<createWorkout> {
                               showNameToast();
                               proceed = false;
                             }
-                            // for (int i = 0; i < _controllers.length; i++) {
-                            //   if (!(_formKey2.currentState!.validate())) {
-                            //     showSetToast();
-                            //     proceed = false;
-                            //     break;
-                            //   }
-                            // }
+
                             if (proceed) {
                               saveWorkout();
                               Navigator.pop(context);
@@ -571,29 +517,6 @@ class _createWorkoutState extends State<createWorkout> {
                               IconButton(
                                 icon: Icon(Icons.help),
                                 onPressed: () {
-                                  // DetailPage should come up instead (showmodelbottomsheet)
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => workoutInfoScreen(
-                                  //             exercise: exercises[index]
-                                  //                 ['name'],
-                                  //             category: exercises[index]
-                                  //                 ['category'],
-                                  //             equipment: exercises[index]
-                                  //                 ['equipment'],
-                                  //             force: exercises[index]['force'],
-                                  //             instructions: exercises[index]
-                                  //                 ['instructions'],
-                                  //             level: exercises[index]['level'],
-                                  //             mechanic: exercises[index]
-                                  //                 ['mechanic'],
-                                  //             primaryMuscle: exercises[index]
-                                  //                 ['primaryMuscle'],
-                                  //             secondaryMuscle: exercises[index]
-                                  //                 ['secondaryMuscle'],
-                                  //           )),
-                                  // );
                                   navigateToDetail(snapshot.data!.docs[index]);
                                 },
                               )
@@ -635,22 +558,6 @@ class ExerciceSearch extends SearchDelegate {
   Widget? buildLeading(BuildContext context) => IconButton(
       onPressed: () => Navigator.of(context).pop(),
       icon: Icon(Icons.adaptive.arrow_back));
-
-  // @override
-  // ThemeData appBarTheme(BuildContext context) {
-  //   return ThemeData(
-  //     appBarTheme: const AppBarTheme(
-  //       color: Color(0xFF03111C), // affects AppBar's background color
-  //       //hintColy, // affects the initial 'Search' text
-  //       textTheme: const TextTheme(
-  //           headline6: TextStyle(
-  //               // headline 6 affects the query text
-  //               color: Colors.white,
-  //               fontSize: 16.0,
-  //               fontWeight: FontWeight.bold)),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget buildResults(BuildContext context) {

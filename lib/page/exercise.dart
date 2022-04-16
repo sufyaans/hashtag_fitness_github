@@ -139,22 +139,6 @@ class ExerciceSearch extends SearchDelegate {
       onPressed: () => Navigator.of(context).pop(),
       icon: Icon(Icons.adaptive.arrow_back));
 
-  // @override
-  // ThemeData appBarTheme(BuildContext context) {
-  //   return ThemeData(
-  //     appBarTheme: const AppBarTheme(
-  //       color: Color(0xFF03111C), // affects AppBar's background color
-  //       //hintColy, // affects the initial 'Search' text
-  //       textTheme: const TextTheme(
-  //           headline6: TextStyle(
-  //               // headline 6 affects the query text
-  //               color: Colors.white,
-  //               fontSize: 16.0,
-  //               fontWeight: FontWeight.bold)),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget buildResults(BuildContext context) {
     var searchResult = exerices.docs.where((element) =>

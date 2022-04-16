@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, invalid_return_type_for_catch_error
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, invalid_return_type_for_catch_error, sized_box_for_whitespace, unnecessary_this, must_call_super, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +38,6 @@ class LogMeal extends StatefulWidget {
 }
 
 class _LogMealState extends State<LogMeal> {
-  // var date = DateTime.now();
-  // String time = "";
-
   @override
   void initState() {
     fToast = FToast();
@@ -50,12 +47,14 @@ class _LogMealState extends State<LogMeal> {
   late String exerciseName,
       exerciseLevel,
       exerciseEquipment,
-      exerciseInstructions;
+      exerciseInstructions,
+      exerciseMuscle;
 
   TextEditingController exerciseNameCont = TextEditingController();
   TextEditingController exerciseLevelCont = TextEditingController();
   TextEditingController exerciseEquipmentCont = TextEditingController();
   TextEditingController exerciseInstructionsCont = TextEditingController();
+  TextEditingController exerciseMuscleCont = TextEditingController();
 
   //To check fields during submit
   // final formKey = new GlobalKey<FormState>();
@@ -102,13 +101,14 @@ class _LogMealState extends State<LogMeal> {
       "level": exerciseLevelCont.text,
       "equipment": exerciseEquipmentCont.text,
       "instructions": [exerciseInstructionsCont.text],
+      "primaryMuscles": [exerciseMuscleCont.text],
     }).then((value) {
       exerciseNameCont.clear();
       exerciseLevelCont.clear();
       exerciseEquipmentCont.clear();
       exerciseInstructionsCont.clear();
-    }).catchError(
-        (error) => print("Failed to update exercise collection: $error"));
+      exerciseMuscleCont.clear();
+    });
   }
 
   @override
@@ -117,106 +117,129 @@ class _LogMealState extends State<LogMeal> {
       padding: EdgeInsets.all(8),
       child: ListView(
         children: [
-          //equipment
+          //name
           SizedBox(height: 25),
           TextFormField(
-            controller: exerciseNameCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Name',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: exerciseNameCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.exerciseName = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Equipment is required' : null
-          ),
+              onChanged: (value) {
+                this.exerciseName = value;
+              },
+              validator: (value) => value!.isEmpty ? 'Name is required' : null),
 
           //exerciseLevel
           SizedBox(height: 25),
           TextFormField(
-            controller: exerciseLevelCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Level',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: exerciseLevelCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Level',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.exerciseLevel = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Level is required' : null
-          ),
+              onChanged: (value) {
+                this.exerciseLevel = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Level is required' : null),
 
           //equipment
           SizedBox(height: 25),
           TextFormField(
-            controller: exerciseEquipmentCont,
-            keyboardType: TextInputType.text,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Equipment',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: exerciseEquipmentCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Equipment',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.exerciseEquipment = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Equipment is required' : null
-          ),
+              onChanged: (value) {
+                this.exerciseEquipment = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Equipment is required' : null),
+
+          SizedBox(height: 25),
+          TextFormField(
+              controller: exerciseMuscleCont,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.5),
+              ),
+              decoration: InputDecoration(
+                labelText: 'Primary Muscle',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
+              ),
+              onChanged: (value) {
+                this.exerciseMuscle = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Level is required' : null),
 
           //Instructions
           SizedBox(height: 25),
           TextFormField(
-            controller: exerciseInstructionsCont,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Instructions',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: exerciseInstructionsCont,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Instructions',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.exerciseInstructions = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Instructions is required' : null
-          ),
+              onChanged: (value) {
+                this.exerciseInstructions = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Instructions is required' : null),
 
           //Add exercise
           SizedBox(height: 50),
@@ -230,7 +253,6 @@ class _LogMealState extends State<LogMeal> {
               height: 40,
               child: Material(
                 borderRadius: BorderRadius.circular(25),
-                //shadowColor: Colors.orangeAccent,
                 color: vr.orangeColor,
                 elevation: 7,
                 child: Center(

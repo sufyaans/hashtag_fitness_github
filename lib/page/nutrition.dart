@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, unnecessary_new, prefer_final_fields, curly_braces_in_flow_control_structures, must_call_super, annotate_overrides, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
 import 'package:hashtag_fitness/page/nutritionCalendar.dart';
-import 'dart:io';
 import 'package:hashtag_fitness/variables.dart' as vr;
 
 class Nutrition extends StatefulWidget {
@@ -29,7 +28,6 @@ class _NutritionState extends State<Nutrition> {
           IconButton(
               icon: Icon(Icons.calendar_today),
               tooltip: 'Calendar',
-              //color: Colors.black,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -75,8 +73,6 @@ class _NutritionPageState extends State<NutritionPage> {
     });
     nutritions = List.from(nutritions.reversed);
     docnames = List.from(docnames.reversed);
-    print(allData);
-    print(tmpData);
   }
 
   String parseDate(String timeDate) {
@@ -123,7 +119,6 @@ class _NutritionPageState extends State<NutritionPage> {
     return tmp;
   }
 
-//  bottomSheet(var i, var name) {
   bottomSheet() {
     Widget makeDismissible({required Widget child}) => GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -131,7 +126,6 @@ class _NutritionPageState extends State<NutritionPage> {
           child: GestureDetector(onTap: () {}, child: child),
         );
 
-    //Need to fix the scroll behaviour
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -155,14 +149,12 @@ class _NutritionPageState extends State<NutritionPage> {
                   shrinkWrap: true,
                   controller: scrollController,
                   children: [
-                    //Check this
                     Center(
                       child: Text(
                         (nutritions[index]["Type of Meal"]).toString(),
                         style: TextStyle(
                           fontFamily: vr.basicFont,
                           fontSize: 24,
-                          //color: vr.black,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -217,8 +209,6 @@ class _NutritionPageState extends State<NutritionPage> {
     return Scaffold(
       backgroundColor: vr.backGround,
       body: Container(
-        // height: MediaQuery.of(context).size.height,
-        // width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.all(15),
         child: ListView(
           children: [
@@ -267,10 +257,6 @@ class _NutritionPageState extends State<NutritionPage> {
                 itemCount: nutritions.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    // child: Bounceable(
-                    //   onTap: () {
-                    //     //bottomSheet(index, nutritions[index]["Type of Meal"]);
-                    //   },
                     child: Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: ListTile(
@@ -278,14 +264,6 @@ class _NutritionPageState extends State<NutritionPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        // trailing: Text(
-                        //   workouts[index]["name"],
-                        //   style: TextStyle(
-                        //     fontFamily: vr.basicFont,
-                        //     fontSize: 18,
-                        //     color: vr.whiteColor,
-                        //   ),
-                        // ),
                         title: Text(
                           nutritions[index]["Type of Meal"],
                           style: TextStyle(
@@ -297,13 +275,11 @@ class _NutritionPageState extends State<NutritionPage> {
                         subtitle: Text(
                           parseDate(docnames[index]),
                         ),
-
                         onTap: () {
                           bottomSheet();
                         },
                       ),
                     ),
-                    // ),
                   );
                 },
               ),

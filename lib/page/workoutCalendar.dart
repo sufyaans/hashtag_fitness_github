@@ -1,13 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, await_only_futures, unnecessary_cast, camel_case_types, use_key_in_widget_constructors, prefer_collection_literals, file_names, prefer_adjacent_string_concatenation, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:hashtag_fitness/variables.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
-import 'dart:io';
 
 // Event class.
 class Event {
@@ -70,7 +68,6 @@ class _workoutCalendarState extends State<workoutCalendar> {
         .collection('Workouts')
         .get();
 
-    // print(_kEventSource);
     // Get data from docs and convert map to List
     final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
     for (var i in allData) {
@@ -93,8 +90,6 @@ class _workoutCalendarState extends State<workoutCalendar> {
           for (int j = 0; j < i['workouts'].length; j++) {
             tmp.add(Event(i['workouts'][j]));
             for (int k = 0; k < tmpWorkoutWeight[j].length; k++) {
-              // print(tmpWorkoutWeight[j][k]);
-              // print(tmpWorkoutReps[j][k]);
               tmp.add(Event("Set " +
                   (k + 1).toString() +
                   "     weight (KG): " +
@@ -103,25 +98,6 @@ class _workoutCalendarState extends State<workoutCalendar> {
                   tmpWorkoutReps[j][k]));
             }
           }
-          // var tmpWorkoutWeight = [];
-          // var tmpWorkSets = [];
-          // i['workouts'].forEach((k, v) => tmpWorkoutWeight.add(k));
-          // i['workouts'].forEach((k, v) => tmpWorkSets.add(v));
-          // print(tmpWorkoutWeight);
-          // for (int j = 0; j < tmpWorkoutWeight.length; j++) {
-          //   tmp.add(
-          //       Event("Exercise" + (j + 1).toString() + ": " + tmpWorkoutWeight[j]));
-          //   for (int k = 0; k < tmpWorkSets.length; k += 2) {
-          //     tmp.add(Event("Set #" +
-          //         (k + 1).toString() +
-          //         " weight: " +
-          //         tmpWorkSets[j][k]));
-          //     tmp.add(Event("Set #" +
-          //         (k + 1).toString() +
-          //         " work: " +
-          //         tmpWorkSets[j][k + 1]));
-          //   }
-          // }
         }
         _kEventSource.putIfAbsent(
             DateTime.utc(
@@ -159,10 +135,10 @@ class _workoutCalendarState extends State<workoutCalendar> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('WorkoutTemplates');
     QuerySnapshot querySnapshot = await _collectionRef.get();
-    final tmptmp = await querySnapshot.docs.map((doc) => doc.id).toList();
+    final allData = await querySnapshot.docs.map((doc) => doc.data()).toList();
     setState(() {
-      for (var a in tmptmp) {
-        workName.add(a);
+      for (var i in allData) {
+        workName.add((i as Map<String, dynamic>)['name']);
       }
     });
   }
@@ -288,8 +264,6 @@ class _workoutCalendarState extends State<workoutCalendar> {
                             shrinkWrap: true,
                             itemCount: value.length,
                             itemBuilder: (context, index) {
-                              // print('${value[index]}');
-                              // print(checkName('${value[index]}'));
                               return Container(
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 12.0,
@@ -325,7 +299,7 @@ class _workoutCalendarState extends State<workoutCalendar> {
                               );
                             },
                           );
-                        } on Exception catch (e) {
+                        } on Exception {
                           return Container();
                         }
                       },
@@ -335,7 +309,7 @@ class _workoutCalendarState extends State<workoutCalendar> {
               )
             : Container(),
       );
-    } on Exception catch (e) {
+    } on Exception {
       return Container();
     }
   }

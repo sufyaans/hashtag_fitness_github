@@ -4,11 +4,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-// class chartScreen extends StatefulWidget {
-//   @override
-//   PointsLineChart createState() => PointsLineChart();
-// }
-
 class PointsLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, unnecessary_this
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, unnecessary_this, prefer_const_literals_to_create_immutables, must_call_super
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -29,7 +29,6 @@ class _MeasurementState extends State<Measurement> {
           IconButton(
               icon: Icon(Icons.calendar_today),
               tooltip: 'Calendar',
-              //color: Colors.black,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -154,266 +153,266 @@ class _MeasurementLogState extends State<MeasurementLog> {
       rightThighCont.clear();
       leftThighCont.clear();
       hipCont.clear();
-    }).catchError((error) =>
-            print("Failed to update measurement collection: $error"));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      //padding: const EdgeInsets.only(left: 25, right: 25),
       padding: EdgeInsets.all(8),
       child: ListView(
         children: [
           //Body Weight Measurement
           SizedBox(height: 25),
           TextFormField(
-            keyboardType: TextInputType.number,
-            controller: bodyWeightCont,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Body Weight (kg)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              keyboardType: TextInputType.number,
+              controller: bodyWeightCont,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Body Weight (kg)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.bodyWeight = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Body Weight measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.bodyWeight = value;
+              },
+              validator: (value) => value!.isEmpty
+                  ? 'Body Weight measurement is required'
+                  : null),
 
           //Body Fat Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: bodyFatCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Body Fat (%)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: bodyFatCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Body Fat (%)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.bodyFat = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Body Fat measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.bodyFat = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Body Fat measurement is required' : null),
 
           //Chest Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: chestCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Chest Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: chestCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Chest Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.chest = value;
-            },
-            // validator: (value) => value!.isEmpty ? 'Chest measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.chest = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Chest measurement is required' : null),
 
           //Waist Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: waistCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Waist Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: waistCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Waist Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.waist = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Waist measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.waist = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Waist measurement is required' : null),
 
           //Neck Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: neckCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Neck Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: neckCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Neck Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.neck = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Neck measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.neck = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Neck measurement is required' : null),
 
           //Right Arm Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: rightArmCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Right Arm Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: rightArmCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Right Arm Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.rightArm = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Right Arm measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.rightArm = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Right Arm measurement is required' : null),
 
           //Left Arm Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: leftArmCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Left Arm Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: leftArmCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Left Arm Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.leftArm = value;
-            },
-            //validator: (value) => value!.isEmpty ? 'Left Arm measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.leftArm = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Left Arm measurement is required' : null),
 
           //Right Thigh Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: rightThighCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Right Thigh Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: rightThighCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Right Thigh Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.rightThigh = value;
-            },
-            //validator: (value) => value!.isEmpty? 'Right Thigh measurement is required': null
-          ),
+              onChanged: (value) {
+                this.rightThigh = value;
+              },
+              validator: (value) => value!.isEmpty
+                  ? 'Right Thigh measurement is required'
+                  : null),
 
           //Left Thigh Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: leftThighCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Left Thigh Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: leftThighCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Left Thigh Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.leftThigh = value;
-            },
-            // validator: (value) => value!.isEmpty ? 'Left Thigh measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.leftThigh = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Left Thigh measurement is required' : null),
 
           //Hips Measurement
           SizedBox(height: 25),
           TextFormField(
-            controller: hipCont,
-            keyboardType: TextInputType.number,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.5),
-            ),
-            decoration: InputDecoration(
-              labelText: 'Hip Measurement (cm)',
-              labelStyle: TextStyle(
-                fontFamily: vr.basicFont,
-                fontSize: 18,
+              controller: hipCont,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: vr.orangeColor),
+              decoration: InputDecoration(
+                labelText: 'Hip Measurement (cm)',
+                labelStyle: TextStyle(
+                  fontFamily: vr.basicFont,
+                  fontSize: 18,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: vr.orangeColor),
+                ),
               ),
-            ),
-            onChanged: (value) {
-              this.hip = value;
-            },
-            // validator: (value) => value!.isEmpty ? 'Hips measurement is required' : null
-          ),
+              onChanged: (value) {
+                this.hip = value;
+              },
+              validator: (value) =>
+                  value!.isEmpty ? 'Hips measurement is required' : null),
 
           //Save Measurement values
           SizedBox(height: 50),

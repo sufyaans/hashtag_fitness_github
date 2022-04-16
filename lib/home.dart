@@ -47,7 +47,6 @@ class _homeState extends State<Home> {
                 children: [
                   //Dashboard
                   MaterialButton(
-                    //minWidth: 40,
                     onPressed: () {
                       setState(() {
                         currentScreen = DashboardScreen();
@@ -76,7 +75,6 @@ class _homeState extends State<Home> {
 
                   //Workout
                   MaterialButton(
-                    //minWidth: 40,
                     onPressed: () {
                       setState(() {
                         currentScreen = Workout();
@@ -102,34 +100,6 @@ class _homeState extends State<Home> {
                       ],
                     ),
                   ),
-
-                  // Nutrition
-                  // MaterialButton(
-                  //   //minWidth: 40,
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       currentScreen = Nutrition();
-                  //       currentTab = 2;
-                  //     });
-                  //   },
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Icon(
-                  //         Icons.restaurant,
-                  //         color:
-                  //             currentTab == 2 ? Colors.deepOrange : Colors.grey,
-                  //       ),
-                  //       Text(
-                  //         'Nutrition',
-                  //         style: TextStyle(
-                  //             color: currentTab == 2
-                  //                 ? Colors.deepOrange
-                  //                 : Colors.grey),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
               Row(
@@ -137,7 +107,6 @@ class _homeState extends State<Home> {
                 children: [
                   // Nutrition
                   MaterialButton(
-                    //minWidth: 40,
                     onPressed: () {
                       setState(() {
                         currentScreen = Nutrition();
@@ -166,7 +135,6 @@ class _homeState extends State<Home> {
 
                   // Exercise
                   MaterialButton(
-                    //minWidth: 40,
                     onPressed: () {
                       setState(() {
                         currentScreen = Exercise();

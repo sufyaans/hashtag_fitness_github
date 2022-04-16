@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, prefer_const_literals_to_create_immutables, annotate_overrides, unnecessary_this, prefer_final_fields, prefer_typing_uninitialized_variables, must_be_immutable, prefer_collection_literals, file_names
 import 'dart:core';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -7,8 +7,6 @@ import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hashtag_fitness/page/workoutCalendar.dart';
-//import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 
 class PerformWorkout extends StatefulWidget {
   String workoutName = "";
@@ -30,20 +28,6 @@ class _PerformWorkoutState extends State<PerformWorkout> {
           style: TextStyle(fontFamily: vr.basicFont),
         ),
         backgroundColor: vr.backGround,
-        // actions: [
-        //   IconButton(
-        //       icon: Icon(Icons.calendar_today),
-        //       tooltip: 'Calendar',
-        //       //color: Colors.black,
-        //       onPressed: () {
-        //         Navigator.of(context).push(
-        //           MaterialPageRoute(
-        //             builder: (context) => workoutCalendar(),
-        //           ),
-        //         );
-
-        //       }),
-        // ],
       ),
       body: PerformWorkoutPage(
           workoutName: widget.workoutName, name: widget.name),
@@ -65,7 +49,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   var sets = [];
   var stopwatch = Stopwatch();
   List<List<bool>> isChecked = [];
-  ScrollController _controller = new ScrollController();
+  ScrollController _controller = ScrollController();
   var _timer;
   List<List<TextEditingController>> _weightControllers = [];
   List<List<TextEditingController>> _repControllers = [];
@@ -79,7 +63,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
     fToast.init(context);
     stopwatch.start();
     if (this.mounted) {
-      _timer = new Timer.periodic(new Duration(milliseconds: 30), (timer) {
+      _timer = Timer.periodic(Duration(milliseconds: 30), (timer) {
         setState(() {});
       });
     }
@@ -114,20 +98,10 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
 
   finishWorkout() async {
     List<String> workouts = [];
-    Map<String, List<String>> reps = new Map<String, List<String>>();
-    Map<String, List<String>> weights = new Map<String, List<String>>();
-    // List<List<String>> reps = [];
-    // List<List<String>> weights = [];
-    // Map<String, List<String>> workouts = new Map<String, List<String>>();
-    print(_weightControllers.length);
+    Map<String, List<String>> reps = Map<String, List<String>>();
+    Map<String, List<String>> weights = Map<String, List<String>>();
     setState(() {
       for (var i = 0; i < workoutList.length; i++) {
-        // print(workoutList[i]);
-        // workouts.putIfAbsent(workoutList[i], () => )
-        // workouts[workoutList[i]] = [
-        //   _weightControllers[i].text,
-        //   _repControllers[i].text
-        // ];
         workouts.add(workoutList[i]);
         List<String> tmptmp = [];
         for (var j = 0; j < _weightControllers[i].length; j++) {
@@ -146,7 +120,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       }
     });
 
-    // print(workouts);
     await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -157,7 +130,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       'weights': weights,
       'timestamp': Timestamp.now(),
       'stopwatch': formatTime(stopwatch.elapsedMilliseconds),
-      'name': widget.workoutName,
+      'name': widget.name,
     });
   }
 
@@ -179,7 +152,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
           }
           isChecked.add(tmp);
         }
-      }); // Access your after your get the data
+      });
     });
   }
 
@@ -214,8 +187,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
     return Scaffold(
       backgroundColor: vr.backGround,
       body: Container(
-        // height: MediaQuery.of(context).size.height,
-        // width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.all(0),
         child: ListView(
           shrinkWrap: true,
@@ -328,9 +299,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                 itemCount: int.parse(sets[index]),
                                 itemBuilder: (BuildContext context, int ind) {
                                   _weightControllers[index]
-                                      .add(new TextEditingController());
+                                      .add(TextEditingController());
                                   _repControllers[index]
-                                      .add(new TextEditingController());
+                                      .add(TextEditingController());
                                   return Column(
                                     children: [
                                       SizedBox(
@@ -383,8 +354,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                       .withOpacity(0.5),
                                                 ),
                                                 validator: (String? value) {
-                                                  if (value!.isEmpty)
+                                                  if (value!.isEmpty) {
                                                     return 'This field is required';
+                                                  }
                                                   return null;
                                                 },
                                                 decoration: InputDecoration(
@@ -399,7 +371,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                     borderSide: BorderSide(
                                                         color: Colors.white),
                                                   ),
-                                                  // labelText: 'Weight',
                                                   labelStyle: TextStyle(
                                                       color: Colors.white),
                                                 ),
@@ -439,8 +410,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                                         .withOpacity(0.5),
                                                   ),
                                                   validator: (String? value) {
-                                                    if (value!.isEmpty)
+                                                    if (value!.isEmpty) {
                                                       return 'This field is required';
+                                                    }
                                                     return null;
                                                   },
                                                   decoration: InputDecoration(
@@ -485,49 +457,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                               ),
                             ],
                           ),
-                          // trailing: Wrap(
-                          //   spacing: 12, // space between two icons
-                          //   children: <Widget>[
-                          //     SizedBox(
-                          //         height: 50,
-                          //         width: 100,
-                          //         child: TextField(
-                          //           controller: _weightControllers[index],
-                          //           style: TextStyle(color: Colors.white),
-                          //           decoration: InputDecoration(
-                          //             focusedBorder: OutlineInputBorder(
-                          //               borderSide:
-                          //                   BorderSide(color: Colors.white),
-                          //             ),
-                          //             enabledBorder: OutlineInputBorder(
-                          //               borderSide:
-                          //                   BorderSide(color: Colors.white),
-                          //             ),
-                          //             labelText: 'Weight',
-                          //             labelStyle: TextStyle(color: Colors.white),
-                          //           ),
-                          //         )),
-                          //     SizedBox(
-                          //         height: 50,
-                          //         width: 100,
-                          //         child: TextField(
-                          //           controller: _repControllers[index],
-                          //           style: TextStyle(color: Colors.white),
-                          //           decoration: InputDecoration(
-                          //             focusedBorder: OutlineInputBorder(
-                          //               borderSide:
-                          //                   BorderSide(color: Colors.white),
-                          //             ),
-                          //             enabledBorder: OutlineInputBorder(
-                          //               borderSide:
-                          //                   BorderSide(color: Colors.white),
-                          //             ),
-                          //             labelText: 'Reps',
-                          //             labelStyle: TextStyle(color: Colors.white),
-                          //           ),
-                          //         )),
-                          //   ],
-                          // ),
                         ),
                       ),
                     );
@@ -538,9 +467,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
               onTap: () async {
                 await finishWorkout();
                 _showToast();
-
-                // _weightControllers = [];
-                // _repControllers = [];
                 Navigator.pop(context);
               },
               child: Container(
@@ -600,14 +526,14 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
       title: Text(
-        'Delete',
+        'Cancel',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,
         ),
       ),
       content: Text(
-        'Are you sure you want to delete this workout',
+        'Are you sure you want to cancel this workout',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,
@@ -620,9 +546,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
         Bounceable(
           onTap: () {
             setState(() {
-              // deleteWorkout(name);
-              // workouts.remove(workouts[index]);
-              // print(workouts);
               Navigator.pop(context);
               Navigator.pop(context);
             });
@@ -678,100 +601,5 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
         ),
       ],
     );
-/*
-    return AlertDialog(
-      backgroundColor: vr.backGround,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 5,
-              color: vr.backGround,
-              child: Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          MediaQuery.of(context).size.height / 40,
-                          0,
-                          MediaQuery.of(context).size.height / 20),
-                      child: Text(
-                          "Are you sure you want to cancel this workout?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: vr.basicFont,
-                              color: vr.whiteColor,
-                              fontSize: 18)),
-                    ),
-                  ),
-                  Center(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: 40,
-                              child: Material(
-                                borderRadius: BorderRadius.circular(24),
-                                color: vr.orangeColor,
-                                elevation: 7,
-                                child: Center(
-                                  child: Text(
-                                    'No',
-                                    style: TextStyle(
-                                      color: vr.whiteColor,
-                                      fontFamily: vr.basicFont,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onTap: () => Navigator.pop(context)),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 100,
-                        ),
-                        GestureDetector(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: 40,
-                              child: Material(
-                                borderRadius: BorderRadius.circular(24),
-                                color: vr.whiteColor,
-                                elevation: 7,
-                                child: Center(
-                                  child: Text(
-                                    'YES',
-                                    style: TextStyle(
-                                      color: vr.orangeColor,
-                                      fontFamily: vr.basicFont,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                // deleteWorkout(name);
-                                // workouts.remove(workouts[index]);
-                                // print(workouts);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              });
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ))
-        ],
-      ),
-    );
-
-*/
   }
 }
