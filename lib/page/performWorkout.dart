@@ -12,7 +12,9 @@ import 'package:hashtag_fitness/page/workoutCalendar.dart';
 
 class PerformWorkout extends StatefulWidget {
   String workoutName = "";
-  PerformWorkout({required this.workoutName, Key? key}) : super(key: key);
+  String name = "";
+  PerformWorkout({required this.workoutName, required this.name, Key? key})
+      : super(key: key);
   @override
   _PerformWorkoutState createState() => _PerformWorkoutState();
 }
@@ -24,7 +26,7 @@ class _PerformWorkoutState extends State<PerformWorkout> {
       backgroundColor: vr.backGround,
       appBar: AppBar(
         title: Text(
-          widget.workoutName,
+          widget.name,
           style: TextStyle(fontFamily: vr.basicFont),
         ),
         backgroundColor: vr.backGround,
@@ -43,14 +45,17 @@ class _PerformWorkoutState extends State<PerformWorkout> {
         //       }),
         // ],
       ),
-      body: PerformWorkoutPage(workoutName: widget.workoutName),
+      body: PerformWorkoutPage(
+          workoutName: widget.workoutName, name: widget.name),
     );
   }
 }
 
 class PerformWorkoutPage extends StatefulWidget {
   String workoutName = "";
-  PerformWorkoutPage({required this.workoutName, Key? key}) : super(key: key);
+  String name = "";
+  PerformWorkoutPage({required this.workoutName, required this.name, Key? key})
+      : super(key: key);
   @override
   _PerformWorkoutPageState createState() => _PerformWorkoutPageState();
 }
@@ -595,14 +600,14 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
       title: Text(
-        'Cancel',
+        'Delete',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,
         ),
       ),
       content: Text(
-        'Are you sure you want to cancel this workout',
+        'Are you sure you want to delete this workout',
         style: TextStyle(
           color: vr.whiteColor,
           //fontFamily: vr.basicFont,

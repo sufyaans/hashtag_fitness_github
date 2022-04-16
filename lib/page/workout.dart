@@ -54,6 +54,7 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   var workouts = [];
+  var workoutsName = [];
   initState() {
     getData();
   }
@@ -69,9 +70,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    final workName = querySnapshot.docs.map((doc) => doc.id).toList();
     setState(() {
       workouts = allData;
       workouts = List.from(workouts.reversed);
+      workoutsName = List.from(workName.reversed);
     });
   }
 
@@ -88,7 +91,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
     getData();
   }
 
-  bottomSheet(var i, var name) {
+  bottomSheet(var i, var name, var workoutName) {
     Widget makeDismissible({required Widget child}) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: Navigator.of(context).pop,
@@ -107,8 +110,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
             maxChildSize: 0.8,
             minChildSize: 0.2,
             builder: (BuildContext context, ScrollController scrollController) {
-              // int index = 0;
-              print(name + i.toString());
+              int index = 0;
               return Container(
                 decoration: BoxDecoration(
                   color: vr.whiteColor,
@@ -148,13 +150,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
                                 )),
                           );
                         }),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Bounceable(
                       onTap: () {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => _buildPopupDialog(
-                              context, workouts[i]['name'], i),
+                          builder: (BuildContext context) =>
+                              _buildPopupDialog(context, workoutsName[i], i),
                         );
                       },
                       child: Container(
@@ -177,13 +179,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     Bounceable(
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) =>
-                                PerformWorkout(workoutName: name),
+                            builder: (context) => PerformWorkout(
+                                workoutName: workoutName, name: name),
                           ),
                         );
                       },
@@ -233,7 +235,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => CreateWorkoutScreen(),
+                    builder: (context) => CreateWorkoutScreen(
+                      newScreen: true,
+                    ),
                   ),
                 );
               },
@@ -301,24 +305,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
                             //color: vr.black,
                           ),
                         ),
-                        // trailing: IconButton(
-                        //   icon: Icon(Icons.cancel_outlined),
-                        //   onPressed: () {
-                        //     showDialog(
-                        //       context: context,
-                        //       builder: (BuildContext context) =>
-                        //           _buildPopupDialog(
-                        //               context, workouts[index]['name'], index),
-                        //     );
-                        //     setState(() {
-                        //       // deleteWorkout(workouts[index]['name']);
-                        //       // workouts.remove(workouts[index]);
-                        //       // print(workouts);
-                        //     });
-                        //   },
-                        // ),
                         onTap: () {
-                          bottomSheet(index, workouts[index]["name"]);
+                          bottomSheet(index, workouts[index]["name"],
+                              workoutsName[index]);
                         },
                       ),
                       // ),

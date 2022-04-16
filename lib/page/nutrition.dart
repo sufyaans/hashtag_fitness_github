@@ -124,7 +124,7 @@ class _NutritionPageState extends State<NutritionPage> {
   }
 
 //  bottomSheet(var i, var name) {
-  bottomSheet(var nutritions) {
+  bottomSheet() {
     Widget makeDismissible({required Widget child}) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: Navigator.of(context).pop,
@@ -158,7 +158,7 @@ class _NutritionPageState extends State<NutritionPage> {
                     //Check this
                     Center(
                       child: Text(
-                        (nutritions["Type of Meal"]),
+                        (nutritions[index]["Type of Meal"]).toString(),
                         style: TextStyle(
                           fontFamily: vr.basicFont,
                           fontSize: 24,
@@ -171,28 +171,32 @@ class _NutritionPageState extends State<NutritionPage> {
                       height: 10.0,
                     ),
                     Text(
-                      'Items Consumed: ' + (nutritions['Items Consumed']),
+                      'Items Consumed: ' +
+                          (nutritions[index]['Items Consumed']).toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Quantity: ' + (nutritions['Quantity']).toString(),
+                      'Quantity: ' + (nutritions[index]['Quantity']).toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
                       'Total Calories (Kcal): ' +
-                          (nutritions['Total Calories (Kcal)']).toString(),
+                          (nutritions[index]['Total Calories (Kcal)'])
+                              .toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Fat (g): ' + (nutritions['Fat (g)']).toString(),
+                      'Fat (g): ' + (nutritions[index]['Fat (g)']).toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Carbs (g): ' + (nutritions['Carbs (g)']).toString(),
+                      'Carbs (g): ' +
+                          (nutritions[index]['Carbs (g)']).toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      'Protein (g): ' + (nutritions['Protein (g)']).toString(),
+                      'Protein (g): ' +
+                          (nutritions[index]['Protein (g)']).toString(),
                       style: TextStyle(fontSize: 18),
                     ),
                     // ------------
@@ -295,7 +299,7 @@ class _NutritionPageState extends State<NutritionPage> {
                         ),
 
                         onTap: () {
-                          bottomSheet(nutritions[index]);
+                          bottomSheet();
                         },
                       ),
                     ),

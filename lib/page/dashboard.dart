@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types, must_call_super, annotate_overrides, unnecessary_cast, non_constant_identifier_names, prefer_const_constructors_in_immutables, unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,11 +7,9 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/page/logMeal.dart';
-import 'package:hashtag_fitness/services/authentication.dart';
 import 'measurement.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import './charts.dart';
-import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -81,8 +79,6 @@ class _DashboardState extends State<Dashboard> {
         .then((DocumentSnapshot documentSnapshot) {
       setState(() {
         uname = documentSnapshot['name'];
-        print(uname);
-        //print(documentSnapshot.data());
       });
     });
   }
@@ -376,8 +372,7 @@ class _DashboardState extends State<Dashboard> {
                         'Carbs (g)',
                         'Fat (g)',
                         'Protein (g)',
-                        'Total Calories (Kcal)',
-                        'Total',
+                        'Total Calories (Kcal)'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -459,7 +454,9 @@ class createWorkout extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CreateWorkoutScreen(),
+            builder: (context) => CreateWorkoutScreen(
+              newScreen: true,
+            ),
           ),
         );
       },
