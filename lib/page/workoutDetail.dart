@@ -1,14 +1,12 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, unnecessary_new, prefer_final_fields, unused_local_variable, await_only_futures, must_call_super, annotate_overrides
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, unnecessary_new, prefer_final_fields, unused_local_variable, await_only_futures, must_call_super, annotate_overrides, must_be_immutable, file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:hashtag_fitness/page/createWorkout.dart';
-import 'package:hashtag_fitness/page/workoutCalendar.dart';
+
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:hashtag_fitness/page/performWorkout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import './workout.dart';
 
 class ViewWorkoutPage extends StatefulWidget {
   int i = 0;

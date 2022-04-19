@@ -137,7 +137,6 @@ class _NutritionPageState extends State<NutritionPage> {
             maxChildSize: 0.5,
             minChildSize: 0.2,
             builder: (BuildContext context, ScrollController scrollController) {
-              int index = 0;
               return Container(
                 decoration: BoxDecoration(
                   color: vr.whiteColor,

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, unnecessary_new, prefer_final_fields, unused_local_variable, await_only_futures, must_call_super, annotate_overrides
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, use_key_in_widget_constructors, sized_box_for_whitespace, library_prefixes, unnecessary_new, prefer_final_fields, unused_local_variable, await_only_futures, must_call_super, annotate_overrides, dead_code
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -180,7 +180,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     SizedBox(height: 10),
                     Bounceable(
                       onTap: () {
-                        print(workoutsName[i]);
                         showDialog(
                           context: context,
                           builder: (BuildContext context) =>
@@ -448,7 +447,6 @@ class ExerciceSearch extends SearchDelegate {
             itemCount: searchResult.length,
             itemBuilder: (context, index) {
               var item = searchResult.elementAt(index);
-              print(item.id);
               return ListTile(
                 //leading: Icon(Icons.list),
                 tileColor: const Color(0xFFF4F5F5),
