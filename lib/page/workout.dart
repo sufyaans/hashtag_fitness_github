@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:hashtag_fitness/page/createWorkout.dart';
 import 'package:hashtag_fitness/page/workoutCalendar.dart';
+import 'package:hashtag_fitness/page/workoutDetail.dart';
 import 'package:hashtag_fitness/variables.dart' as vr;
 import 'package:hashtag_fitness/page/performWorkout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,32 +16,58 @@ class Workout extends StatefulWidget {
 }
 
 class _WorkoutState extends State<Workout> {
+  Stream<QuerySnapshot> getExercises() {
+    var firestore = FirebaseFirestore.instance;
+    Stream<QuerySnapshot<Map<String, dynamic>>> qn = firestore
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("WorkoutTemplates")
+        .snapshots();
+    return qn;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: vr.backGround,
-      appBar: AppBar(
-        title: Text(
-          'Workout',
-          style: TextStyle(fontFamily: vr.basicFont),
-        ),
-        backgroundColor: vr.backGround,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.calendar_today),
-              tooltip: 'Calendar',
-              onPressed: () => {
-                    // View workout calendar
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => workoutCalendar(),
-                      ),
-                    ),
-                  }),
-        ],
-      ),
-      body: WorkoutPage(),
-    );
+    return StreamBuilder<QuerySnapshot>(
+        stream: getExercises(),
+        builder: (context, snapshot) {
+          return Scaffold(
+            backgroundColor: vr.backGround,
+            appBar: AppBar(
+              title: Text(
+                'Workout',
+                style: TextStyle(fontFamily: vr.basicFont),
+              ),
+              backgroundColor: vr.backGround,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  tooltip: 'Search',
+                  onPressed: () {
+                    // if (!snapshot.hasData) {
+                    //   return;
+                    // }
+                    showSearch(
+                        context: context,
+                        delegate: ExerciceSearch(snapshot.data!));
+                  },
+                ),
+                IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    tooltip: 'Calendar',
+                    onPressed: () => {
+                          // View workout calendar
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => workoutCalendar(),
+                            ),
+                          ),
+                        }),
+              ],
+            ),
+            body: WorkoutPage(),
+          );
+        });
   }
 }
 
@@ -114,6 +141,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   shrinkWrap: true,
                   controller: scrollController,
                   children: [
+                    Center(
+                      child: Text(
+                        workouts[i]['name'],
+                        style: TextStyle(
+                          fontFamily: vr.basicFont,
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     ListView.builder(
                         itemCount: workouts[i]['workoutList'].length,
                         shrinkWrap: true,
@@ -143,6 +180,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     SizedBox(height: 10),
                     Bounceable(
                       onTap: () {
+                        print(workoutsName[i]);
                         showDialog(
                           context: context,
                           builder: (BuildContext context) =>
@@ -374,5 +412,95 @@ class _WorkoutPageState extends State<WorkoutPage> {
         )
       ],
     );
+  }
+}
+
+class ExerciceSearch extends SearchDelegate {
+  QuerySnapshot exerices;
+  ExerciceSearch(this.exerices);
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) => IconButton(
+      onPressed: () => Navigator.of(context).pop(),
+      icon: Icon(Icons.adaptive.arrow_back));
+
+  @override
+  Widget buildResults(BuildContext context) {
+    var searchResult = exerices.docs.where((element) =>
+        (element.get('name') as String)
+            .toLowerCase()
+            .contains(query.toLowerCase()));
+
+    return searchResult.isEmpty
+        ? Center(child: Text('Not found'))
+        : ListView.builder(
+            itemCount: searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+              print(item.id);
+              return ListTile(
+                //leading: Icon(Icons.list),
+                tileColor: const Color(0xFFF4F5F5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                title: Text(
+                  item["name"],
+                  style: TextStyle(
+                    fontFamily: vr.basicFont,
+                    fontSize: 18,
+                  ),
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => SafeArea(
+                              child: ViewWorkoutPage(
+                            i: index,
+                            name: item["name"],
+                            workoutName: item.id,
+                            workoutSearch: item,
+                          )));
+                },
+              );
+            });
+  }
+
+  //adding searching suggestion
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    var searchResult = exerices.docs.toList();
+    searchResult.shuffle();
+
+    return true
+        ? Center(
+            child: Text('Type to search'),
+          )
+        : ListView.builder(
+            itemCount: searchResult.length > 4 ? 4 : searchResult.length,
+            itemBuilder: (context, index) {
+              var item = searchResult.elementAt(index);
+              return ListTile(
+                tileColor: const Color(0xFFF4F5F5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                title: Text(item['name']),
+                subtitle: Text(item["primaryMuscles"][0]),
+              );
+            });
   }
 }

@@ -517,6 +517,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),

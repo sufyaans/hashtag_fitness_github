@@ -6,6 +6,7 @@ import 'page/measurement.dart';
 import 'page/nutrition.dart';
 import 'page/dashboard.dart';
 import 'page/workout.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 class Home extends StatefulWidget {
   @override
@@ -29,13 +30,13 @@ class _homeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF03111C),
+      backgroundColor: vr.backGround,
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color(0xFF03111C), //other colour option 0xFF010e17
+        color: vr.backGround, //other colour option 0xFF010e17
 
         child: Container(
           height: 60,
@@ -59,15 +60,15 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.space_dashboard,
                           color:
-                              currentTab == 0 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 0 ? vr.orangeColor : vr.greyColor,
                         ),
                         Text(
                           'Dashboard',
                           style: TextStyle(
                               fontSize: 13,
                               color: currentTab == 0
-                                  ? Colors.deepOrange
-                                  : Colors.grey),
+                                  ? vr.orangeColor
+                                  : vr.greyColor),
                         ),
                       ],
                     ),
@@ -87,15 +88,15 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.add,
                           color:
-                              currentTab == 1 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 1 ? vr.orangeColor : vr.greyColor,
                         ),
                         Text(
                           'Workout',
                           style: TextStyle(
                               fontSize: 13,
                               color: currentTab == 1
-                                  ? Colors.deepOrange
-                                  : Colors.grey),
+                                  ? vr.orangeColor
+                                  : vr.greyColor),
                         ),
                       ],
                     ),
@@ -119,15 +120,15 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.restaurant,
                           color:
-                              currentTab == 2 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 2 ? vr.orangeColor : vr.greyColor,
                         ),
                         Text(
                           'Nutrition',
                           style: TextStyle(
                               fontSize: 13,
                               color: currentTab == 2
-                                  ? Colors.deepOrange
-                                  : Colors.grey),
+                                  ? vr.orangeColor
+                                  : vr.greyColor),
                         ),
                       ],
                     ),
@@ -147,15 +148,15 @@ class _homeState extends State<Home> {
                         Icon(
                           Icons.fitness_center,
                           color:
-                              currentTab == 3 ? Colors.deepOrange : Colors.grey,
+                              currentTab == 3 ? vr.orangeColor : vr.greyColor,
                         ),
                         Text(
                           'Exercise',
                           style: TextStyle(
                               fontSize: 13,
                               color: currentTab == 3
-                                  ? Colors.deepOrange
-                                  : Colors.grey),
+                                  ? vr.orangeColor
+                                  : vr.greyColor),
                         ),
                       ],
                     ),

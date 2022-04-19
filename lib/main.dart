@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hashtag_fitness/services/authentication.dart';
 import 'package:provider/provider.dart';
+import 'package:hashtag_fitness/variables.dart' as vr;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

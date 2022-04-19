@@ -13,6 +13,7 @@ Color orangeColor = Colors.deepOrange;
 Color whiteColor = Colors.white;
 Color backGround = Color(0xFF03111C);
 Color backGround2 = Color(0xFF004C87);
+Color greyColor = Colors.grey;
 Color errorColor = Colors.red;
 String basicFont = 'roughMotion';
 String funkyFont = 'Hyperwave';
