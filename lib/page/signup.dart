@@ -60,6 +60,8 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _buildSignupForm() {
+    final TextEditingController _pass = TextEditingController();
+    final TextEditingController _confirmPass = TextEditingController();
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: ListView(
@@ -82,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           //NAME
-          SizedBox(height: 25),
+          SizedBox(height: 15),
           TextFormField(
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
@@ -103,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               validator: (value) => value!.isEmpty ? 'Name is required' : null),
           //EMAIL
-          SizedBox(height: 25),
+          SizedBox(height: 15),
           TextFormField(
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
@@ -124,8 +126,11 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               validator: (value) =>
                   value!.isEmpty ? 'Email is required' : null),
+          SizedBox(height: 15),
           //Password
+
           TextFormField(
+              controller: _pass,
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
@@ -146,6 +151,37 @@ class _SignUpPageState extends State<SignUpPage> {
               },
               validator: (value) =>
                   value!.isEmpty ? 'Password is required' : null),
+          SizedBox(height: 15),
+          //Confirm password
+          TextFormField(
+            controller: _confirmPass,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.5),
+            ),
+            decoration: InputDecoration(
+              labelText: 'RETYPE PASSWORD',
+              labelStyle: TextStyle(
+                fontFamily: vr.basicFont,
+                fontSize: 15,
+                color: Colors.white.withOpacity(0.5),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: vr.orangeColor),
+              ),
+            ),
+            obscureText: true,
+            onChanged: (value) {
+              this.password = value;
+            },
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Confirm password is required' : null
+
+            validator: (value) {
+              if (value!.isEmpty) return 'Confirm password is required';
+              if (value != _pass.text) return 'Password does not match';
+              return null;
+            },
+          ),
           SizedBox(height: 50),
           //Signup
           Bounceable(
