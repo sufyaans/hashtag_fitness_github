@@ -465,9 +465,11 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
             Padding(padding: EdgeInsetsDirectional.only(top: 20)),
             Bounceable(
               onTap: () async {
-                await finishWorkout();
-                _showToast();
                 Navigator.pop(context);
+                _showToast();
+                await finishWorkout();
+                //_showToast();
+                //Navigator.pop(context);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),

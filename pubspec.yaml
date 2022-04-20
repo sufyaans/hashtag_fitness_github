@@ -80,9 +80,11 @@ dev_dependencies:
 
 flutter_icons:
   android: true
-  ios: true
   image_path: "assets/logo.png"
   #adaptive_icon_background: "assets/logo.png"
+  adaptive_icon_foreground: "assets/logo2.png"
+
+
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -113,6 +115,14 @@ flutter:
     - family: Hyperwave
       fonts:
         - asset: fonts/Hyperwave.ttf
+
+
+    - family: teleMarines
+      fonts:
+        - asset: fonts/telemarines3dital1.ttf
+    - family: teleMarines2
+      fonts:
+        - asset: fonts/telemarinesboldexpandital1.ttf
 
   #         style: italic
   #   - family: Trajan Pro

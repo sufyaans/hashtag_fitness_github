@@ -77,18 +77,19 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Welcome to',
                     style: TextStyle(
-                      fontFamily: vr.funkyFont,
-                      fontSize: 90,
+                      fontFamily: vr.basicFont2,
+                      fontSize: 30,
                       color: vr.whiteColor,
                     ),
                   ),
                   Positioned(
-                    top: 50,
+                    top: 30,
+                    left: 10,
                     child: Text(
-                      '#FITNESS',
+                      'KiiPFiT',
                       style: TextStyle(
-                        fontFamily: vr.funkyFont,
-                        fontSize: 80,
+                        fontFamily: vr.basicFont1,
+                        fontSize: 60,
                         color: vr.orangeColor,
                         letterSpacing: 1,
                       ),
@@ -247,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 25),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
-                'New to Hashtag Fitness?',
+                'New to KIIPFIT?',
                 style: TextStyle(
                   color: vr.whiteColor,
                   fontSize: 18,
