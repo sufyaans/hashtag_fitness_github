@@ -1,4 +1,4 @@
-package com.example.hashtag_fitness
+package com.hashtagfitness.kiipfit
 
 import io.flutter.embedding.android.FlutterActivity
 
