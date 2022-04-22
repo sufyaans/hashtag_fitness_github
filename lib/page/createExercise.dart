@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, invalid_return_type_for_catch_error, sized_box_for_whitespace, unnecessary_this, must_call_super, file_names
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, invalid_return_type_for_catch_error, sized_box_for_whitespace, unnecessary_this, must_call_super, file_names, camel_case_types
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +25,19 @@ class _AddExerciseState extends State<AddExercise> {
         ),
         backgroundColor: vr.backGround,
       ),
-      body: LogMeal(),
+      body: createExercise(),
     );
   }
 }
 
-class LogMeal extends StatefulWidget {
-  const LogMeal({Key? key}) : super(key: key);
+class createExercise extends StatefulWidget {
+  const createExercise({Key? key}) : super(key: key);
 
   @override
-  _LogMealState createState() => _LogMealState();
+  _createExerciseState createState() => _createExerciseState();
 }
 
-class _LogMealState extends State<LogMeal> {
+class _createExerciseState extends State<createExercise> {
   @override
   void initState() {
     fToast = FToast();
