@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1085745453439:android:956585e36334db56e8224a",
         "android_client_info": {
-          "package_name": "com.example.hashtag_fitness"
+          "package_name": "com.hashtagfitness.kiipfit"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1085745453439-4ctmb1djdq9v4if12160njg3n40hthl6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.hashtag_fitness",
+            "package_name": "com.hashtagfitness.kiipfit",
             "certificate_hash": "098f92828a5b4e516d0d7356981a2bd32d3e23b0"
           }
         },
