@@ -54,7 +54,7 @@ android {
         applicationId "com.hashtagfitness.kiipfit"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
+        versionCode flutterVersionCode.toInteger() //flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
