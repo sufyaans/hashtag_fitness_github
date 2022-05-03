@@ -39,13 +39,20 @@ class AuthService {
   }
 
   //Sign up
-  signUp(String name, String email, String password) async {
-    UserCredential result = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-    User? user = result.user;
-    await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
+  // signUp(String name, String email, String password) async {
+  //   UserCredential result = await FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(email: email, password: password)
+  //       .catchError((e) => print(e));
+  //   User? user = result.user;
+  //   await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
 
-    return result;
+  //   return result;
+  // }
+  signUp(String name, String email, String password) {
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((FirebaseUser) => print("Signed up"))
+        .catchError((e) => print(e));
   }
 
   //Sign up
@@ -84,7 +91,10 @@ class GoogleSignInProvider extends ChangeNotifier {
 
     await FirebaseAuth.instance.signInWithCredential(credential);
 
-    await authService.signUp(_user!.displayName!, _user!.email, "");
+    await authService
+        .signUp(_user!.displayName!, _user!.email, "")
+        .catchError((e) => print(e));
+
     notifyListeners();
   }
 }
