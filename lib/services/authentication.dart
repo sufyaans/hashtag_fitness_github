@@ -39,21 +39,21 @@ class AuthService {
   }
 
   //Sign up
-  // signUp(String name, String email, String password) async {
-  //   UserCredential result = await FirebaseAuth.instance
-  //       .createUserWithEmailAndPassword(email: email, password: password)
-  //       .catchError((e) => print(e));
-  //   User? user = result.user;
-  //   await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
-
-  //   return result;
-  // }
-  signUp(String name, String email, String password) {
-    FirebaseAuth.instance
+  signUp(String name, String email, String password) async {
+    UserCredential result = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((FirebaseUser) => print("Signed up"))
         .catchError((e) => print(e));
+    User? user = result.user;
+    await DatabaseService(uid: user!.uid).updateUserData(name, email, password);
+
+    return result;
   }
+  // signUp(String name, String email, String password) {
+  //   FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(email: email, password: password)
+  //       .then((FirebaseUser) => print("Signed up"))
+  //       .catchError((e) => print(e));
+  // }
 
   //Sign up
   // signUp(String email, String password) {
