@@ -62,8 +62,6 @@ class _SignUpPageState extends State<SignUpPage> {
   _buildSignupForm() {
     final TextEditingController _pass = TextEditingController();
     final TextEditingController _confirmPass = TextEditingController();
-    // final TextEditingController emailCont = TextEditingController();
-    // final TextEditingController nameCont = TextEditingController();
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: ListView(
@@ -88,7 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
           //NAME
           SizedBox(height: 15),
           TextFormField(
-              //controller: nameCont, //New
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
@@ -110,7 +107,6 @@ class _SignUpPageState extends State<SignUpPage> {
           //EMAIL
           SizedBox(height: 15),
           TextFormField(
-              //controller: emailCont, //New
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
               ),
